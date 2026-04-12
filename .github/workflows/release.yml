@@ -1,7 +1,7 @@
 name: Release
 
 # Triggers when a tag matching RELEASE.* is pushed.
-# Example: git tag RELEASE.2025-10-01T12-00-00Z && git push origin RELEASE.2025-10-01T12-00-00Z
+# Example: git tag RELEASE.2026-04-12T20-58-35Z && git push origin RELEASE.2026-04-12T20-58-35Z
 on:
   push:
     tags:
@@ -17,6 +17,7 @@ jobs:
     name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false   # let other platforms finish even if one fails
       matrix:
         include:
           - goos: linux
@@ -45,19 +46,19 @@ jobs:
 
       - name: Build binary
         env:
-          CGO_ENABLED: '0'
-          GOOS: ${{ matrix.goos }}
-          GOARCH: ${{ matrix.goarch }}
           MINIO_RELEASE: RELEASE
         run: |
-          LDFLAGS=$(go run buildscripts/gen-ldflags.go)
+          # gen-ldflags.go must run for the HOST arch (amd64), not the cross-compile
+          # target. Clearing GOOS/GOARCH for that one call prevents "exec format error"
+          # when building for arm64/darwin/windows on an amd64 runner.
+          LDFLAGS=$(GOOS= GOARCH= go run buildscripts/gen-ldflags.go)
           BINARY=librefs-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.asset_suffix }}
-          go build -tags kqueue -trimpath --ldflags "$LDFLAGS" -o "$BINARY" .
+          CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
+            go build -tags kqueue -trimpath --ldflags "$LDFLAGS" -o "$BINARY" .
           echo "BINARY=$BINARY" >> "$GITHUB_ENV"
 
       - name: Generate SHA256 checksum
-        run: |
-          sha256sum "$BINARY" > "${BINARY}.sha256sum"
+        run: sha256sum "$BINARY" > "${BINARY}.sha256sum"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -99,7 +100,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.release
