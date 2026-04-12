@@ -1,82 +1,94 @@
-# MinIO Contribution Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800)](https://hub.docker.com/r/minio/minio/)
+# libreFS Contribution Guide
 
-``MinIO`` community welcomes your contribution. To make the process as seamless as possible, we recommend you read this contribution guide.
+The libreFS community welcomes your contribution. To make the process as seamless as possible, we recommend you read this guide before opening a pull request.
 
 ## Development Workflow
 
-Start by forking the MinIO GitHub repository, make changes in a branch and then send a pull request. We encourage pull requests to discuss code changes. Here are the steps in details:
+Fork the repository, make changes in a branch, and send a pull request. We encourage pull requests to discuss code changes. Here are the steps in detail:
 
-### Setup your MinIO GitHub Repository
+### Set up your local repository
 
-Fork [MinIO upstream](https://github.com/minio/minio/fork) source repository to your own personal repository. Copy the URL of your MinIO fork (you will need it for the `git clone` command below).
-
-```sh
-git clone https://github.com/minio/minio
-cd minio
-go install -v
-ls $(go env GOPATH)/bin/minio
-```
-
-### Set up git remote as ``upstream``
+Fork [libreFS](https://github.com/libreFS/libreFS/fork) on GitHub, then clone your fork:
 
 ```sh
-$ cd minio
-$ git remote add upstream https://github.com/minio/minio
-$ git fetch upstream
-$ git merge upstream/master
-...
+git clone https://github.com/<your-username>/libreFS
+cd libreFS
 ```
 
-### Create your feature branch
+All builds run inside Docker — no Go toolchain installation needed on your machine:
 
-Before making code changes, make sure you create a separate branch for these changes
-
+```sh
+make -f Makefile.docker image   # build the dev image once
+make -f Makefile.docker build   # compile the librefs binary
 ```
+
+### Set up the upstream remote
+
+```sh
+git remote add upstream https://github.com/libreFS/libreFS
+git fetch upstream
+git merge upstream/master
+```
+
+### Create a feature branch
+
+Before making code changes, create a separate branch:
+
+```sh
 git checkout -b my-new-feature
 ```
 
-### Test MinIO server changes
+### Test your changes
 
-After your code changes, make sure
+After making code changes:
 
-- To add test cases for the new code. If you have questions about how to do it, please ask on our [Slack](https://slack.min.io) channel.
-- To run `make verifiers`
-- To squash your commits into a single commit. `git rebase -i`. It's okay to force update your pull request.
-- To run `make test` and `make build` completes.
+- Add test cases for new code
+- Run `make -f Makefile.docker test` — all tests must pass
+- Run `make -f Makefile.docker verifiers` — linting must pass with zero warnings
+- Squash your commits into a single commit with `git rebase -i`
 
-### Commit changes
-
-After verification, commit your changes. This is a [great post](https://chris.beams.io/posts/git-commit/) on how to write useful commit messages
+### Commit format
 
 ```
-git commit -am 'Add some feature'
+<type>: <short description>
+
+<longer description if needed>
+
+Fixes #<issue number>
 ```
 
-### Push to the branch
+Types: `fix`, `feat`, `docs`, `refactor`, `test`, `chore`, `security`
 
-Push your locally committed changes to the remote origin (your fork)
+### Push and open a Pull Request
 
-```
+```sh
 git push origin my-new-feature
 ```
 
-### Create a Pull Request
+Then open a pull request on GitHub against the `master` branch. Pull requests are reviewed and merged once approved.
 
-Pull requests can be created via GitHub. Refer to [this document](https://help.github.com/articles/creating-a-pull-request/) for detailed steps on how to create a pull request. After a Pull Request gets peer reviewed and approved, it will be merged.
+## Core Principles
+
+Please read these before contributing — they reflect why libreFS exists:
+
+1. **Never remove user-facing features.** The whole point of libreFS is preserving features MinIO removed. If something needs deprecating, open a GitHub Discussion first.
+2. **No telemetry.** libreFS must never send usage data or call external endpoints without explicit user opt-in.
+3. **S3 API compatibility.** Never break S3 API or `mc` admin API compatibility.
+4. **Security first.** Report vulnerabilities privately to `hello@librefs.org` — do not open public issues for security bugs.
 
 ## FAQs
 
-### How does ``MinIO`` manage dependencies?
+### How does libreFS manage dependencies?
 
-``MinIO`` uses `go mod` to manage its dependencies.
+libreFS uses `go mod` to manage its dependencies.
 
-- Run `go get foo/bar` in the source folder to add the dependency to `go.mod` file.
+- Run `go get foo/bar` in the source folder to add a dependency to `go.mod`
+- Run `go mod tidy` to remove unused dependencies
 
-To remove a dependency
+All `go` commands should be run inside Docker via `make -f Makefile.docker`.
 
-- Edit your code and remove the import reference.
-- Run `go mod tidy` in the source folder to remove dependency from `go.mod` file.
+### What are the coding guidelines?
 
-### What are the coding guidelines for MinIO?
+libreFS follows standard Go style. Refer to [Effective Go](https://go.dev/doc/effective_go) and [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments).
 
-``MinIO`` is fully conformant with Golang style. Refer: [Effective Go](https://github.com/golang/go/wiki/CodeReviewComments) article from Golang project. If you observe offending code, please feel free to send a pull request or ping us on [Slack](https://slack.min.io).
+If you observe offending code, feel free to send a pull request or open an issue.
