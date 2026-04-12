@@ -1,9 +1,7 @@
 name: Mint Tests
 
 on:
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch: # disabled: uses quay.io/minio docker images, needs porting
 
 # This ensures that previous jobs for the PR are canceled when the PR is
 # updated.

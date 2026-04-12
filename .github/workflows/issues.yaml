@@ -3,9 +3,7 @@
 name: Issue Workflow
 
 on:
-  issues:
-    types:
-      - opened
+  workflow_dispatch: # disabled: referenced MinIO org project board (miniohq)
 
 jobs:
   add-to-project:

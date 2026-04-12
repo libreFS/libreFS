@@ -37,10 +37,10 @@ jobs:
           echo Detected go version $GO_VERSION
           cat > Dockerfile.fips.test <<EOF
           FROM golang:${GO_VERSION}
-          COPY . /minio
-          WORKDIR /minio
+          COPY . /librefs
+          WORKDIR /librefs
           ENV GOEXPERIMENT=boringcrypto
-          RUN make
+          RUN make build
           EOF
 
       - name: Build
@@ -50,10 +50,10 @@ jobs:
           file: Dockerfile.fips.test
           push: false
           load: true
-          tags: minio/fips-test:latest
+          tags: librefs/fips-test:latest
 
       # This should fail if grep returns non-zero exit
       - name: Test binary
         run: |
-          docker run --rm minio/fips-test:latest ./minio --version
-          docker run --rm -i minio/fips-test:latest /bin/bash -c 'go tool nm ./minio | grep FIPS | grep -q FIPS'
+          docker run --rm librefs/fips-test:latest ./librefs --version
+          docker run --rm -i librefs/fips-test:latest /bin/bash -c 'go tool nm ./librefs | grep FIPS | grep -q FIPS'
