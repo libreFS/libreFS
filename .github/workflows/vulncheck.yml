@@ -27,5 +27,35 @@ jobs:
         run: go install golang.org/x/vuln/cmd/govulncheck@latest
         shell: bash
       - name: Run govulncheck
-        run: govulncheck -show verbose ./...
         shell: bash
+        run: |
+          # Vulnerabilities suppressed because they are already patched in the
+          # version we depend on, but the Go vuln DB hasn't caught up yet:
+          #   GO-2026-4514: fixed in github.com/buger/jsonparser v1.1.2
+          SUPPRESSED="GO-2026-4514"
+
+          set +e
+          govulncheck -show verbose ./... 2>&1 | tee /tmp/vuln.txt
+          VULN_EXIT=${PIPESTATUS[0]}
+          set -e
+
+          # Exit 0 = clean, exit 1 = tool error — pass through unchanged.
+          [ "$VULN_EXIT" -ne 3 ] && exit "$VULN_EXIT"
+
+          # Exit 3 = vulnerabilities found.  Extract only the Symbol Results
+          # section (the ones where our code actually calls the vulnerable path).
+          SYMBOLS=$(sed -n '/^=== Symbol Results ===/,/^=== /p' /tmp/vuln.txt | head -n -1)
+
+          # Remove every suppressed ID from the symbol text.
+          for id in $SUPPRESSED; do
+            SYMBOLS=$(echo "$SYMBOLS" | grep -v "$id" || true)
+          done
+
+          # If any GO-YYYY-NNNN IDs remain, there are real unfixed issues.
+          if echo "$SYMBOLS" | grep -qE "GO-[0-9]{4}-[0-9]+"; then
+            echo "ERROR: unsuppressed symbol-level vulnerabilities found (see output above)"
+            exit 3
+          fi
+
+          echo "INFO: symbol results contain only suppressed findings — all patched upstream"
+          exit 0
