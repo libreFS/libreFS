@@ -27,6 +27,7 @@ import (
 	"io"
 
 	jsoniter "github.com/json-iterator/go"
+	"github.com/minio/minio/internal/fips"
 	"github.com/minio/minio/internal/kms"
 	"github.com/secure-io/sio-go"
 	"github.com/secure-io/sio-go/sioutil"
@@ -63,7 +64,7 @@ func DecryptBytes(k *kms.KMS, ciphertext []byte, context kms.Context) ([]byte, e
 // ciphertext.
 func Encrypt(k *kms.KMS, plaintext io.Reader, ctx kms.Context) (io.Reader, error) {
 	algorithm := sio.AES_256_GCM
-	if !sioutil.NativeAES() {
+	if !fips.Enabled && !sioutil.NativeAES() {
 		algorithm = sio.ChaCha20Poly1305
 	}
 
@@ -143,6 +144,9 @@ func Decrypt(k *kms.KMS, ciphertext io.Reader, associatedData kms.Context) (io.R
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
 	if err := json.Unmarshal(metadataBuffer, &metadata); err != nil {
 		return nil, err
+	}
+	if fips.Enabled && metadata.Algorithm != sio.AES_256_GCM {
+		return nil, fmt.Errorf("config: unsupported encryption algorithm: %q is not supported in FIPS mode", metadata.Algorithm)
 	}
 
 	key, err := k.Decrypt(context.TODO(), &kms.DecryptRequest{

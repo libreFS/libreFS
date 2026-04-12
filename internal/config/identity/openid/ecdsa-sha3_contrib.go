@@ -11,6 +11,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build !fips
+// +build !fips
+
 package openid
 
 import (
@@ -19,7 +22,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 
 	// Needed for SHA3 to work - See: https://golang.org/src/crypto/crypto.go?s=1034:1288
-	_ "golang.org/x/crypto/sha3"
+	_ "golang.org/x/crypto/sha3" // There is no SHA-3 FIPS-140 2 compliant implementation
 )
 
 // Specific instances for EC256 and company
