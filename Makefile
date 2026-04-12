@@ -54,7 +54,7 @@ run: build ## start librefs server locally (S3 on :9000, console on :9001)
 		-v "$(CURDIR)":/app \
 		-w /app \
 		$(DEV_IMAGE) \
-		./minio server /data --console-address :9001
+		./librefs server /data --console-address :9001
 
 help: ## print this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

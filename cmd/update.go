@@ -51,7 +51,7 @@ const (
 )
 
 // For windows our files have .exe additionally.
-var minioReleaseWindowsInfoURL = MinioReleaseURL + "minio.exe.sha256sum"
+var minioReleaseWindowsInfoURL = MinioReleaseURL + "librefs.exe.sha256sum"
 
 // minioVersionToReleaseTime - parses a standard official release
 // MinIO version string.
@@ -363,13 +363,13 @@ func downloadReleaseURL(u *url.URL, timeout time.Duration, mode string) (content
 }
 
 func releaseInfoToReleaseTime(releaseInfo string) (releaseTime time.Time, err error) {
-	// Split release of style minio.RELEASE.2019-08-21T19-40-07Z.<hotfix>
+	// Split release of style librefs.RELEASE.2019-08-21T19-40-07Z.<hotfix>
 	nfields := strings.SplitN(releaseInfo, ".", 2)
 	if len(nfields) != 2 {
 		err = fmt.Errorf("Unknown release information `%s`", releaseInfo)
 		return releaseTime, err
 	}
-	if nfields[0] != "minio" {
+	if nfields[0] != "librefs" {
 		err = fmt.Errorf("Unknown release `%s`", releaseInfo)
 		return releaseTime, err
 	}
@@ -382,13 +382,13 @@ func releaseInfoToReleaseTime(releaseInfo string) (releaseTime time.Time, err er
 }
 
 // parseReleaseData - parses release info file content fetched from
-// official minio download server.
+// official libreFS download server.
 //
 // The expected format is a single line with two words like:
 //
-// fbe246edbd382902db9a4035df7dce8cb441357d minio.RELEASE.2016-10-07T01-16-39Z.<hotfix_optional>
+// fbe246edbd382902db9a4035df7dce8cb441357d librefs.RELEASE.2016-10-07T01-16-39Z.<hotfix_optional>
 //
-// The second word must be `minio.` appended to a standard release tag.
+// The second word must be `librefs.` appended to a standard release tag.
 func parseReleaseData(data string) (sha256Sum []byte, releaseTime time.Time, releaseInfo string, err error) {
 	defer func() {
 		if err != nil {
@@ -467,15 +467,15 @@ func getDownloadURL(releaseTag string) (downloadURL string) {
 	// Check if we are docker environment, return docker update command
 	if IsDocker() {
 		// Construct release tag name.
-		return fmt.Sprintf("podman pull quay.io/minio/minio:%s", releaseTag)
+		return fmt.Sprintf("docker pull ghcr.io/librefs/librefs:%s", releaseTag)
 	}
 
 	// For binary only installations, we return link to the latest binary.
 	if runtime.GOOS == "windows" {
-		return MinioReleaseURL + "minio.exe"
+		return MinioReleaseURL + "librefs.exe"
 	}
 
-	return MinioReleaseURL + "minio"
+	return MinioReleaseURL + "librefs"
 }
 
 func getUpdateReaderFromURL(u *url.URL, transport http.RoundTripper, mode string) (io.ReadCloser, error) {

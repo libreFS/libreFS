@@ -50,19 +50,19 @@ var (
 	minioOSARCH = runtime.GOOS + "-" + runtime.GOARCH
 
 	// MinioReleaseBaseURL - release url without os and arch.
-	MinioReleaseBaseURL = "https://dl.min.io/server/minio/release/"
+	MinioReleaseBaseURL = "https://github.com/libreFS/libreFS/releases/download/"
 
 	// MinioReleaseURL - release URL.
 	MinioReleaseURL = MinioReleaseBaseURL + minioOSARCH + SlashSeparator
 
-	// MinioStoreName - MinIO store name.
-	MinioStoreName = "MinIO"
+	// MinioStoreName - libreFS store name.
+	MinioStoreName = "libreFS"
 
-	// MinioUAName - MinIO user agent name.
-	MinioUAName = "MinIO"
+	// MinioUAName - libreFS user agent name.
+	MinioUAName = "libreFS"
 
-	// MinioBannerName - MinIO banner name for startup message.
-	MinioBannerName = "MinIO Object Storage Server"
+	// MinioBannerName - libreFS banner name for startup message.
+	MinioBannerName = "libreFS Object Storage Server"
 
 	// MinioLicense - MinIO server license.
 	MinioLicense = "GNU AGPLv3 - https://www.gnu.org/licenses/agpl-3.0.html"

@@ -21,4 +21,4 @@
 package cmd
 
 // Newer official download info URLs appear earlier below.
-var minioReleaseInfoURL = MinioReleaseURL + "minio.fips.sha256sum"
+var minioReleaseInfoURL = MinioReleaseURL + "librefs.fips.sha256sum"
