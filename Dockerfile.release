@@ -6,7 +6,7 @@
 #   TARGETARCH — target arch (amd64, arm64)
 
 # ── Stage 1: compile ─────────────────────────────────────────────────────────
-FROM golang:1.24-alpine AS builder
+FROM golang:1.26-alpine AS builder
 
 RUN apk add --no-cache bash curl git make gcc musl-dev grep gawk findutils coreutils perl
 
