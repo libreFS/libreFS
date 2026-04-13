@@ -597,7 +597,7 @@ func initServerConfig(ctx context.Context, newObject ObjectLayer) error {
 
 		// These messages only meant primarily for distributed setup, so only log during distributed setup.
 		if globalIsDistErasure {
-			logger.Info("Waiting for all MinIO sub-systems to be initialize...")
+			logger.Info("Waiting for all libreFS sub-systems to be initialize...")
 		}
 
 		// Upon success migrating the config, initialize all sub-systems
@@ -607,13 +607,13 @@ func initServerConfig(ctx context.Context, newObject ObjectLayer) error {
 			// All successful return.
 			if globalIsDistErasure {
 				// These messages only meant primarily for distributed setup, so only log during distributed setup.
-				logger.Info("All MinIO sub-systems initialized successfully in %s", time.Since(t1))
+				logger.Info("All libreFS sub-systems initialized successfully in %s", time.Since(t1))
 			}
 			return nil
 		}
 
 		if configRetriableErrors(err) {
-			logger.Info("Waiting for all MinIO sub-systems to be initialized.. possible cause (%v)", err)
+			logger.Info("Waiting for all libreFS sub-systems to be initialized.. possible cause (%v)", err)
 			time.Sleep(time.Duration(r.Float64() * float64(5*time.Second)))
 			continue
 		}
@@ -1161,7 +1161,7 @@ func serverMain(ctx *cli.Context) {
 			Transport: globalRemoteTargetTransport,
 			Region:    region,
 		})
-		logger.FatalIf(err, "Unable to initialize MinIO client")
+		logger.FatalIf(err, "Unable to initialize libreFS client")
 	})
 
 	go bootstrapTrace("startResourceMetricsCollection", func() {

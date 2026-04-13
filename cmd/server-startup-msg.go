@@ -184,7 +184,7 @@ func printCLIAccessMsg(endPoint string, alias string) {
 	// Get saved credentials.
 	cred := globalActiveCred
 
-	const mcQuickStartGuide = "https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart"
+	const mcQuickStartGuide = "https://github.com/libreFS/libreFS#quick-start"
 
 	// Configure 'mc', following block prints platform specific information for minio client.
 	if color.IsTerminal() && (!globalServerCtxt.Anonymous && globalAPIConfig.permitRootAccess()) {

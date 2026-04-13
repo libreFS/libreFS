@@ -390,7 +390,7 @@ func (sys *IAMSys) Init(ctx context.Context, objAPI ObjectLayer, etcdClient *etc
 		if err := saveIAMFormat(retryCtx, sys.store); err != nil {
 			if configRetriableErrors(err) {
 				retryInterval := time.Duration(r.Float64() * float64(time.Second))
-				logger.Info("Waiting for all MinIO IAM sub-system to be initialized.. possible cause (%v) (retrying in %s)", err, retryInterval)
+				logger.Info("Waiting for all libreFS IAM sub-system to be initialized.. possible cause (%v) (retrying in %s)", err, retryInterval)
 				time.Sleep(retryInterval)
 				continue
 			}
@@ -410,7 +410,7 @@ func (sys *IAMSys) Init(ctx context.Context, objAPI ObjectLayer, etcdClient *etc
 		if err := sys.Load(retryCtx, true); err != nil {
 			if configRetriableErrors(err) {
 				retryInterval := time.Duration(r.Float64() * float64(time.Second))
-				logger.Info("Waiting for all MinIO IAM sub-system to be initialized.. possible cause (%v) (retrying in %s)", err, retryInterval)
+				logger.Info("Waiting for all libreFS IAM sub-system to be initialized.. possible cause (%v) (retrying in %s)", err, retryInterval)
 				time.Sleep(retryInterval)
 				continue
 			}

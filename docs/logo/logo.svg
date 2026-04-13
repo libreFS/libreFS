@@ -1,8 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 72">
+  <!-- Background -->
   <rect width="248" height="72" rx="10" fill="#0d1b2a"/>
+
+  <!-- Icon: three equal bars, fading opacity top-to-bottom -->
   <rect x="14" y="12" width="44" height="12" rx="6" fill="#0ea5e9"/>
-  <rect x="14" y="30" width="44" height="12" rx="6" fill="#0ea5e9" opacity=".55"/>
-  <rect x="14" y="48" width="44" height="12" rx="6" fill="#0ea5e9" opacity=".22"/>
+  <rect x="14" y="30" width="44" height="12" rx="6" fill="#0ea5e9" opacity="0.55"/>
+  <rect x="14" y="48" width="44" height="12" rx="6" fill="#0ea5e9" opacity="0.22"/>
+
+  <!-- Wordmark -->
   <text x="70" y="46"
         font-family="'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif"
         font-size="30" font-weight="700" letter-spacing="-0.3">

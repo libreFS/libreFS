@@ -41,15 +41,15 @@ import (
 	"github.com/minio/pkg/v3/env"
 )
 
-// Environment variables for MinIO KMS.
+// Environment variables for libreFS KMS.
 const (
-	EnvKMSEndpoint   = "MINIO_KMS_SERVER"  // List of MinIO KMS endpoints, separated by ','
-	EnvKMSEnclave    = "MINIO_KMS_ENCLAVE" // MinIO KMS enclave in which the key and identity exists
+	EnvKMSEndpoint   = "MINIO_KMS_SERVER"  // List of libreFS KMS endpoints, separated by ','
+	EnvKMSEnclave    = "MINIO_KMS_ENCLAVE" // libreFS KMS enclave in which the key and identity exists
 	EnvKMSDefaultKey = "MINIO_KMS_SSE_KEY" // Default key used for SSE-S3 or when no SSE-KMS key ID is specified
-	EnvKMSAPIKey     = "MINIO_KMS_API_KEY" // Credential to access the MinIO KMS.
+	EnvKMSAPIKey     = "MINIO_KMS_API_KEY" // Credential to access the libreFS KMS.
 )
 
-// Environment variables for MinIO KES.
+// Environment variables for libreFS KES.
 const (
 	EnvKESEndpoint       = "MINIO_KMS_KES_ENDPOINT"     // One or multiple KES endpoints, separated by ','
 	EnvKESDefaultKey     = "MINIO_KMS_KES_KEY_NAME"     // The default key name used for IAM data and when no key ID is specified on a bucket
@@ -101,8 +101,8 @@ type ConnectionOptions struct {
 // Connect returns a new Conn to a KMS. It uses configuration from the
 // environment and returns a:
 //
-//   - connection to MinIO KMS if the "MINIO_KMS_SERVER" variable is present.
-//   - connection to MinIO KES if the "MINIO_KMS_KES_ENDPOINT" is present.
+//   - connection to libreFS KMS if the "MINIO_KMS_SERVER" variable is present.
+//   - connection to libreFS KES if the "MINIO_KMS_KES_ENDPOINT" is present.
 //   - connection to a "local" KMS implementation using a static key if the
 //     "MINIO_KMS_SECRET_KEY" or "MINIO_KMS_SECRET_KEY_FILE" is present.
 //
@@ -358,16 +358,16 @@ func IsPresent() (bool, error) {
 
 	switch {
 	case kmsPresent && kesPresent:
-		return false, errors.New("kms: configuration for MinIO KMS and MinIO KES is present")
+		return false, errors.New("kms: configuration for libreFS KMS and libreFS KES is present")
 	case kmsPresent && staticKeyPresent:
-		return false, errors.New("kms: configuration for MinIO KMS and static KMS key is present")
+		return false, errors.New("kms: configuration for libreFS KMS and static KMS key is present")
 	case kesPresent && staticKeyPresent:
-		return false, errors.New("kms: configuration for MinIO KES and static KMS key is present")
+		return false, errors.New("kms: configuration for libreFS KES and static KMS key is present")
 	}
 
 	// Next, we check that all required configuration for the concrete
 	// KMS is present.
-	// For example, the MinIO KMS requires an endpoint or a list of
+	// For example, the libreFS KMS requires an endpoint or a list of
 	// endpoints and authentication credentials. However, a path to
 	// CA certificates is optional.
 	switch {
@@ -375,16 +375,16 @@ func IsPresent() (bool, error) {
 		return false, nil // No KMS config present
 	case kmsPresent:
 		if !isPresent(EnvKMSEndpoint) {
-			return false, fmt.Errorf("kms: incomplete configuration for MinIO KMS: missing '%s'", EnvKMSEndpoint)
+			return false, fmt.Errorf("kms: incomplete configuration for libreFS KMS: missing '%s'", EnvKMSEndpoint)
 		}
 		if !isPresent(EnvKMSEnclave) {
-			return false, fmt.Errorf("kms: incomplete configuration for MinIO KMS: missing '%s'", EnvKMSEnclave)
+			return false, fmt.Errorf("kms: incomplete configuration for libreFS KMS: missing '%s'", EnvKMSEnclave)
 		}
 		if !isPresent(EnvKMSDefaultKey) {
-			return false, fmt.Errorf("kms: incomplete configuration for MinIO KMS: missing '%s'", EnvKMSDefaultKey)
+			return false, fmt.Errorf("kms: incomplete configuration for libreFS KMS: missing '%s'", EnvKMSDefaultKey)
 		}
 		if !isPresent(EnvKMSAPIKey) {
-			return false, fmt.Errorf("kms: incomplete configuration for MinIO KMS: missing '%s'", EnvKMSAPIKey)
+			return false, fmt.Errorf("kms: incomplete configuration for libreFS KMS: missing '%s'", EnvKMSAPIKey)
 		}
 		return true, nil
 	case staticKeyPresent:
@@ -394,24 +394,24 @@ func IsPresent() (bool, error) {
 		return true, nil
 	case kesPresent:
 		if !isPresent(EnvKESEndpoint) {
-			return false, fmt.Errorf("kms: incomplete configuration for MinIO KES: missing '%s'", EnvKESEndpoint)
+			return false, fmt.Errorf("kms: incomplete configuration for libreFS KES: missing '%s'", EnvKESEndpoint)
 		}
 		if !isPresent(EnvKESDefaultKey) {
-			return false, fmt.Errorf("kms: incomplete configuration for MinIO KES: missing '%s'", EnvKESDefaultKey)
+			return false, fmt.Errorf("kms: incomplete configuration for libreFS KES: missing '%s'", EnvKESDefaultKey)
 		}
 
 		if isPresent(EnvKESClientKey, EnvKESClientCert, EnvKESClientPassword) {
 			if isPresent(EnvKESAPIKey) {
-				return false, fmt.Errorf("kms: invalid configuration for MinIO KES: '%s' and client certificate is present", EnvKESAPIKey)
+				return false, fmt.Errorf("kms: invalid configuration for libreFS KES: '%s' and client certificate is present", EnvKESAPIKey)
 			}
 			if !isPresent(EnvKESClientCert) {
-				return false, fmt.Errorf("kms: incomplete configuration for MinIO KES: missing '%s'", EnvKESClientCert)
+				return false, fmt.Errorf("kms: incomplete configuration for libreFS KES: missing '%s'", EnvKESClientCert)
 			}
 			if !isPresent(EnvKESClientKey) {
-				return false, fmt.Errorf("kms: incomplete configuration for MinIO KES: missing '%s'", EnvKESClientKey)
+				return false, fmt.Errorf("kms: incomplete configuration for libreFS KES: missing '%s'", EnvKESClientKey)
 			}
 		} else if !isPresent(EnvKESAPIKey) {
-			return false, errors.New("kms: incomplete configuration for MinIO KES: missing authentication method")
+			return false, errors.New("kms: incomplete configuration for libreFS KES: missing authentication method")
 		}
 		return true, nil
 	}

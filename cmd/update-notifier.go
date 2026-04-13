@@ -41,7 +41,7 @@ func prepareUpdateMessage(downloadURL string, older time.Duration) string {
 	newerThan := humanize.RelTime(t, t.Add(older), "before the latest release", "")
 
 	if globalServerCtxt.JSON {
-		return fmt.Sprintf("You are running an older version of MinIO released %s, update: %s", newerThan, downloadURL)
+		return fmt.Sprintf("You are running an older version of libreFS released %s, update: %s", newerThan, downloadURL)
 	}
 
 	// Return the nicely colored and formatted update message.
@@ -50,7 +50,7 @@ func prepareUpdateMessage(downloadURL string, older time.Duration) string {
 
 // colorizeUpdateMessage - inspired from Yeoman project npm package https://github.com/yeoman/update-notifier
 func colorizeUpdateMessage(updateString string, newerThan string) string {
-	msgLine1Fmt := " You are running an older version of MinIO released %s "
+	msgLine1Fmt := " You are running an older version of libreFS released %s "
 	msgLine2Fmt := " Update: %s "
 
 	// Calculate length *without* color coding: with ANSI terminal

@@ -787,7 +787,7 @@ func serverHandleEnvVars() {
 				// Checking if the IP is a DNS entry.
 				addrs, err := globalDNSCache.LookupHost(GlobalContext, endpoint)
 				if err != nil {
-					logger.FatalIf(err, "Unable to initialize MinIO server with [%s] invalid entry found in MINIO_PUBLIC_IPS", endpoint)
+					logger.FatalIf(err, "Unable to initialize libreFS server with [%s] invalid entry found in MINIO_PUBLIC_IPS", endpoint)
 				}
 				for _, addr := range addrs {
 					domainIPs.Add(addr)
@@ -818,9 +818,9 @@ func serverHandleEnvVars() {
 	// Check all error conditions first
 	//nolint:gocritic
 	if !env.IsSet(config.EnvRootUser) && env.IsSet(config.EnvRootPassword) {
-		logger.Fatal(config.ErrMissingEnvCredentialRootUser(nil), "Unable to start MinIO")
+		logger.Fatal(config.ErrMissingEnvCredentialRootUser(nil), "Unable to start libreFS")
 	} else if env.IsSet(config.EnvRootUser) && !env.IsSet(config.EnvRootPassword) {
-		logger.Fatal(config.ErrMissingEnvCredentialRootPassword(nil), "Unable to start MinIO")
+		logger.Fatal(config.ErrMissingEnvCredentialRootPassword(nil), "Unable to start libreFS")
 	} else if !env.IsSet(config.EnvRootUser) && !env.IsSet(config.EnvRootPassword) {
 		if !env.IsSet(config.EnvAccessKey) && env.IsSet(config.EnvSecretKey) {
 			logger.Fatal(config.ErrMissingEnvCredentialAccessKey(nil), "Unable to start MinIO")
