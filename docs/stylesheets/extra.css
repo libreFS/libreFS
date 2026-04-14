@@ -1,0 +1,23 @@
+/* libreFS brand colors for MkDocs Material */
+:root {
+  --md-primary-fg-color:        #0ea5e9;
+  --md-primary-fg-color--light: #38bdf8;
+  --md-primary-fg-color--dark:  #0284c7;
+  --md-accent-fg-color:         #0ea5e9;
+  --md-primary-bg-color:        #0d1b2a;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #0ea5e9;
+  --md-primary-fg-color--light: #38bdf8;
+  --md-accent-fg-color:         #0ea5e9;
+  --md-default-bg-color:        #080f1c;
+  --md-default-fg-color:        rgba(255,255,255,.87);
+}
+
+/* Nav header */
+.md-header { background-color: #0d1b2a; }
+.md-tabs   { background-color: #0b1628; }
+
+/* Logo text fallback if SVG missing */
+.md-header__title { font-weight: 800; letter-spacing: -.3px; }

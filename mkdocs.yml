@@ -1,0 +1,162 @@
+site_name: libreFS Documentation
+site_url: https://librefs.org/docs/latest/
+site_description: >-
+  libreFS is a community-maintained, fully open-source S3-compatible object storage server.
+  Comprehensive documentation for installation, configuration, LDAP/OIDC, distributed mode,
+  encryption, and more.
+site_author: libreFS contributors
+repo_url: https://github.com/libreFS/libreFS
+repo_name: libreFS/libreFS
+edit_uri: edit/master/docs/
+
+copyright: >-
+  Copyright &copy; 2026 libreFS contributors &mdash;
+  <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU AGPL v3.0</a>
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  version:
+    provider: mike
+    default: latest
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/libreFS/libreFS
+      name: libreFS on GitHub
+
+plugins:
+  - search:
+      lang: en
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - tables
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Docker: docker/README.md
+    - Docker Compose: orchestration/docker-compose/README.md
+    - Kubernetes: orchestration/kubernetes/README.md
+    - Distributed Mode:
+      - Overview: distributed/README.md
+      - Configuration: distributed/CONFIG.md
+      - Sizing Guide: distributed/SIZING.md
+      - Design: distributed/DESIGN.md
+      - Decommissioning: distributed/DECOMMISSION.md
+  - Configuration: config/README.md
+  - Authentication:
+    - Overview: sts/README.md
+    - Multi-user Setup: multi-user/README.md
+    - Admin Users: multi-user/admin/README.md
+    - LDAP: sts/ldap.md
+    - Keycloak (OIDC): sts/keycloak.md
+    - Dex (OIDC): sts/dex.md
+    - Casdoor: sts/casdoor.md
+    - WSO2: sts/wso2.md
+    - Web Identity (OIDC): sts/web-identity.md
+    - AssumeRole: sts/assume-role.md
+    - Client Grants: sts/client-grants.md
+    - Custom Token: sts/custom-token-identity.md
+    - etcd: sts/etcd.md
+    - TLS for STS: sts/tls.md
+    - Access Management Plugin: iam/access-management-plugin.md
+    - Identity Management Plugin: iam/identity-management-plugin.md
+    - Open Policy Agent: iam/opa.md
+  - Storage:
+    - Erasure Coding: erasure/README.md
+    - Storage Classes: erasure/storage-class/README.md
+    - Bucket Lifecycle: bucket/lifecycle/README.md
+    - Bucket Versioning: bucket/versioning/README.md
+    - Object Retention: bucket/retention/README.md
+    - Bucket Replication: bucket/replication/README.md
+    - Site Replication: site-replication/README.md
+    - Bucket Quota: bucket/quota/README.md
+    - Event Notifications: bucket/notifications/README.md
+    - Compression: compression/README.md
+  - Security:
+    - Security Overview: security/README.md
+    - KMS & Encryption: kms/README.md
+    - KMS IAM Encryption: kms/IAM.md
+    - TLS Configuration: tls/README.md
+    - TLS on Kubernetes: tls/kubernetes/README.md
+  - Observability:
+    - Metrics Overview: metrics/README.md
+    - Health Checks: metrics/healthcheck/README.md
+    - Prometheus: metrics/prometheus/README.md
+    - Prometheus Alerts: metrics/prometheus/alerts.md
+    - Metrics Reference: metrics/prometheus/list.md
+    - Grafana Dashboards: metrics/prometheus/grafana/README.md
+    - Metrics API v3: metrics/v3.md
+    - Logging: logging/README.md
+    - Audit Log: auditlog/auditlog-echo.md
+  - Advanced:
+    - S3 Select: select/README.md
+    - Batch Jobs: batch-jobs/README.md
+    - Lambda/Functions: lambda/README.md
+    - FTP/SFTP: ftp/README.md
+    - S3 ZIP Extension: extensions/s3zip/README.md
+    - Fan-out Extension: extensions/fan-out/README.md
+    - Bucket Federation: federation/lookup/README.md
+    - Multi-tenancy: multi-tenancy/README.md
+    - Chroot Isolation: chroot/README.md
+    - Big Data Integration: bigdata/README.md
+    - Veeam Integration: integrations/veeam/README.md
+  - Operations:
+    - Performance Tuning: tuning/README.md
+    - Throttling: throttle/README.md
+    - Debugging: debugging/README.md
+  - Reference:
+    - Server Limits: minio-limits.md
+    - Roadmap: roadmap.md
