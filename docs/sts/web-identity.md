@@ -2,15 +2,15 @@
 
 ## Introduction
 
-MinIO supports the standard AssumeRoleWithWebIdentity STS API to enable integration with OIDC/OpenID based identity provider environments. This allows the generation of temporary credentials with pre-defined access policies for applications/users to interact with MinIO object storage.
+libreFS supports the standard AssumeRoleWithWebIdentity STS API to enable integration with OIDC/OpenID based identity provider environments. This allows the generation of temporary credentials with pre-defined access policies for applications/users to interact with libreFS object storage.
 
-Calling AssumeRoleWithWebIdentity does not require the use of MinIO root or IAM credentials. Therefore, you can distribute an application (for example, on mobile devices) that requests temporary security credentials without including MinIO long lasting credentials in the application. Instead, the identity of the caller is validated by using a JWT id_token from the web identity provider. The temporary security credentials returned by this API consists of an access key, a secret key, and a security token. Applications can use these temporary security credentials to sign calls to MinIO API operations.
+Calling AssumeRoleWithWebIdentity does not require the use of libreFS root or IAM credentials. Therefore, you can distribute an application (for example, on mobile devices) that requests temporary security credentials without including libreFS long lasting credentials in the application. Instead, the identity of the caller is validated by using a JWT id_token from the web identity provider. The temporary security credentials returned by this API consists of an access key, a secret key, and a security token. Applications can use these temporary security credentials to sign calls to libreFS API operations.
 
 By default, the temporary security credentials created by AssumeRoleWithWebIdentity last for one hour. However, the optional DurationSeconds parameter can be used to specify the validity duration of the generated credentials. This value varies from 900 seconds (15 minutes) up to the maximum session duration of 365 days.
 
-## Configuring OpenID Identity Provider on MinIO
+## Configuring OpenID Identity Provider on libreFS
 
-Configuration can be performed via MinIO's standard configuration API (i.e. using `mc admin config set/get` commands) or equivalently via environment variables. For brevity we show only environment variables here:
+Configuration can be performed via libreFS's standard configuration API (i.e. using `mc admin config set/get` commands) or equivalently via environment variables. For brevity we show only environment variables here:
 
 ```
 $ mc admin config set myminio identity_openid --env
@@ -26,7 +26,7 @@ MINIO_IDENTITY_OPENID_CLIENT_SECRET*        (string)    secret for the unique pu
 MINIO_IDENTITY_OPENID_ROLE_POLICY           (string)    Set the IAM access policies applicable to this client application and IDP e.g. "app-bucket-write,app-bucket-list"
 MINIO_IDENTITY_OPENID_CLAIM_NAME            (string)    JWT canned policy claim name (default: 'policy')
 MINIO_IDENTITY_OPENID_SCOPES                (csv)       Comma separated list of OpenID scopes for server, defaults to advertised scopes from discovery document e.g. "email,admin"
-MINIO_IDENTITY_OPENID_VENDOR                (string)    Specify vendor type for vendor specific behavior to checking validity of temporary credentials and service accounts on MinIO
+MINIO_IDENTITY_OPENID_VENDOR                (string)    Specify vendor type for vendor specific behavior to checking validity of temporary credentials and service accounts on libreFS
 MINIO_IDENTITY_OPENID_CLAIM_USERINFO        (on|off)    Enable fetching claims from UserInfo Endpoint for authenticated user
 MINIO_IDENTITY_OPENID_KEYCLOAK_REALM        (string)    Specify Keycloak 'realm' name, only honored if vendor was set to 'keycloak' as value, if no realm is specified 'master' is default
 MINIO_IDENTITY_OPENID_KEYCLOAK_ADMIN_URL    (string)    Specify Keycloak 'admin' REST API endpoint e.g. http://localhost:8080/auth/admin/
@@ -38,7 +38,7 @@ MINIO_IDENTITY_OPENID_COMMENT               (sentence)  optionally add a comment
 
 Either `MINIO_IDENTITY_OPENID_ROLE_POLICY` (recommended) or `MINIO_IDENTITY_OPENID_CLAIM_NAME` must be specified but not both. See the section Access Control Policies to understand the differences between the two.
 
-**NOTE**: When configuring multiple OpenID based authentication providers on a MinIO cluster, any number of Role Policy based providers may be configured, and at most one JWT Claim based provider may be configured.
+**NOTE**: When configuring multiple OpenID based authentication providers on a libreFS cluster, any number of Role Policy based providers may be configured, and at most one JWT Claim based provider may be configured.
 
 <details><summary>Example 1: Two role policy providers</summary>
 
@@ -81,23 +81,23 @@ MINIO_IDENTITY_OPENID_CLAIM_NAME="groups"
 
 ### Redirection from OpenID Provider
 
-To login to MinIO, the user first loads the MinIO console on their browser, and selects the OpenID Provider they wish to use (the `MINIO_IDENTITY_OPENID_DISPLAY_NAME` value is shown here). The user is then redirected to the OpenID provider's login page and performs necessary login actions (e.g. entering credentials, responding to MFA authentication challenges, etc). After successful login, the user is redirected back to the MinIO console. This redirect URL is specified as a parameter by MinIO when the user is redirected to the OpenID Provider in the beginning. For some setups, extra configuration may be required for this step to work correctly.
+To login to libreFS, the user first loads the libreFS console on their browser, and selects the OpenID Provider they wish to use (the `MINIO_IDENTITY_OPENID_DISPLAY_NAME` value is shown here). The user is then redirected to the OpenID provider's login page and performs necessary login actions (e.g. entering credentials, responding to MFA authentication challenges, etc). After successful login, the user is redirected back to the libreFS console. This redirect URL is specified as a parameter by libreFS when the user is redirected to the OpenID Provider in the beginning. For some setups, extra configuration may be required for this step to work correctly.
 
-For a simple setup where the user/client app accesses MinIO directly (i.e. with no intervening proxies/load-balancers), and each MinIO server (if there are more than one) has a unique domain name, this redirection should work automatically with no further configuration. For example, if the MinIO service is being accessed by the browser at the URL `https://minio-node-1.example.org`, the redirect URL will be `https://minio-node-1.example.org/oauth_callback` and all is well.
+For a simple setup where the user/client app accesses libreFS directly (i.e. with no intervening proxies/load-balancers), and each libreFS server (if there are more than one) has a unique domain name, this redirection should work automatically with no further configuration. For example, if the libreFS service is being accessed by the browser at the URL `https://minio-node-1.example.org`, the redirect URL will be `https://minio-node-1.example.org/oauth_callback` and all is well.
 
-For deployments with a load-balancer (LB), it is required that the LB is configured to send requests from the same user/client-app to the same backend MinIO server (at least for the initial login request and subsequent redirection, as the OpenID auth flow's state parameter is currently local to the MinIO server). For this setup, set the `MINIO_BROWSER_REDIRECT_URL` parameter to the publicly/client-accessible endpoint for the MinIO Console. For example `MINIO_BROWSER_REDIRECT_URL=https://console.minio.example.org`. This will ensure that the redirect URL is set to `https://console.minio.example.org/oauth_callback` and the login process should work correctly.
+For deployments with a load-balancer (LB), it is required that the LB is configured to send requests from the same user/client-app to the same backend libreFS server (at least for the initial login request and subsequent redirection, as the OpenID auth flow's state parameter is currently local to the libreFS server). For this setup, set the `MINIO_BROWSER_REDIRECT_URL` parameter to the publicly/client-accessible endpoint for the libreFS Console. For example `MINIO_BROWSER_REDIRECT_URL=https://console.minio.example.org`. This will ensure that the redirect URL is set to `https://console.minio.example.org/oauth_callback` and the login process should work correctly.
 
-For deployments employing DNS round-robin on a single domain to all the MinIO servers, it is possible that after redirection the browser may land on a different MinIO server. For example, the domain `console.minio.example.org` may resolve to `console-X.minio.example.org`, where `X` is `1`, `2`, `3` or `4`. For the login to work, if the user first landed on `console-1.minio.example.org`, they must be redirected back to the same place after logging in at the OpenID provider's web-page. To ensure this, set the `MINIO_IDENTITY_OPENID_REDIRECT_URI_DYNAMIC=on` parameter - this lets MinIO set the redirect URL based on the "Host" header of the (initial login) request.
+For deployments employing DNS round-robin on a single domain to all the libreFS servers, it is possible that after redirection the browser may land on a different libreFS server. For example, the domain `console.minio.example.org` may resolve to `console-X.minio.example.org`, where `X` is `1`, `2`, `3` or `4`. For the login to work, if the user first landed on `console-1.minio.example.org`, they must be redirected back to the same place after logging in at the OpenID provider's web-page. To ensure this, set the `MINIO_IDENTITY_OPENID_REDIRECT_URI_DYNAMIC=on` parameter - this lets libreFS set the redirect URL based on the "Host" header of the (initial login) request.
 
 The **deprecated** parameter `MINIO_IDENTITY_OPENID_REDIRECT_URI` works similar to the `MINIO_BROWSER_REDIRECT_URL` but needs to include the `/oauth_callback` suffix. Please do not use it, as it is sufficient to the set the `MINIO_BROWSER_REDIRECT_URL` parameter (which is required anyway for most load-balancer based setups to work correctly). This deprecated parameter **will be removed** in a future release. 
 
 ## Specifying Access Control with IAM Policies
 
-The STS API authenticates the user by verifying the JWT provided in the request. However access to object storage resources are controlled via named IAM policies defined in the MinIO instance. Once authenticated via the STS API, the MinIO server applies one or more IAM policies to the generated credentials. MinIO's AssumeRoleWithWebIdentity implementation supports specifying IAM policies in two ways:
+The STS API authenticates the user by verifying the JWT provided in the request. However access to object storage resources are controlled via named IAM policies defined in the libreFS instance. Once authenticated via the STS API, the libreFS server applies one or more IAM policies to the generated credentials. libreFS's AssumeRoleWithWebIdentity implementation supports specifying IAM policies in two ways:
 
-1. Role Policy (Recommended): When specified as part of the OpenID provider configuration, all users authenticating via this provider are authorized to (only) use the specified role policy. The policy to associate with such users is specified via the `role_policy` configuration parameter or the `MINIO_IDENTITY_OPENID_ROLE_POLICY` environment variable. The value is a comma-separated list of IAM access policy names already defined in the server. In this situation, the server prints a role ARN at startup that must be specified as a `RoleArn` API request parameter in the STS AssumeRoleWithWebIdentity API call. When using Role Policies, multiple OpenID providers and/or client applications (with unique client IDs) may be configured with independent role policies. Each configuration is assigned a unique RoleARN by the MinIO server and this is used to select the policies to apply to temporary credentials generated in the AssumeRoleWithWebIdentity call.
+1. Role Policy (Recommended): When specified as part of the OpenID provider configuration, all users authenticating via this provider are authorized to (only) use the specified role policy. The policy to associate with such users is specified via the `role_policy` configuration parameter or the `MINIO_IDENTITY_OPENID_ROLE_POLICY` environment variable. The value is a comma-separated list of IAM access policy names already defined in the server. In this situation, the server prints a role ARN at startup that must be specified as a `RoleArn` API request parameter in the STS AssumeRoleWithWebIdentity API call. When using Role Policies, multiple OpenID providers and/or client applications (with unique client IDs) may be configured with independent role policies. Each configuration is assigned a unique RoleARN by the libreFS server and this is used to select the policies to apply to temporary credentials generated in the AssumeRoleWithWebIdentity call.
 
-2. `id_token` claims: When the role policy is not configured, MinIO looks for a specific claim in the `id_token` (JWT) returned by the OpenID provider in the STS request. The default claim is `policy` and can be overridden by the `claim_name` configuration parameter or the `MINIO_IDENTITY_OPENID_CLAIM_NAME` environment variable. The claim value can be a string (comma-separated list) or an array of IAM access policy names defined in the server. A `RoleArn` API request parameter *must not* be specified in the STS AssumeRoleWithWebIdentity API call.
+2. `id_token` claims: When the role policy is not configured, libreFS looks for a specific claim in the `id_token` (JWT) returned by the OpenID provider in the STS request. The default claim is `policy` and can be overridden by the `claim_name` configuration parameter or the `MINIO_IDENTITY_OPENID_CLAIM_NAME` environment variable. The claim value can be a string (comma-separated list) or an array of IAM access policy names defined in the server. A `RoleArn` API request parameter *must not* be specified in the STS AssumeRoleWithWebIdentity API call.
 
 ## API Request Parameters
 
@@ -111,7 +111,7 @@ The OAuth 2.0 id_token that is provided by the web identity provider. Applicatio
 | *Length Constraints* | *Minimum length of 4. Maximum length of 2048.* |
 | *Required*           | *Yes*                                          |
 
-### WebIdentityAccessToken (MinIO Extension)
+### WebIdentityAccessToken (libreFS Extension)
 
 There are situations when identity provider does not provide user claims in `id_token` instead it needs to be retrieved from UserInfo endpoint, this extension is only useful in this scenario. This is rare so use it accordingly depending on your Identity provider implementation. `access_token` is available as part of the OIDC authentication flow similar to `id_token`.
 
@@ -202,7 +202,7 @@ export MINIO_IDENTITY_OPENID_CONFIG_URL=https://accounts.google.com/.well-known/
 export MINIO_IDENTITY_OPENID_CLIENT_ID="843351d4-1080-11ea-aa20-271ecba3924a"
 # Optional: Allow to specify the requested OpenID scopes (OpenID only requires the `openid` scope)
 #export MINIO_IDENTITY_OPENID_SCOPES="openid,profile,email"
-minio server /mnt/export
+librefs server /mnt/export
 ```
 
 or using `mc`
@@ -244,12 +244,12 @@ $ go run web-identity.go -cid 204367807228-ok7601k6gj1pgge7m09h7d79co8p35xx.apps
 - Visit <http://localhost:8080>, login will direct the user to the Google OAuth2 Auth URL to obtain a permission grant.
 - The redirection URI (callback handler) receives the OAuth2 callback, verifies the state parameter, and obtains a Token.
 - Using the id_token the callback handler further talks to Google OAuth2 Token URL to obtain an JWT id_token.
-- Once obtained the JWT id_token is further sent to STS endpoint i.e MinIO to retrieve temporary credentials.
+- Once obtained the JWT id_token is further sent to STS endpoint i.e libreFS to retrieve temporary credentials.
 - Temporary credentials are displayed on the browser upon successful retrieval.
 
-## Using MinIO Console
+## Using libreFS Console
 
-To support WebIdentity based login for MinIO Console, set openid configuration and restart MinIO
+To support WebIdentity based login for libreFS Console, set openid configuration and restart libreFS
 
 ```
 mc admin config set myminio identity_openid config_url="<CONFIG_URL>" client_id="<client_identifier>"
@@ -263,13 +263,13 @@ Sample URLs for Keycloak are
 
 `config_url` - `http://localhost:8080/auth/realms/demo/.well-known/openid-configuration`
 
-JWT token returned by the Identity Provider should include a custom claim for the policy, this is required to create a STS user in MinIO. The name of the custom claim could be either `policy` or `<NAMESPACE_PREFIX>policy`.  If there is no namespace then `claim_prefix` can be ignored. For example if the custom claim name is `https://min.io/policy` then, `claim_prefix` should be set as `https://min.io/`.
+JWT token returned by the Identity Provider should include a custom claim for the policy, this is required to create a STS user in libreFS. The name of the custom claim could be either `policy` or `<NAMESPACE_PREFIX>policy`.  If there is no namespace then `claim_prefix` can be ignored. For example if the custom claim name is `https://min.io/policy` then, `claim_prefix` should be set as `https://min.io/`.
 
-- Open MinIO Console and click `Login with SSO`
+- Open libreFS Console and click `Login with SSO`
 - The user will be redirected to the Identity Provider login page
-- Upon successful login on Identity Provider page the user will be automatically logged into MinIO Console.
+- Upon successful login on Identity Provider page the user will be automatically logged into libreFS Console.
 
 ## Explore Further
 
-- [MinIO Admin Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [libreFS Admin Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

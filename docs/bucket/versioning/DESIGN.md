@@ -2,7 +2,7 @@
 
 ## Description of `xl.meta`
 
-`xl.meta` is a new self describing backend format used by MinIO to support AWS S3 compatible versioning.
+`xl.meta` is a new self describing backend format used by libreFS to support AWS S3 compatible versioning.
 This file is the source of truth for each `version` at rest. `xl.meta` is a msgpack file serialized from a
 well defined data structure. To understand `xl.meta` here are the few things to start with
 

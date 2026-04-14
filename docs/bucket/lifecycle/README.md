@@ -4,7 +4,7 @@ Enable object lifecycle configuration on buckets to setup automatic deletion of 
 
 ## 1. Prerequisites
 
-- Install MinIO - [MinIO Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html).
+- Install libreFS - [libreFS Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html).
 - Install `mc` - [mc Quickstart Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart)
 
 ## 2. Enable bucket lifecycle configuration
@@ -84,7 +84,7 @@ e.g., To scan objects stored under `user-uploads/` prefix and remove versions ol
 }
 ```
 
-This JSON rule is equivalent to the following MinIO Client command:
+This JSON rule is equivalent to the following libreFS Client command:
 ```
 mc ilm rule add --noncurrent-expire-days 365 --prefix "user-uploads/" myminio/mydata
 ```
@@ -113,14 +113,14 @@ e.g, To remove noncurrent versions of all objects keeping the most recent 5 nonc
 }
 ```
 
-This JSON rule is equivalent to the following MinIO Client command:
+This JSON rule is equivalent to the following libreFS Client command:
 ```
 mc ilm rule add --noncurrent-expire-days 30 --noncurrent-expire-newer 5 --prefix "user-uploads/" myminio/mydata
 ```
 
-#### 3.2.a Automatic removal of noncurrent versions keeping only most recent ones immediately (MinIO only extension)
+#### 3.2.a Automatic removal of noncurrent versions keeping only most recent ones immediately (libreFS only extension)
 
-This is available only on MinIO as an extension to the NewerNoncurrentVersions feature. The following rule makes it possible to remove older noncurrent versions
+This is available only on libreFS as an extension to the NewerNoncurrentVersions feature. The following rule makes it possible to remove older noncurrent versions
 of objects under the prefix `user-uploads/` as soon as there are more than `N` noncurrent versions of an object.
 
 ```
@@ -141,9 +141,9 @@ of objects under the prefix `user-uploads/` as soon as there are more than `N` n
 ```
 Note: This rule has an implicit zero NoncurrentDays, which makes the expiry of those 'extra' noncurrent versions immediate.
 
-#### 3.2.b Automatic removal of all versions (MinIO only extension)
+#### 3.2.b Automatic removal of all versions (libreFS only extension)
 
-This is available only on MinIO as an extension to the Expiration feature. The following rule makes it possible to remove all versions of an object under 
+This is available only on libreFS as an extension to the Expiration feature. The following rule makes it possible to remove all versions of an object under 
 the prefix `user-uploads/` as soon as the latest object satisfies the expiration criteria. 
 
 > NOTE: If the latest object is a delete marker then filtering based on `Filter.Tags` is ignored and 
@@ -188,9 +188,9 @@ When an object has only one version as a delete marker, the latter can be automa
 
 ## 4. Enable ILM transition feature
 
-In Erasure mode, MinIO supports tiering to public cloud providers such as GCS, AWS and Azure as well as to other MinIO clusters via the ILM transition feature. This will allow transitioning of older objects to a different cluster or the public cloud by setting up transition rules in the bucket lifecycle configuration. This feature enables applications to optimize storage costs by moving less frequently accessed data to a cheaper storage without compromising accessibility of data.
+In Erasure mode, libreFS supports tiering to public cloud providers such as GCS, AWS and Azure as well as to other libreFS clusters via the ILM transition feature. This will allow transitioning of older objects to a different cluster or the public cloud by setting up transition rules in the bucket lifecycle configuration. This feature enables applications to optimize storage costs by moving less frequently accessed data to a cheaper storage without compromising accessibility of data.
 
-To transition objects in a bucket to a destination bucket on a different cluster, applications need to specify a transition tier defined on MinIO instead of storage class while setting up the ILM lifecycle rule.
+To transition objects in a bucket to a destination bucket on a different cluster, applications need to specify a transition tier defined on libreFS instead of storage class while setting up the ILM lifecycle rule.
 
 > To create a transition tier for transitioning objects to a prefix `testprefix` in `azurebucket` on Azure blob using `mc`:
 
@@ -206,7 +206,7 @@ Using above tier, set up a lifecycle rule with transition:
  mc ilm add --expiry-days 365 --transition-days 45 --storage-class "AZURETIER" myminio/srcbucket
 ```
 
-Note: In the case of S3, it is possible to create a tier from MinIO running in EC2 to S3 using AWS role attached to EC2 as credentials instead of accesskey/secretkey:
+Note: In the case of S3, it is possible to create a tier from libreFS running in EC2 to S3 using AWS role attached to EC2 as credentials instead of accesskey/secretkey:
 
 ```
 mc admin tier add s3 source S3TIER --bucket s3bucket --prefix testprefix/ --use-aws-role
@@ -224,9 +224,9 @@ aws s3api restore-object --bucket srcbucket \
 
 `s3:ObjectTransition:Complete` and `s3:ObjectTransition:Failed` events can be used to monitor transition events between the source cluster and transition tier. To watch lifecycle events, you can enable bucket notification on the source bucket with `mc event add`  and specify `--event ilm` flag.
 
-Note that transition event notification is a MinIO extension.
+Note that transition event notification is a libreFS extension.
 
 ## Explore Further
 
-- [MinIO | Golang Client API Reference](https://docs.min.io/community/minio-object-store/developers/go/API.html)
+- [libreFS | Golang Client API Reference](https://docs.min.io/community/minio-object-store/developers/go/API.html)
 - [Object Lifecycle Management](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html)

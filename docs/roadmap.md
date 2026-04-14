@@ -24,14 +24,14 @@ It is a living document — priorities will shift based on community feedback.
 Do not add features yet. Build trust and findability.
 
 ### 1.1 Console rebranding
-The WebUI (`console/` repo) still shows MinIO branding throughout.
+The WebUI (`console/` repo) still shows libreFS branding throughout.
 Rebrand the console with the libreFS logo, colors, and name.
 This is the most visible user-facing change remaining.
 
-### 1.2 mc fork (`libreFS/mc`)
-Fork the MinIO client (`mc`) and brand it as the libreFS CLI tool.
-Stay close to upstream (cherry-pick bug/security fixes), apply minimal
-branding, and release pre-built binaries alongside the server.
+### 1.2 mc branding (`libreFS/mc`)
+`minio/mc` is forked at `libreFS/mc`. Next steps: apply libreFS branding
+(binary name, help text, update URLs), then release pre-built binaries
+alongside the server on the same tag cadence.
 
 **Why this matters:** Users searching for "how to use libreFS" will look
 for a client. Having our own fork means we control the release cadence
@@ -47,7 +47,7 @@ real documentation. We need at minimum:
 - Using `mc` with libreFS
 
 These docs are the primary SEO target — people searching for
-"MinIO LDAP fork" or "open source MinIO alternative" should find us.
+"libreFS LDAP fork" or "open source libreFS alternative" should find us.
 
 ### 1.4 Community channels
 - GitHub Discussions (enable on the repo) for Q&A and RFCs
@@ -63,21 +63,21 @@ These docs are the primary SEO target — people searching for
 ### 2.1 Integration test suite
 The current tests are unit tests only. Add integration tests that:
 - Spin up a single-node libreFS instance (Docker)
-- Run the S3 conformance test suite (e.g. MinIO's own `s3tests`)
+- Run the S3 conformance test suite (e.g. libreFS's own `s3tests`)
 - Verify LDAP authentication end-to-end
 - Verify distributed mode with 4 nodes
 
 This catches regressions that unit tests miss.
 
 ### 2.2 Helm chart
-The existing Helm chart (`helm/`) is based on MinIO's. Rebrand and
+The existing Helm chart (`helm/`) is based on libreFS's. Rebrand and
 validate it. Publish to a Helm repository (GitHub Pages is fine).
 Kubernetes users are a large part of the target audience.
 
 ### 2.3 Cherry-pick automation
 Currently cherry-picks from upstream are done manually. Build a
 lightweight tool or GitHub Action that:
-- Monitors MinIO releases for new commits
+- Monitors libreFS releases for new commits
 - Categorizes them (security, bug, feature, removal)
 - Opens a GitHub Issue with the analysis for human review
 
@@ -87,7 +87,7 @@ This makes maintenance sustainable for a small team.
 
 ## Phase 3 — Differentiation (once we have contributors)
 
-**Goal:** Add value that MinIO AIStor doesn't offer, rather than
+**Goal:** Add value that libreFS AIStor doesn't offer, rather than
 trying to match AIStor feature-for-feature.
 
 ### 3.1 Better observability

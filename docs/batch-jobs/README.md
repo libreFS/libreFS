@@ -1,12 +1,12 @@
-# MinIO Batch Job
-MinIO Batch jobs is an MinIO object management feature that lets you manage objects at scale. Jobs currently supported by MinIO
+# libreFS Batch Job
+libreFS Batch jobs is an libreFS object management feature that lets you manage objects at scale. Jobs currently supported by libreFS
 
 - Replicate objects between buckets on multiple sites
 
 Upcoming Jobs
 
-- Copy objects from NAS to MinIO
-- Copy objects from HDFS to MinIO
+- Copy objects from NAS to libreFS
+- Copy objects from HDFS to libreFS
 
 ## Replication Job
 To perform replication via batch jobs, you create a job. The job consists of a job description YAML that describes
@@ -15,7 +15,7 @@ To perform replication via batch jobs, you create a job. The job consists of a j
 - Target location from where the objects must be copied to
 - Fine grained filtering is available to pick relevant objects from source to copy from
 
-MinIO batch jobs framework also provides
+libreFS batch jobs framework also provides
 
 - Retrying a failed job automatically driven by user input
 - Monitoring job progress in real-time
@@ -64,7 +64,7 @@ replicate:
 	  #   - key: "name"
 	  #     value: "pick*" # match objects with tag 'name', with all values starting with 'pick'
 
-	  ## NOTE: metadata filter not supported when "source" is non MinIO.
+	  ## NOTE: metadata filter not supported when "source" is non libreFS.
 	  # metadata:
 	  #   - key: "content-type"
 	  #     value: "image/*" # match objects with 'content-type', with all values starting with 'image/'
@@ -83,10 +83,10 @@ You can create and run multiple 'replication' jobs at a time there are no predef
 ## Batch Jobs Terminology
 
 ### Job
-A job is the basic unit of work for MinIO Batch Job. A job is a self describing YAML, once this YAML is submitted and evaluated - MinIO performs the requested actions on each of the objects obtained under the described criteria in job YAML file.
+A job is the basic unit of work for libreFS Batch Job. A job is a self describing YAML, once this YAML is submitted and evaluated - libreFS performs the requested actions on each of the objects obtained under the described criteria in job YAML file.
 
 ### Type
-Type describes the job type, such as replicating objects between MinIO sites. Each job performs a single type of operation across all objects that match the job description criteria.
+Type describes the job type, such as replicating objects between libreFS sites. Each job performs a single type of operation across all objects that match the job description criteria.
 
 ## Batch Jobs via Commandline
 [mc](http://github.com/minio/mc) provides 'mc batch' command to create, start and manage submitted jobs.
@@ -102,7 +102,7 @@ COMMANDS:
   generate  generate a new batch job definition
   start     start a new batch job
   list, ls  list all current batch jobs
-  status    summarize job events on MinIO server in real-time
+  status    summarize job events on libreFS server in real-time
   describe  describe job definition for a job
 ```
 

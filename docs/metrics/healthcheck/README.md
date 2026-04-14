@@ -1,6 +1,6 @@
-# MinIO Healthcheck
+# libreFS Healthcheck
 
-MinIO server exposes three un-authenticated, healthcheck endpoints liveness probe and a cluster probe at `/minio/health/live` and `/minio/health/cluster` respectively.
+libreFS server exposes three un-authenticated, healthcheck endpoints liveness probe and a cluster probe at `/minio/health/live` and `/minio/health/cluster` respectively.
 
 ## Liveness probe
 
@@ -47,7 +47,7 @@ curl http://minio1:9001/minio/health/cluster
 HTTP/1.1 503 Service Unavailable
 Accept-Ranges: bytes
 Content-Length: 0
-Server: MinIO
+Server: libreFS
 Vary: Origin
 X-Amz-Bucket-Region: us-east-1
 X-Minio-Write-Quorum: 3
@@ -65,7 +65,7 @@ curl http://minio1:9001/minio/health/cluster/read
 HTTP/1.1 503 Service Unavailable
 Accept-Ranges: bytes
 Content-Length: 0
-Server: MinIO
+Server: libreFS
 Vary: Origin
 X-Amz-Bucket-Region: us-east-1
 X-Minio-Write-Quorum: 3
@@ -83,7 +83,7 @@ curl http://minio1:9001/minio/health/cluster?maintenance=true
 HTTP/1.1 412 Precondition Failed
 Accept-Ranges: bytes
 Content-Length: 0
-Server: MinIO
+Server: libreFS
 Vary: Origin
 X-Amz-Bucket-Region: us-east-1
 X-Amz-Request-Id: 16239D63820C6E76

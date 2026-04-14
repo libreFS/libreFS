@@ -1,14 +1,14 @@
-# MinIO Server Config Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800)](https://hub.docker.com/r/minio/minio/)
+# libreFS Server Config Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800)](https://hub.docker.com/r/minio/minio/)
 
 ## Configuration Directory
 
-MinIO stores all its config as part of the server deployment, config is erasure coded on MinIO. On a fresh deployment MinIO automatically generates a new `config` and this config is available to be configured via `mc admin config` command. MinIO also encrypts all the config, IAM and policies content if KMS is configured. Please refer to how to encrypt your config and IAM credentials [here](https://github.com/minio/minio/blob/master/docs/kms/IAM.md).
+libreFS stores all its config as part of the server deployment, config is erasure coded on libreFS. On a fresh deployment libreFS automatically generates a new `config` and this config is available to be configured via `mc admin config` command. libreFS also encrypts all the config, IAM and policies content if KMS is configured. Please refer to how to encrypt your config and IAM credentials [here](https://github.com/minio/minio/blob/master/docs/kms/IAM.md).
 
 ### Certificate Directory
 
-TLS certificates by default are expected to be stored under ``${HOME}/.minio/certs`` directory. You need to place certificates here to enable `HTTPS` based access. Read more about [How to secure access to MinIO server with TLS](https://docs.min.io/community/minio-object-store/operations/network-encryption.html).
+TLS certificates by default are expected to be stored under ``${HOME}/.minio/certs`` directory. You need to place certificates here to enable `HTTPS` based access. Read more about [How to secure access to libreFS server with TLS](https://docs.min.io/community/minio-object-store/operations/network-encryption.html).
 
-Following is a sample directory structure for MinIO server with TLS certificates.
+Following is a sample directory structure for libreFS server with TLS certificates.
 
 ```sh
 $ mc tree --files ~/.minio
@@ -23,12 +23,12 @@ You can provide a custom certs directory using `--certs-dir` command line option
 
 #### Credentials
 
-On MinIO admin credentials or root credentials are only allowed to be changed using ENVs namely `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD`.
+On libreFS admin credentials or root credentials are only allowed to be changed using ENVs namely `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD`.
 
 ```sh
 export MINIO_ROOT_USER=minio
 export MINIO_ROOT_PASSWORD=minio13
-minio server /data
+librefs server /data
 ```
 
 #### Site
@@ -60,12 +60,12 @@ Example:
 ```sh
 export MINIO_SITE_REGION="us-west-0"
 export MINIO_SITE_NAME="sfo-rack-1"
-minio server /data
+librefs server /data
 ```
 
 ### Storage Class
 
-By default, parity for objects with standard storage class is set to `N/2`, and parity for objects with reduced redundancy storage class objects is set to `2`. Read more about storage class support in MinIO server [here](https://github.com/minio/minio/blob/master/docs/erasure/storage-class/README.md).
+By default, parity for objects with standard storage class is set to `N/2`, and parity for objects with reduced redundancy storage class objects is set to `2`. Read more about storage class support in libreFS server [here](https://github.com/minio/minio/blob/master/docs/erasure/storage-class/README.md).
 
 ```
 KEY:
@@ -91,9 +91,9 @@ MINIO_STORAGE_CLASS_COMMENT   (sentence)  optionally add a comment to this setti
 
 #### Etcd
 
-MinIO supports storing encrypted IAM assets in etcd, if KMS is configured. Please refer to how to encrypt your config and IAM credentials [here](https://github.com/minio/minio/blob/master/docs/kms/IAM.md).
+libreFS supports storing encrypted IAM assets in etcd, if KMS is configured. Please refer to how to encrypt your config and IAM credentials [here](https://github.com/minio/minio/blob/master/docs/kms/IAM.md).
 
-> NOTE: if *path_prefix* is set then MinIO will not federate your buckets, namespaced IAM assets are assumed as isolated tenants, only buckets are considered globally unique but performing a lookup with a *bucket* which belongs to a different tenant will fail unlike federated setups where MinIO would port-forward and route the request to relevant cluster accordingly. This is a special feature, federated deployments should not need to set *path_prefix*.
+> NOTE: if *path_prefix* is set then libreFS will not federate your buckets, namespaced IAM assets are assumed as isolated tenants, only buckets are considered globally unique but performing a lookup with a *bucket* which belongs to a different tenant will fail unlike federated setups where libreFS would port-forward and route the request to relevant cluster accordingly. This is a special feature, federated deployments should not need to set *path_prefix*.
 
 ```
 KEY:
@@ -125,7 +125,7 @@ MINIO_ETCD_COMMENT          (sentence)  optionally add a comment to this setting
 
 ### API
 
-By default, there is no limitation on the number of concurrent requests that a server/cluster processes at the same time. However, it is possible to impose such limitation using the API subsystem. Read more about throttling limitation in MinIO server [here](https://github.com/minio/minio/blob/master/docs/throttle/README.md).
+By default, there is no limitation on the number of concurrent requests that a server/cluster processes at the same time. However, it is possible to impose such limitation using the API subsystem. Read more about throttling limitation in libreFS server [here](https://github.com/minio/minio/blob/master/docs/throttle/README.md).
 
 ```
 KEY:
@@ -139,7 +139,7 @@ remote_transport_deadline       (duration)  set the deadline for API requests on
 list_quorum                     (string)    set the acceptable quorum expected for list operations e.g. "optimal", "reduced", "disk", "strict", "auto" (default: 'strict')
 replication_priority            (string)    set replication priority (default: 'auto')
 replication_max_workers         (number)    set the maximum number of replication workers (default: '500')
-replication_max_lrg_workers     (number)    set the maximum number of replication workers MinIO uses to replicate large objects between sites. (default: '10')
+replication_max_lrg_workers     (number)    set the maximum number of replication workers libreFS uses to replicate large objects between sites. (default: '10')
 transition_workers              (number)    set the number of transition workers (default: '100')
 stale_uploads_expiry            (duration)  set to expire stale multipart uploads older than this values (default: '24h')
 stale_uploads_cleanup_interval  (duration)  set to change intervals when stale multipart uploads are expired (default: '6h')
@@ -172,7 +172,7 @@ MINIO_API_OBJECT_MAX_VERSIONS             (number)    set max allowed number of 
 
 #### Notifications
 
-Notification targets supported by MinIO are in the following list. To configure individual targets please refer to more detailed documentation [here](https://docs.min.io/community/minio-object-store/administration/monitoring.html#bucket-notifications).
+Notification targets supported by libreFS are in the following list. To configure individual targets please refer to more detailed documentation [here](https://docs.min.io/community/minio-object-store/administration/monitoring.html#bucket-notifications).
 
 ```
 notify_webhook        publish bucket notifications to webhook endpoints
@@ -313,28 +313,28 @@ Example:
 
 ```sh
 export MINIO_BROWSER=off
-minio server /data
+librefs server /data
 ```
 
 ### Domain
 
-By default, MinIO supports path-style requests that are of the format <http://mydomain.com/bucket/object>. `MINIO_DOMAIN` environment variable is used to enable virtual-host-style requests. If the request `Host` header matches with `(.+).mydomain.com` then the matched pattern `$1` is used as bucket and the path is used as object. Read more about path-style and virtual-host-style [here](http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAPI.html).
+By default, libreFS supports path-style requests that are of the format <http://mydomain.com/bucket/object>. `MINIO_DOMAIN` environment variable is used to enable virtual-host-style requests. If the request `Host` header matches with `(.+).mydomain.com` then the matched pattern `$1` is used as bucket and the path is used as object. Read more about path-style and virtual-host-style [here](http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAPI.html).
 
 Example:
 
 ```sh
 export MINIO_DOMAIN=mydomain.com
-minio server /data
+librefs server /data
 ```
 
 For advanced use cases `MINIO_DOMAIN` environment variable supports multiple-domains with comma separated values.
 
 ```sh
 export MINIO_DOMAIN=sub1.mydomain.com,sub2.mydomain.com
-minio server /data
+librefs server /data
 ```
 
 ## Explore Further
 
-* [MinIO Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html)
-* [Configure MinIO Server with TLS](https://docs.min.io/community/minio-object-store/operations/network-encryption.html)
+* [libreFS Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html)
+* [Configure libreFS Server with TLS](https://docs.min.io/community/minio-object-store/operations/network-encryption.html)

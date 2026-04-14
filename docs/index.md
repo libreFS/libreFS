@@ -1,8 +1,8 @@
 # libreFS Documentation
 
-**libreFS** is a community-maintained, fully open-source S3-compatible object storage server — forked from MinIO at `RELEASE.2025-04-22T22-12-26Z`, the last fully open-source MinIO release before the WebUI, LDAP/OIDC support, distributed mode, and pre-built binaries were moved to the proprietary AIStor product.
+**libreFS** is a community-maintained, fully open-source S3-compatible object storage server — forked from libreFS at `RELEASE.2025-04-22T22-12-26Z`, the last fully open-source libreFS release before the WebUI, LDAP/OIDC support, distributed mode, and pre-built binaries were moved to the proprietary AIStor product.
 
-Everything in MinIO's open-source edition is preserved here, permanently, under the GNU AGPL v3.0.
+Everything in libreFS's open-source edition is preserved here, permanently, under the GNU AGPL v3.0.
 
 ---
 
@@ -61,9 +61,9 @@ Everything in MinIO's open-source edition is preserved here, permanently, under 
 
 ---
 
-## Key differences from upstream MinIO
+## Key differences from upstream libreFS
 
-libreFS is a **drop-in replacement** for MinIO. The S3 API, environment variable names (`MINIO_*`), and admin API are all identical. Existing applications, SDKs, and tooling work without any changes.
+libreFS is a **drop-in replacement** for libreFS. The S3 API, environment variable names (`MINIO_*`), and admin API are all identical. Existing applications, SDKs, and tooling work without any changes.
 
 What is different:
 

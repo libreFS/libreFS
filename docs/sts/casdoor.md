@@ -1,6 +1,6 @@
 # Casdoor Quickstart Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-Casdoor is a UI-first centralized authentication / Single-Sign-On (SSO) platform supporting OAuth 2.0, OIDC and SAML, integrated with Casbin RBAC and ABAC permission management. This document covers configuring Casdoor identity provider support with MinIO.
+Casdoor is a UI-first centralized authentication / Single-Sign-On (SSO) platform supporting OAuth 2.0, OIDC and SAML, integrated with Casbin RBAC and ABAC permission management. This document covers configuring Casdoor identity provider support with libreFS.
 
 ## Prerequisites
 
@@ -18,17 +18,17 @@ For a quick installation, docker-compose reference configs are also available on
 
 - Go to Users
   - Edit the user
-    - Add your MinIO policy (ex: `readwrite`) in `Tag`
+    - Add your libreFS policy (ex: `readwrite`) in `Tag`
     - Save
 
 - Open your favorite browser and visit: **http://`CASDOOR_ENDPOINT`/.well-known/openid-configuration**, you will see the OIDC configure of Casdoor.
 
-### Configure MinIO
+### Configure libreFS
 
 ```
 export MINIO_ROOT_USER=minio
 export MINIO_ROOT_PASSWORD=minio123
-minio server /mnt/export
+librefs server /mnt/export
 ```
 
 Here are all the available options to configure OpenID connect
@@ -65,15 +65,15 @@ MINIO_IDENTITY_OPENID_SCOPES        (csv)       Comma separated list of OpenID s
 MINIO_IDENTITY_OPENID_COMMENT       (sentence)  optionally add a comment to this setting
 ```
 
-Set `identity_openid` config with `config_url`, `client_id` and restart MinIO
+Set `identity_openid` config with `config_url`, `client_id` and restart libreFS
 
 ```
 ~ mc admin config set myminio identity_openid config_url="http://CASDOOR_ENDPOINT/.well-known/openid-configuration" client_id=<client id> client_secret=<client secret> claim_name="tag"
 ```
 
-> NOTE: As MinIO needs to use a claim attribute in JWT for its policy, you should configure it in casdoor as well. Currently, casdoor uses `tag` as a workaround for configuring MinIO's policy.
+> NOTE: As libreFS needs to use a claim attribute in JWT for its policy, you should configure it in casdoor as well. Currently, casdoor uses `tag` as a workaround for configuring libreFS's policy.
 
-Once successfully set restart the MinIO instance.
+Once successfully set restart the libreFS instance.
 
 ```
 mc admin service restart myminio
@@ -81,7 +81,7 @@ mc admin service restart myminio
 
 ### Using WebIdentiy API
 
-On another terminal run `web-identity.go` a sample client application which obtains JWT id_tokens from an identity provider, in our case its Keycloak. Uses the returned id_token response to get new temporary credentials from the MinIO server using the STS API call `AssumeRoleWithWebIdentity`.
+On another terminal run `web-identity.go` a sample client application which obtains JWT id_tokens from an identity provider, in our case its Keycloak. Uses the returned id_token response to get new temporary credentials from the libreFS server using the STS API call `AssumeRoleWithWebIdentity`.
 
 ```
 $ go run docs/sts/web-identity.go -cid account -csec 072e7f00-4289-469c-9ab2-bbe843c7f5a8  -config-ep "http://CASDOOR_ENDPOINT/.well-known/openid-configuration" -port 8888
@@ -102,15 +102,15 @@ This will open the login page of Casdoor, upon successful login, STS credentials
 }
 ```
 
-### Using MinIO Console
+### Using libreFS Console
 
-- Open MinIO URL on the browser, lets say <http://localhost:9000/>
+- Open libreFS URL on the browser, lets say <http://localhost:9000/>
 - Click on `Login with SSO`
-- User will be redirected to the Casdoor user login page, upon successful login the user will be redirected to MinIO page and logged in automatically,
+- User will be redirected to the Casdoor user login page, upon successful login the user will be redirected to libreFS page and logged in automatically,
   the user should see now the buckets and objects they have access to.
 
 ## Explore Further
 
-- [Casdoor MinIO Integration](https://casdoor.org/docs/integration/minio)
-- [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [Casdoor libreFS Integration](https://casdoor.org/docs/integration/minio)
+- [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

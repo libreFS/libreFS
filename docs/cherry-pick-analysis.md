@@ -8,7 +8,7 @@ Use it as the reference when cherry-picking fixes into libreFS.
 ## Legend
 
 - ✅ **TAKE** — safe to cherry-pick (bug fix, security fix, perf, new non-breaking feature)
-- ❌ **SKIP** — do not cherry-pick (removes features, MinIO branding/docs, AIStor-era console, release bumps)
+- ❌ **SKIP** — do not cherry-pick (removes features, libreFS branding/docs, AIStor-era console, release bumps)
 - ⚠️ **REVIEW** — cherry-pick with care; see note
 
 ## Console module note
@@ -42,10 +42,10 @@ that cannot even be fetched.
 | `8cad40a48` | Update UI console to the latest version (#21278) | ❌ SKIP — AIStor-era console (repo deleted) |
 | `160f8a901` | Update Console UI to latest version (#21294) | ❌ SKIP — AIStor-era console (repo deleted) |
 | `1d50cae43` | remove support for FIPS 140-2 with boringcrypto (#21292) | ❌ SKIP — removes compliance feature |
-| `ecde75f91` | docs: use github-style-notes in the readme (#21308) | ❌ SKIP — MinIO-specific docs |
-| `b7540169a` | Add documentation for replication_max_lrg_workers (#21236) | ❌ SKIP — MinIO docs |
-| `2d8ba15b9` | Correct spelling (#21225) | ❌ SKIP — MinIO docs |
-| `f14198e3d` | update with newer pkger release | ❌ SKIP — MinIO release tooling |
+| `ecde75f91` | docs: use github-style-notes in the readme (#21308) | ❌ SKIP — libreFS-specific docs |
+| `b7540169a` | Add documentation for replication_max_lrg_workers (#21236) | ❌ SKIP — libreFS docs |
+| `2d8ba15b9` | Correct spelling (#21225) | ❌ SKIP — libreFS docs |
+| `f14198e3d` | update with newer pkger release | ❌ SKIP — libreFS release tooling |
 | `bd6dd55e7` | Update yaml files to latest version RELEASE.2025-04-22T22-12-26Z | ❌ SKIP — release bump |
 
 ---
@@ -64,8 +64,8 @@ that cannot even be fetched.
 | `ea77bcfc9` | fix: panic for TestListObjectsWithILM (#21322) | ✅ TAKE |
 | `9f24ca5d6` | fix: empty fileName cause Reader nil for PostPolicyBucketHandler (#21323) | ✅ TAKE |
 | `2c7fe094d` | s3: Fix early listing stopping when ILM is enabled (#472) (#21246) | ✅ TAKE |
-| `816666a4c` | make some targeted updates to README.md (#21125) | ❌ SKIP — MinIO branding/docs |
-| `9ebe16878` | add pull requests etiquette | ❌ SKIP — MinIO-specific governance docs |
+| `816666a4c` | make some targeted updates to README.md (#21125) | ❌ SKIP — libreFS branding/docs |
+| `9ebe16878` | add pull requests etiquette | ❌ SKIP — libreFS-specific governance docs |
 | `ee2028cde` | Update yaml files to latest version RELEASE.2025-05-24T17-08-30Z | ❌ SKIP — release bump |
 
 ---
@@ -122,10 +122,10 @@ that cannot even be fetched.
 | `d002beaee` | feat: add variable for datasource in grafana dashboards (#21470) | ✅ TAKE |
 | `71f293d9a` | fix: record extra skippedEntry for listObject (#21484) | ✅ TAKE |
 | `e3d183b6a` | bring more idempotent behavior to AbortMultipartUpload() (#21475) | ✅ TAKE |
-| `02ba581ec` | custom user-agent transport wrapper (#21483) | ⚠️ REVIEW — adds MinIO User-Agent header to outbound OIDC/LDAP HTTP requests; not telemetry, but rename "MinIO" → "libreFS" in the UA string before cherry-picking |
+| `02ba581ec` | custom user-agent transport wrapper (#21483) | ⚠️ REVIEW — adds libreFS User-Agent header to outbound OIDC/LDAP HTTP requests; not telemetry, but rename "libreFS" → "libreFS" in the UA string before cherry-picking |
 | `9fdbf6fe8` | Updated object-browser to the latest version v2.0.4 (#21564) | ❌ SKIP — AIStor-era console (repo deleted) |
 | `752abc2e2` | Update console to v2.0.3 (#21474) | ❌ SKIP — AIStor-era console (repo deleted) |
-| `0848e6960` | Update docs links throughout (#21513) | ❌ SKIP — MinIO docs links |
+| `0848e6960` | Update docs links throughout (#21513) | ❌ SKIP — libreFS docs links |
 | `0cde98290` | Update yaml files to latest version RELEASE.2025-09-06T17-38-46Z | ❌ SKIP — release bump |
 | `b9f0e8c71` | Update yaml files to latest version RELEASE.2025-07-23T15-54-02Z | ❌ SKIP — release bump |
 
@@ -144,11 +144,11 @@ that cannot even be fetched.
 | `756f3c814` | fix: incorrect poolID when after decommission adding pools (#21590) | ✅ TAKE |
 | `7a80ec1cc` | fix: LDAP TLS handshake fails with StartTLS and tls_skip_verify=off (#21582) | ✅ TAKE — important LDAP fix |
 | `ae71d7690` | fix: remove unnecessary replication checks (#21569) | ✅ TAKE |
-| `9e49d5e7a` | update README.md and other docs to point to source only releases | ❌ SKIP — MinIO marketing (declares source-only distribution, irrelevant to us) |
-| `334c313da` | Change documentation link in README (#21636) | ❌ SKIP — MinIO docs |
-| `d51a4a4ff` | Update README with Docker and Helm installation instructions (#21627) | ❌ SKIP — MinIO docs |
-| `62383dfbf` | Fix formatting of features in README.md | ❌ SKIP — MinIO docs |
-| `bde0d5a29` | Updating readme for MinIO docs (#21625) | ❌ SKIP — MinIO docs |
+| `9e49d5e7a` | update README.md and other docs to point to source only releases | ❌ SKIP — libreFS marketing (declares source-only distribution, irrelevant to us) |
+| `334c313da` | Change documentation link in README (#21636) | ❌ SKIP — libreFS docs |
+| `d51a4a4ff` | Update README with Docker and Helm installation instructions (#21627) | ❌ SKIP — libreFS docs |
+| `62383dfbf` | Fix formatting of features in README.md | ❌ SKIP — libreFS docs |
+| `bde0d5a29` | Updating readme for libreFS docs (#21625) | ❌ SKIP — libreFS docs |
 
 > **Note on the CVE fix:** The CVE (GHSA-jjjj-jwhf-8rgr — privilege escalation via session policy bypass) is the primary reason for this release. The fix is spread across several commits in this interval. `c1a49490c` is the most directly related one. Verify all IAM-touching commits before cherry-picking.
 
@@ -169,4 +169,4 @@ that cannot even be fetched.
 ## REVIEW items to resolve before cherry-picking
 
 1. **`7ced9663e`** (interval 4) — `simplify validating policy mapping`: removes warning logs when OpenID/authn-plugin role policies don't exist. Low risk; lean toward TAKE.
-2. **`02ba581ec`** (interval 5) — `custom user-agent transport wrapper`: cherry-pick with a one-line change to replace `"MinIO"` with `"libreFS"` in the user-agent string.
+2. **`02ba581ec`** (interval 5) — `custom user-agent transport wrapper`: cherry-pick with a one-line change to replace `"libreFS"` with `"libreFS"` in the user-agent string.

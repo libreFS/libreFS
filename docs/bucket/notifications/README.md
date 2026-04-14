@@ -1,8 +1,8 @@
-# MinIO Bucket Notification Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# libreFS Bucket Notification Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
 Events occurring on objects in a bucket can be monitored using bucket event notifications.
 
-Various event types supported by MinIO server are
+Various event types supported by libreFS server are
 
 | Supported Object Event Types     |                                            |                                        |
 | :----------------------          | ------------------------------------------ | -------------------------------------  |
@@ -30,7 +30,7 @@ Various event types supported by MinIO server are
 | `s3:BucketCreated`                                                           |
 | `s3:BucketRemoved`                                                           |
 
-Use client tools like `mc` to set and listen for event notifications using the [`event` sub-command](https://docs.min.io/community/minio-object-store/reference/minio-mc/mc-event-add.html). MinIO SDK's [`BucketNotification` APIs](https://docs.min.io/community/minio-object-store/developers/go/API.html#setbucketnotification-ctx-context-context-bucketname-string-config-notification-configuration-error) can also be used. The notification message MinIO sends to publish an event is a JSON message with the following [structure](https://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html).
+Use client tools like `mc` to set and listen for event notifications using the [`event` sub-command](https://docs.min.io/community/minio-object-store/reference/minio-mc/mc-event-add.html). libreFS SDK's [`BucketNotification` APIs](https://docs.min.io/community/minio-object-store/developers/go/API.html#setbucketnotification-ctx-context-context-bucketname-string-config-notification-configuration-error) can also be used. The notification message libreFS sends to publish an event is a JSON message with the following [structure](https://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html).
 
 Bucket events can be published to the following targets:
 
@@ -43,8 +43,8 @@ Bucket events can be published to the following targets:
 
 ## Prerequisites
 
-- Install and configure MinIO Server from [here](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html#procedure).
-- Install and configure MinIO Client from [here](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart).
+- Install and configure libreFS Server from [here](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html#procedure).
+- Install and configure libreFS Client from [here](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart).
 
 ```
 $ mc admin config get myminio | grep notify
@@ -66,11 +66,11 @@ notify_redis          publish bucket notifications to Redis datastores
 > - '\*' at the end of the values, means its the default value for the arg.
 > - When configured using environment variables, the `:name` can be specified using this format `MINIO_NOTIFY_WEBHOOK_ENABLE_<name>`.
 
-## Publish MinIO events via AMQP
+## Publish libreFS events via AMQP
 
 Install RabbitMQ from [here](https://www.rabbitmq.com/).
 
-### Step 1: Add AMQP endpoint to MinIO
+### Step 1: Add AMQP endpoint to libreFS
 
 The AMQP configuration is located under the sub-system `notify_amqp` top-level key. Create a configuration key-value pair here for your AMQP instance. The key is a name for your AMQP endpoint, and the value is a collection of key-value parameters described in the table below.
 
@@ -117,7 +117,7 @@ MINIO_NOTIFY_AMQP_QUEUE_LIMIT    (number)    maximum limit for undelivered messa
 MINIO_NOTIFY_AMQP_COMMENT        (sentence)  optionally add a comment to this setting
 ```
 
-MinIO supports persistent event store. The persistent store will backup events when the AMQP broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the AMQP broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 To update the configuration, use `mc admin config get notify_amqp` command to get the current configuration for `notify_amqp`.
 
@@ -126,7 +126,7 @@ $ mc admin config get myminio/ notify_amqp
 notify_amqp:1 delivery_mode="0" exchange_type="" no_wait="off" queue_dir="" queue_limit="0"  url="" auto_deleted="off" durable="off" exchange="" internal="off" mandatory="off" routing_key=""
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment.Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:amqp` at start-up if there were no errors.
+Use `mc admin config set` command to update the configuration for the deployment.Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:amqp` at start-up if there were no errors.
 
 An example configuration for RabbitMQ is shown below:
 
@@ -134,13 +134,13 @@ An example configuration for RabbitMQ is shown below:
 mc admin config set myminio/ notify_amqp:1 exchange="bucketevents" exchange_type="fanout" mandatory="off" no_wait="off"  url="amqp://myuser:mypassword@localhost:5672" auto_deleted="off" delivery_mode="0" durable="off" internal="off" routing_key="bucketlogs"
 ```
 
-MinIO supports all the exchanges available in [RabbitMQ](https://www.rabbitmq.com/). For this setup, we are using `fanout` exchange.
+libreFS supports all the exchanges available in [RabbitMQ](https://www.rabbitmq.com/). For this setup, we are using `fanout` exchange.
 
-MinIO also sends with the notifications two headers: `minio-bucket` and `minio-event`. An exchange using the type "headers" can use this information to route the notifications to proper queues.
+libreFS also sends with the notifications two headers: `minio-bucket` and `minio-event`. An exchange using the type "headers" can use this information to route the notifications to proper queues.
 
 Note that, you can add as many AMQP server endpoint configurations as needed by providing an identifier (like "1" in the example above) for the AMQP instance and an object of per-server configuration parameters.
 
-### Step 2: Enable RabbitMQ bucket notification using MinIO client
+### Step 2: Enable RabbitMQ bucket notification using libreFS client
 
 We will enable bucket event notification to trigger whenever a JPEG image is uploaded or deleted `images` bucket on `myminio` server. Here ARN value is `arn:minio:sqs::1:amqp`. To understand more about ARN please follow [AWS ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) documentation.
 
@@ -203,11 +203,11 @@ python rabbit.py
 '{"Records":[{"eventVersion":"2.0","eventSource":"aws:s3","awsRegion":"","eventTime":"2016–09–08T22:34:38.226Z","eventName":"s3:ObjectCreated:Put","userIdentity":{"principalId":"minio"},"requestParameters":{"sourceIPAddress":"10.1.10.150:44576"},"responseElements":{},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"images","ownerIdentity":{"principalId":"minio"},"arn":"arn:aws:s3:::images"},"object":{"key":"myphoto.jpg","size":200436,"sequencer":"147279EAF9F40933"}}}],"level":"info","msg":"","time":"2016–09–08T15:34:38–07:00"}'
 ```
 
-## Publish MinIO events MQTT
+## Publish libreFS events MQTT
 
 Install an MQTT Broker from [here](https://mosquitto.org/).
 
-### Step 1: Add MQTT endpoint to MinIO
+### Step 1: Add MQTT endpoint to libreFS
 
 The MQTT configuration is located as `notify_mqtt` key. Create a configuration key-value pair here for your MQTT instance. The key is a name for your MQTT endpoint, and the value is a collection of key-value parameters described in the table below.
 
@@ -248,7 +248,7 @@ MINIO_NOTIFY_MQTT_QUEUE_LIMIT          (number)    maximum limit for undelivered
 MINIO_NOTIFY_MQTT_COMMENT              (sentence)  optionally add a comment to this setting
 ```
 
-MinIO supports persistent event store. The persistent store will backup events when the MQTT broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the MQTT broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 To update the configuration, use `mc admin config get` command to get the current configuration.
 
@@ -257,17 +257,17 @@ $ mc admin config get myminio/ notify_mqtt
 notify_mqtt:1 broker="" password="" queue_dir="" queue_limit="0" reconnect_interval="0s"  keep_alive_interval="0s" qos="0" topic="" username=""
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment. Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:mqtt` at start-up if there were no errors.
+Use `mc admin config set` command to update the configuration for the deployment. Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:mqtt` at start-up if there were no errors.
 
 ```sh
 mc admin config set myminio notify_mqtt:1 broker="tcp://localhost:1883" password="" queue_dir="" queue_limit="0" reconnect_interval="0s"  keep_alive_interval="0s" qos="1" topic="minio" username=""
 ```
 
-MinIO supports any MQTT server that supports MQTT 3.1 or 3.1.1 and can connect to them over TCP, TLS, or a Websocket connection using `tcp://`, `tls://`, or `ws://` respectively as the scheme for the broker url. See the [Go Client](http://www.eclipse.org/paho/clients/golang/) documentation for more information.
+libreFS supports any MQTT server that supports MQTT 3.1 or 3.1.1 and can connect to them over TCP, TLS, or a Websocket connection using `tcp://`, `tls://`, or `ws://` respectively as the scheme for the broker url. See the [Go Client](http://www.eclipse.org/paho/clients/golang/) documentation for more information.
 
 Note that, you can add as many MQTT server endpoint configurations as needed by providing an identifier (like "1" in the example above) for the MQTT instance and an object of per-server configuration parameters.
 
-### Step 2: Enable MQTT bucket notification using MinIO client
+### Step 2: Enable MQTT bucket notification using libreFS client
 
 We will enable bucket event notification to trigger whenever a JPEG image is uploaded or deleted `images` bucket on `myminio` server. Here ARN value is `arn:minio:sqs::1:mqtt`.
 
@@ -326,23 +326,23 @@ python mqtt.py
 {“Records”:[{“eventVersion”:”2.0",”eventSource”:”aws:s3",”awsRegion”:”",”eventTime”:”2016–09–08T22:34:38.226Z”,”eventName”:”s3:ObjectCreated:Put”,”userIdentity”:{“principalId”:”minio”},”requestParameters”:{“sourceIPAddress”:”10.1.10.150:44576"},”responseElements”:{},”s3":{“s3SchemaVersion”:”1.0",”configurationId”:”Config”,”bucket”:{“name”:”images”,”ownerIdentity”:{“principalId”:”minio”},”arn”:”arn:aws:s3:::images”},”object”:{“key”:”myphoto.jpg”,”size”:200436,”sequencer”:”147279EAF9F40933"}}}],”level”:”info”,”msg”:””,”time”:”2016–09–08T15:34:38–07:00"}
 ```
 
-## Publish MinIO events via Elasticsearch
+## Publish libreFS events via Elasticsearch
 
 Install [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) server.
 
 This notification target supports two formats: _namespace_ and _access_.
 
-When the _namespace_ format is used, MinIO synchronizes objects in the bucket with documents in the index. For each event in the MinIO, the server creates a document with the bucket and object name from the event as the document ID. Other details of the event are stored in the body of the document. Thus if an existing object is over-written in MinIO, the corresponding document in the Elasticsearch index is updated. If an object is deleted, the corresponding document is deleted from the index.
+When the _namespace_ format is used, libreFS synchronizes objects in the bucket with documents in the index. For each event in the libreFS, the server creates a document with the bucket and object name from the event as the document ID. Other details of the event are stored in the body of the document. Thus if an existing object is over-written in libreFS, the corresponding document in the Elasticsearch index is updated. If an object is deleted, the corresponding document is deleted from the index.
 
-When the _access_ format is used, MinIO appends events as documents in an Elasticsearch index. For each event, a document with the event details, with the timestamp of document set to the event's timestamp is appended to an index. The ID of the documented is randomly generated by Elasticsearch. No documents are deleted or modified in this format.
+When the _access_ format is used, libreFS appends events as documents in an Elasticsearch index. For each event, a document with the event details, with the timestamp of document set to the event's timestamp is appended to an index. The ID of the documented is randomly generated by Elasticsearch. No documents are deleted or modified in this format.
 
 The steps below show how to use this notification target in `namespace` format. The other format is very similar and is omitted for brevity.
 
 ### Step 1: Ensure Elasticsearch minimum requirements are met
 
-MinIO requires a 5.x series version of Elasticsearch. This is the latest major release series. Elasticsearch provides version upgrade migration guidelines [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html).
+libreFS requires a 5.x series version of Elasticsearch. This is the latest major release series. Elasticsearch provides version upgrade migration guidelines [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html).
 
-### Step 2: Add Elasticsearch endpoint to MinIO
+### Step 2: Add Elasticsearch endpoint to libreFS
 
 The Elasticsearch configuration is located in the `notify_elasticsearch` key. Create a configuration key-value pair here for your Elasticsearch instance. The key is a name for your Elasticsearch endpoint, and the value is a collection of key-value parameters described in the table below.
 
@@ -381,9 +381,9 @@ MINIO_NOTIFY_ELASTICSEARCH_COMMENT      (sentence)           optionally add a co
 
 For example: `http://localhost:9200` or with authentication info `http://elastic:MagicWord@127.0.0.1:9200`.
 
-MinIO supports persistent event store. The persistent store will backup events when the Elasticsearch broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the Elasticsearch broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
-If Elasticsearch has authentication enabled, the credentials can be supplied to MinIO via the `url` parameter formatted as `PROTO://USERNAME:PASSWORD@ELASTICSEARCH_HOST:PORT`.
+If Elasticsearch has authentication enabled, the credentials can be supplied to libreFS via the `url` parameter formatted as `PROTO://USERNAME:PASSWORD@ELASTICSEARCH_HOST:PORT`.
 
 To update the configuration, use `mc admin config get` command to get the current configuration.
 
@@ -392,7 +392,7 @@ $ mc admin config get myminio/ notify_elasticsearch
 notify_elasticsearch:1 queue_limit="0"  url="" format="namespace" index="" queue_dir=""
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment. Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:elasticsearch` at start-up if there were no errors.
+Use `mc admin config set` command to update the configuration for the deployment. Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:elasticsearch` at start-up if there were no errors.
 
 ```sh
 mc admin config set myminio notify_elasticsearch:1 queue_limit="0"  url="http://127.0.0.1:9200" format="namespace" index="minio_events" queue_dir="" username="" password=""
@@ -400,13 +400,13 @@ mc admin config set myminio notify_elasticsearch:1 queue_limit="0"  url="http://
 
 Note that, you can add as many Elasticsearch server endpoint configurations as needed by providing an identifier (like "1" in the example above) for the Elasticsearch instance and an object of per-server configuration parameters.
 
-### Step 3: Enable Elastichsearch bucket notification using MinIO client
+### Step 3: Enable Elastichsearch bucket notification using libreFS client
 
 We will now enable bucket event notifications on a bucket named `images`. Whenever a JPEG image is created/overwritten, a new document is added or an existing document is updated in the Elasticsearch index configured above. When an existing object is deleted, the corresponding document is deleted from the index. Thus, the rows in the Elasticsearch index, reflect the `.jpg` objects in the `images` bucket.
 
-To configure this bucket notification, we need the ARN printed by MinIO in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+To configure this bucket notification, we need the ARN printed by libreFS in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 
-With the `mc` tool, the configuration is very simple to add. Let us say that the MinIO server is aliased as `myminio` in our mc configuration. Execute the following:
+With the `mc` tool, the configuration is very simple to add. Let us say that the libreFS server is aliased as `myminio` in our mc configuration. Execute the following:
 
 ```
 mc mb myminio/images
@@ -482,7 +482,7 @@ $ curl  "http://localhost:9200/minio_events/_search?pretty=true"
               "source" : {
                 "host" : "127.0.0.1",
                 "port" : "38062",
-                "userAgent" : "MinIO (linux; amd64) minio-go/2.0.3 mc/2017-02-15T17:57:25Z"
+                "userAgent" : "libreFS (linux; amd64) minio-go/2.0.3 mc/2017-02-15T17:57:25Z"
               }
             }
           ]
@@ -497,21 +497,21 @@ This output shows that a document has been created for the event in Elasticsearc
 
 Here we see that the document ID is the bucket and object name. In case `access` format was used, the document ID would be automatically generated by Elasticsearch.
 
-## Publish MinIO events via Redis
+## Publish libreFS events via Redis
 
 Install [Redis](http://redis.io/download) server. For illustrative purposes, we have set the database password as "yoursecret".
 
 This notification target supports two formats: _namespace_ and _access_.
 
-When the _namespace_ format is used, MinIO synchronizes objects in the bucket with entries in a hash. For each entry, the key is formatted as "bucketName/objectName" for an object that exists in the bucket, and the value is the JSON-encoded event data about the operation that created/replaced the object in MinIO. When objects are updated or deleted, the corresponding entry in the hash is also updated or deleted.
+When the _namespace_ format is used, libreFS synchronizes objects in the bucket with entries in a hash. For each entry, the key is formatted as "bucketName/objectName" for an object that exists in the bucket, and the value is the JSON-encoded event data about the operation that created/replaced the object in libreFS. When objects are updated or deleted, the corresponding entry in the hash is also updated or deleted.
 
-When the _access_ format is used, MinIO appends events to a list using [RPUSH](https://redis.io/commands/rpush). Each item in the list is a JSON encoded list with two items, where the first item is a timestamp string, and the second item is a JSON object containing event data about the operation that happened in the bucket. No entries appended to the list are updated or deleted by MinIO in this format.
+When the _access_ format is used, libreFS appends events to a list using [RPUSH](https://redis.io/commands/rpush). Each item in the list is a JSON encoded list with two items, where the first item is a timestamp string, and the second item is a JSON object containing event data about the operation that happened in the bucket. No entries appended to the list are updated or deleted by libreFS in this format.
 
 The steps below show how to use this notification target in `namespace` and `access` format.
 
-### Step 1: Add Redis endpoint to MinIO
+### Step 1: Add Redis endpoint to libreFS
 
-The MinIO server configuration file is stored on the backend in json format.The Redis configuration is located in the `redis` key under the `notify` top-level key. Create a configuration key-value pair here for your Redis instance. The key is a name for your Redis endpoint, and the value is a collection of key-value parameters described in the table below.
+The libreFS server configuration file is stored on the backend in json format.The Redis configuration is located in the `redis` key under the `notify` top-level key. Create a configuration key-value pair here for your Redis instance. The key is a name for your Redis endpoint, and the value is a collection of key-value parameters described in the table below.
 
 ```
 KEY:
@@ -543,7 +543,7 @@ MINIO_NOTIFY_REDIS_QUEUE_LIMIT  (number)             maximum limit for undeliver
 MINIO_NOTIFY_REDIS_COMMENT      (sentence)           optionally add a comment to this setting
 ```
 
-MinIO supports persistent event store. The persistent store will backup events when the Redis broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the Redis broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 To update the configuration, use `mc admin config get` command to get the current configuration.
 
@@ -552,7 +552,7 @@ $ mc admin config get myminio/ notify_redis
 notify_redis:1 address="" format="namespace" key="" password="" queue_dir="" queue_limit="0"
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment.Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:redis` at start-up if there were no errors.
+Use `mc admin config set` command to update the configuration for the deployment.Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:redis` at start-up if there were no errors.
 
 ```sh
 mc admin config set myminio/ notify_redis:1 address="127.0.0.1:6379" format="namespace" key="bucketevents" password="yoursecret" queue_dir="" queue_limit="0"
@@ -560,13 +560,13 @@ mc admin config set myminio/ notify_redis:1 address="127.0.0.1:6379" format="nam
 
 Note that, you can add as many Redis server endpoint configurations as needed by providing an identifier (like "1" in the example above) for the Redis instance and an object of per-server configuration parameters.
 
-### Step 2: Enable Redis bucket notification using MinIO client
+### Step 2: Enable Redis bucket notification using libreFS client
 
 We will now enable bucket event notifications on a bucket named `images`. Whenever a JPEG image is created/overwritten, a new key is added or an existing key is updated in the Redis hash configured above. When an existing object is deleted, the corresponding key is deleted from the Redis hash. Thus, the rows in the Redis hash, reflect the `.jpg` objects in the `images` bucket.
 
-To configure this bucket notification, we need the ARN printed by MinIO in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+To configure this bucket notification, we need the ARN printed by libreFS in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 
-With the `mc` tool, the configuration is very simple to add. Let us say that the MinIO server is aliased as `myminio` in our mc configuration. Execute the following:
+With the `mc` tool, the configuration is very simple to add. Let us say that the libreFS server is aliased as `myminio` in our mc configuration. Execute the following:
 
 ```
 mc mb myminio/images
@@ -591,26 +591,26 @@ Open another terminal and upload a JPEG image into `images` bucket.
 mc cp myphoto.jpg myminio/images
 ```
 
-In the previous terminal, you will now see the operation that MinIO performs on Redis:
+In the previous terminal, you will now see the operation that libreFS performs on Redis:
 
 ```
 127.0.0.1:6379> monitor
 OK
 1490686879.650649 [0 172.17.0.1:44710] "PING"
-1490686879.651061 [0 172.17.0.1:44710] "HSET" "minio_events" "images/myphoto.jpg" "{\"Records\":[{\"eventVersion\":\"2.0\",\"eventSource\":\"minio:s3\",\"awsRegion\":\"\",\"eventTime\":\"2017-03-28T07:41:19Z\",\"eventName\":\"s3:ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"minio\"},\"requestParameters\":{\"sourceIPAddress\":\"127.0.0.1:52234\"},\"responseElements\":{\"x-amz-request-id\":\"14AFFBD1ACE5F632\",\"x-minio-origin-endpoint\":\"http://192.168.86.115:9000\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"Config\",\"bucket\":{\"name\":\"images\",\"ownerIdentity\":{\"principalId\":\"minio\"},\"arn\":\"arn:aws:s3:::images\"},\"object\":{\"key\":\"myphoto.jpg\",\"size\":2586,\"eTag\":\"5d284463f9da279f060f0ea4d11af098\",\"sequencer\":\"14AFFBD1ACE5F632\"}},\"source\":{\"host\":\"127.0.0.1\",\"port\":\"52234\",\"userAgent\":\"MinIO (linux; amd64) minio-go/2.0.3 mc/2017-02-15T17:57:25Z\"}}]}"
+1490686879.651061 [0 172.17.0.1:44710] "HSET" "minio_events" "images/myphoto.jpg" "{\"Records\":[{\"eventVersion\":\"2.0\",\"eventSource\":\"minio:s3\",\"awsRegion\":\"\",\"eventTime\":\"2017-03-28T07:41:19Z\",\"eventName\":\"s3:ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"minio\"},\"requestParameters\":{\"sourceIPAddress\":\"127.0.0.1:52234\"},\"responseElements\":{\"x-amz-request-id\":\"14AFFBD1ACE5F632\",\"x-minio-origin-endpoint\":\"http://192.168.86.115:9000\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"Config\",\"bucket\":{\"name\":\"images\",\"ownerIdentity\":{\"principalId\":\"minio\"},\"arn\":\"arn:aws:s3:::images\"},\"object\":{\"key\":\"myphoto.jpg\",\"size\":2586,\"eTag\":\"5d284463f9da279f060f0ea4d11af098\",\"sequencer\":\"14AFFBD1ACE5F632\"}},\"source\":{\"host\":\"127.0.0.1\",\"port\":\"52234\",\"userAgent\":\"libreFS (linux; amd64) minio-go/2.0.3 mc/2017-02-15T17:57:25Z\"}}]}"
 ```
 
-Here we see that MinIO performed `HSET` on `minio_events` key.
+Here we see that libreFS performed `HSET` on `minio_events` key.
 
-In case, `access` format was used, then `minio_events` would be a list, and the MinIO server would have performed an `RPUSH` to append to the list. A consumer of this list would ideally use `BLPOP` to remove list items from the left-end of the list.
+In case, `access` format was used, then `minio_events` would be a list, and the libreFS server would have performed an `RPUSH` to append to the list. A consumer of this list would ideally use `BLPOP` to remove list items from the left-end of the list.
 
-## Publish MinIO events via NATS
+## Publish libreFS events via NATS
 
 Install NATS from [here](http://nats.io/).
 
-### Step 1: Add NATS endpoint to MinIO
+### Step 1: Add NATS endpoint to libreFS
 
-MinIO supports persistent event store. The persistent store will backup events when the NATS broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the NATS broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 ```
 KEY:
@@ -672,17 +672,17 @@ $ mc admin config get myminio/ notify_nats
 notify_nats:1 password="yoursecret" streaming_max_pub_acks_in_flight="10" subject="" address="0.0.0.0:4222"  token="" username="yourusername" ping_interval="0" queue_limit="0" tls="off" tls_skip_verify="off" streaming_async="on" queue_dir="" streaming_cluster_id="test-cluster" streaming_enable="on"
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment.Restart MinIO server to reflect config changes. `bucketevents` is the subject used by NATS in this example.
+Use `mc admin config set` command to update the configuration for the deployment.Restart libreFS server to reflect config changes. `bucketevents` is the subject used by NATS in this example.
 
 ```sh
 mc admin config set myminio notify_nats:1 password="yoursecret" streaming_max_pub_acks_in_flight="10" subject="" address="0.0.0.0:4222"  token="" username="yourusername" ping_interval="0" queue_limit="0" tls="off" streaming_async="on" queue_dir="" streaming_cluster_id="test-cluster" streaming_enable="on"
 ```
 
-MinIO server also supports [NATS Streaming mode](http://nats.io/documentation/streaming/nats-streaming-intro/) that offers additional functionality like `At-least-once-delivery`, and `Publisher rate limiting`. To configure MinIO server to send notifications to NATS Streaming server, update the MinIO server configuration file as follows:
+libreFS server also supports [NATS Streaming mode](http://nats.io/documentation/streaming/nats-streaming-intro/) that offers additional functionality like `At-least-once-delivery`, and `Publisher rate limiting`. To configure libreFS server to send notifications to NATS Streaming server, update the libreFS server configuration file as follows:
 
 Read more about sections `cluster_id`, `client_id` on [NATS documentation](https://github.com/nats-io/nats-streaming-server/blob/master/README.md). Section `maxPubAcksInflight` is explained [here](https://github.com/nats-io/stan.go#publisher-rate-limiting).
 
-### Step 2: Enable NATS bucket notification using MinIO client
+### Step 2: Enable NATS bucket notification using libreFS client
 
 We will enable bucket event notification to trigger whenever a JPEG image is uploaded or deleted from `images` bucket on `myminio` server. Here ARN value is `arn:minio:sqs::1:nats`. To understand more about ARN please follow [AWS ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) documentation.
 
@@ -820,10 +820,10 @@ mc cp myphoto.jpg myminio/images
 The example `nats.go` program prints event notification to console.
 
 ```
-Received a message: {"EventType":"s3:ObjectCreated:Put","Key":"images/myphoto.jpg","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"","eventTime":"2017-07-07T18:46:37Z","eventName":"s3:ObjectCreated:Put","userIdentity":{"principalId":"minio"},"requestParameters":{"sourceIPAddress":"192.168.1.80:55328"},"responseElements":{"x-amz-request-id":"14CF20BD1EFD5B93","x-minio-origin-endpoint":"http://127.0.0.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"images","ownerIdentity":{"principalId":"minio"},"arn":"arn:aws:s3:::images"},"object":{"key":"myphoto.jpg","size":248682,"eTag":"f1671feacb8bbf7b0397c6e9364e8c92","contentType":"image/jpeg","userDefined":{"content-type":"image/jpeg"},"versionId":"1","sequencer":"14CF20BD1EFD5B93"}},"source":{"host":"192.168.1.80","port":"55328","userAgent":"MinIO (linux; amd64) minio-go/2.0.4 mc/DEVELOPMENT.GOGET"}}],"level":"info","msg":"","time":"2017-07-07T11:46:37-07:00"}
+Received a message: {"EventType":"s3:ObjectCreated:Put","Key":"images/myphoto.jpg","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"","eventTime":"2017-07-07T18:46:37Z","eventName":"s3:ObjectCreated:Put","userIdentity":{"principalId":"minio"},"requestParameters":{"sourceIPAddress":"192.168.1.80:55328"},"responseElements":{"x-amz-request-id":"14CF20BD1EFD5B93","x-minio-origin-endpoint":"http://127.0.0.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"images","ownerIdentity":{"principalId":"minio"},"arn":"arn:aws:s3:::images"},"object":{"key":"myphoto.jpg","size":248682,"eTag":"f1671feacb8bbf7b0397c6e9364e8c92","contentType":"image/jpeg","userDefined":{"content-type":"image/jpeg"},"versionId":"1","sequencer":"14CF20BD1EFD5B93"}},"source":{"host":"192.168.1.80","port":"55328","userAgent":"libreFS (linux; amd64) minio-go/2.0.4 mc/DEVELOPMENT.GOGET"}}],"level":"info","msg":"","time":"2017-07-07T11:46:37-07:00"}
 ```
 
-## Publish MinIO events via PostgreSQL
+## Publish libreFS events via PostgreSQL
 
 > NOTE: Until release RELEASE.2020-04-10T03-34-42Z PostgreSQL notification used to support following options:
 >
@@ -851,17 +851,17 @@ Install [PostgreSQL](https://www.postgresql.org/) database server. For illustrat
 
 This notification target supports two formats: _namespace_ and _access_.
 
-When the _namespace_ format is used, MinIO synchronizes objects in the bucket with rows in the table. It creates rows with two columns: key and value. The key is the bucket and object name of an object that exists in MinIO. The value is JSON encoded event data about the operation that created/replaced the object in MinIO. When objects are updated or deleted, the corresponding row from this table is updated or deleted respectively.
+When the _namespace_ format is used, libreFS synchronizes objects in the bucket with rows in the table. It creates rows with two columns: key and value. The key is the bucket and object name of an object that exists in libreFS. The value is JSON encoded event data about the operation that created/replaced the object in libreFS. When objects are updated or deleted, the corresponding row from this table is updated or deleted respectively.
 
-When the _access_ format is used, MinIO appends events to a table. It creates rows with two columns: event_time and event_data. The event_time is the time at which the event occurred in the MinIO server. The event_data is the JSON encoded event data about the operation on an object. No rows are deleted or modified in this format.
+When the _access_ format is used, libreFS appends events to a table. It creates rows with two columns: event_time and event_data. The event_time is the time at which the event occurred in the libreFS server. The event_data is the JSON encoded event data about the operation on an object. No rows are deleted or modified in this format.
 
 The steps below show how to use this notification target in `namespace` format. The other format is very similar and is omitted for brevity.
 
 ### Step 1: Ensure postgresql minimum requirements are met
 
-MinIO requires PostgreSQL version 9.5 or above. MinIO uses the [`INSERT ON CONFLICT`](https://www.postgresql.org/docs/9.5/static/sql-insert.html#SQL-ON-CONFLICT) (aka UPSERT) feature, introduced in version 9.5 and the [JSONB](https://www.postgresql.org/docs/9.4/static/datatype-json.html) data-type introduced in version 9.4.
+libreFS requires PostgreSQL version 9.5 or above. libreFS uses the [`INSERT ON CONFLICT`](https://www.postgresql.org/docs/9.5/static/sql-insert.html#SQL-ON-CONFLICT) (aka UPSERT) feature, introduced in version 9.5 and the [JSONB](https://www.postgresql.org/docs/9.4/static/datatype-json.html) data-type introduced in version 9.4.
 
-### Step 2: Add PostgreSQL endpoint to MinIO
+### Step 2: Add PostgreSQL endpoint to libreFS
 
 The PostgreSQL configuration is located in the `notify_postgresql` key. Create a configuration key-value pair here for your PostgreSQL instance. The key is a name for your PostgreSQL endpoint, and the value is a collection of key-value parameters described in the table below.
 
@@ -899,7 +899,7 @@ MINIO_NOTIFY_POSTGRES_MAX_OPEN_CONNECTIONS (number)             maximum number o
 > NOTE: If the `max_open_connections` key or the environment variable `MINIO_NOTIFY_POSTGRES_MAX_OPEN_CONNECTIONS` is set to `0`, There will be no limit set on the number of
 > open connections to the database. This setting is generally NOT recommended as the behavior may be inconsistent during recursive deletes in `namespace` format.
 
-MinIO supports persistent event store. The persistent store will backup events when the PostgreSQL connection goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the PostgreSQL connection goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 Note that for illustration here, we have disabled SSL. In the interest of security, for production this is not recommended.
 To update the configuration, use `mc admin config get` command to get the current configuration.
@@ -909,7 +909,7 @@ $ mc admin config get myminio notify_postgres
 notify_postgres:1 queue_dir="" connection_string="" queue_limit="0"  table="" format="namespace"
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment. Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:postgresql` at start-up if there were no errors.
+Use `mc admin config set` command to update the configuration for the deployment. Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:postgresql` at start-up if there were no errors.
 
 ```sh
 mc admin config set myminio notify_postgres:1 connection_string="host=localhost port=5432 dbname=minio_events user=postgres password=password sslmode=disable" table="bucketevents" format="namespace"
@@ -917,13 +917,13 @@ mc admin config set myminio notify_postgres:1 connection_string="host=localhost 
 
 Note that, you can add as many PostgreSQL server endpoint configurations as needed by providing an identifier (like "1" in the example above) for the PostgreSQL instance and an object of per-server configuration parameters.
 
-### Step 3: Enable PostgreSQL bucket notification using MinIO client
+### Step 3: Enable PostgreSQL bucket notification using libreFS client
 
 We will now enable bucket event notifications on a bucket named `images`. Whenever a JPEG image is created/overwritten, a new row is added or an existing row is updated in the PostgreSQL configured above. When an existing object is deleted, the corresponding row is deleted from the PostgreSQL table. Thus, the rows in the PostgreSQL table, reflect the `.jpg` objects in the `images` bucket.
 
-To configure this bucket notification, we need the ARN printed by MinIO in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+To configure this bucket notification, we need the ARN printed by libreFS in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 
-With the `mc` tool, the configuration is very simple to add. Let us say that the MinIO server is aliased as `myminio` in our mc configuration. Execute the following:
+With the `mc` tool, the configuration is very simple to add. Let us say that the libreFS server is aliased as `myminio` in our mc configuration. Execute the following:
 
 ```
 # Create bucket named `images` in myminio
@@ -956,7 +956,7 @@ key                 |                      value
 (1 row)
 ```
 
-## Publish MinIO events via MySQL
+## Publish libreFS events via MySQL
 
 > NOTE: Until release RELEASE.2020-04-10T03-34-42Z MySQL notification used to support following options:
 >
@@ -984,17 +984,17 @@ Install MySQL from [here](https://dev.mysql.com/downloads/mysql/). For illustrat
 
 This notification target supports two formats: _namespace_ and _access_.
 
-When the _namespace_ format is used, MinIO synchronizes objects in the bucket with rows in the table. It creates rows with two columns: key_name and value. The key_name is the bucket and object name of an object that exists in MinIO. The value is JSON encoded event data about the operation that created/replaced the object in MinIO. When objects are updated or deleted, the corresponding row from this table is updated or deleted respectively.
+When the _namespace_ format is used, libreFS synchronizes objects in the bucket with rows in the table. It creates rows with two columns: key_name and value. The key_name is the bucket and object name of an object that exists in libreFS. The value is JSON encoded event data about the operation that created/replaced the object in libreFS. When objects are updated or deleted, the corresponding row from this table is updated or deleted respectively.
 
-When the _access_ format is used, MinIO appends events to a table. It creates rows with two columns: event_time and event_data. The event_time is the time at which the event occurred in the MinIO server. The event_data is the JSON encoded event data about the operation on an object. No rows are deleted or modified in this format.
+When the _access_ format is used, libreFS appends events to a table. It creates rows with two columns: event_time and event_data. The event_time is the time at which the event occurred in the libreFS server. The event_data is the JSON encoded event data about the operation on an object. No rows are deleted or modified in this format.
 
 The steps below show how to use this notification target in `namespace` format. The other format is very similar and is omitted for brevity.
 
 ### Step 1: Ensure MySQL minimum requirements are met
 
-MinIO requires MySQL version 5.7.8 or above. MinIO uses the [JSON](https://dev.mysql.com/doc/refman/5.7/en/json.html) data-type introduced in version 5.7.8. We tested this setup on MySQL 5.7.17.
+libreFS requires MySQL version 5.7.8 or above. libreFS uses the [JSON](https://dev.mysql.com/doc/refman/5.7/en/json.html) data-type introduced in version 5.7.8. We tested this setup on MySQL 5.7.17.
 
-### Step 2: Add MySQL server endpoint configuration to MinIO
+### Step 2: Add MySQL server endpoint configuration to libreFS
 
 The MySQL configuration is located in the `notify_mysql` key. Create a configuration key-value pair here for your MySQL instance. The key is a name for your MySQL endpoint, and the value is a collection of key-value parameters described in the table below.
 
@@ -1034,7 +1034,7 @@ MINIO_NOTIFY_MYSQL_COMMENT              (sentence)           optionally add a co
 
 `dsn_string` is required and is of form `"<user>:<password>@tcp(<host>:<port>)/<database>"`
 
-MinIO supports persistent event store. The persistent store will backup events if MySQL connection goes offline and then replays the stored events when the broken connection comes back up. The event store can be configured by setting a directory path in `queue_dir` field, and the maximum number of events, which can be stored in a `queue_dir`, in `queue_limit` field. For example, `queue_dir` can be set to `/home/events` and `queue_limit` can be set to `1000`. By default, the `queue_limit` is set to `100000`.
+libreFS supports persistent event store. The persistent store will backup events if MySQL connection goes offline and then replays the stored events when the broken connection comes back up. The event store can be configured by setting a directory path in `queue_dir` field, and the maximum number of events, which can be stored in a `queue_dir`, in `queue_limit` field. For example, `queue_dir` can be set to `/home/events` and `queue_limit` can be set to `1000`. By default, the `queue_limit` is set to `100000`.
 
 Before updating the configuration, let's start with `mc admin config get` command to get the current configuration.
 
@@ -1051,15 +1051,15 @@ mc admin config set myminio notify_mysql:myinstance table="minio_images" dsn_str
 
 Note that, you can add as many MySQL server endpoint configurations as needed by providing an identifier (like "myinstance" in the example above) for each MySQL instance desired.
 
-Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::myinstance:mysql` at start-up, if there are no errors.
+Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::myinstance:mysql` at start-up, if there are no errors.
 
-### Step 3: Enable MySQL bucket notification using MinIO client
+### Step 3: Enable MySQL bucket notification using libreFS client
 
 We will now setup bucket notifications on a bucket named `images`. Whenever a JPEG image object is created/overwritten, a new row is added or an existing row is updated in the MySQL table configured above. When an existing object is deleted, the corresponding row is deleted from the MySQL table. Thus, the rows in the MySQL table, reflect the `.jpg` objects in the `images` bucket.
 
-To configure this bucket notification, we need the ARN printed by MinIO in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+To configure this bucket notification, we need the ARN printed by libreFS in the previous step. Additional information about ARN is available [here](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 
-With the `mc` tool, the configuration is very simple to add. Let us say that the MinIO server is aliased as `myminio` in our mc configuration. Execute the following:
+With the `mc` tool, the configuration is very simple to add. Let us say that the libreFS server is aliased as `myminio` in our mc configuration. Execute the following:
 
 ```
 # Create bucket named `images` in myminio
@@ -1093,17 +1093,17 @@ mysql> select * from minio_images;
 
 ```
 
-## Publish MinIO events via Kafka
+## Publish libreFS events via Kafka
 
 Install Apache Kafka from [here](http://kafka.apache.org/).
 
 ### Step 1: Ensure minimum requirements are met
 
-MinIO requires Kafka version 0.10 or 0.9. Internally MinIO uses the [Shopify/sarama](https://github.com/Shopify/sarama/) library and so has the same version compatibility as provided by this library.
+libreFS requires Kafka version 0.10 or 0.9. Internally libreFS uses the [Shopify/sarama](https://github.com/Shopify/sarama/) library and so has the same version compatibility as provided by this library.
 
-### Step 2: Add Kafka endpoint to MinIO
+### Step 2: Add Kafka endpoint to libreFS
 
-MinIO supports persistent event store. The persistent store will backup events when the kafka broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the kafka broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 ```
 KEY:
@@ -1161,13 +1161,13 @@ $ mc admin config get myminio/ notify_kafka
 notify_kafka:1 tls_skip_verify="off"  queue_dir="" queue_limit="0" sasl="off" sasl_password="" sasl_username="" tls_client_auth="0" tls="off" brokers="" topic="" client_tls_cert="" client_tls_key="" version=""
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment. Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:kafka` at start-up if there were no errors.`bucketevents` is the topic used by kafka in this example.
+Use `mc admin config set` command to update the configuration for the deployment. Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:kafka` at start-up if there were no errors.`bucketevents` is the topic used by kafka in this example.
 
 ```sh
 mc admin config set myminio notify_kafka:1 tls_skip_verify="off"  queue_dir="" queue_limit="0" sasl="off" sasl_password="" sasl_username="" tls_client_auth="0" tls="off" client_tls_cert="" client_tls_key="" brokers="localhost:9092,localhost:9093" topic="bucketevents" version=""
 ```
 
-### Step 3: Enable Kafka bucket notification using MinIO client
+### Step 3: Enable Kafka bucket notification using libreFS client
 
 We will enable bucket event notification to trigger whenever a JPEG image is uploaded or deleted from `images` bucket on `myminio` server. Here ARN value is `arn:minio:sqs::1:kafka`. To understand more about ARN please follow [AWS ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) documentation.
 
@@ -1251,13 +1251,13 @@ kafkacat -b localhost:9092 -t bucketevents
 }
 ```
 
-## Publish MinIO events via Webhooks
+## Publish libreFS events via Webhooks
 
 [Webhooks](https://en.wikipedia.org/wiki/Webhook) are a way to receive information when it happens, rather than continually polling for that data.
 
-### Step 1: Add Webhook endpoint to MinIO
+### Step 1: Add Webhook endpoint to libreFS
 
-MinIO supports persistent event store. The persistent store will backup events when the webhook goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the webhook goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 ```
 KEY:
@@ -1295,13 +1295,13 @@ $ mc admin config get myminio/ notify_webhook
 notify_webhook:1 endpoint="" auth_token="" queue_limit="0" queue_dir="" client_cert="" client_key=""
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment. Here the endpoint is the server listening for webhook notifications. Save the settings and restart the MinIO server for changes to take effect. Note that the endpoint needs to be live and reachable when you restart your MinIO server.
+Use `mc admin config set` command to update the configuration for the deployment. Here the endpoint is the server listening for webhook notifications. Save the settings and restart the libreFS server for changes to take effect. Note that the endpoint needs to be live and reachable when you restart your libreFS server.
 
 ```sh
 mc admin config set myminio notify_webhook:1 queue_limit="0"  endpoint="http://localhost:3000" queue_dir=""
 ```
 
-### Step 2: Enable Webhook bucket notification using MinIO client
+### Step 2: Enable Webhook bucket notification using libreFS client
 
 We will enable bucket event notification to trigger whenever a JPEG image is uploaded to `images` bucket on `myminio` server. Here ARN value is `arn:minio:sqs::1:webhook`. To learn more about ARN please follow [AWS ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) documentation.
 
@@ -1325,20 +1325,20 @@ arn:minio:sqs::1:webhook   s3:ObjectCreated:*   Filter: suffix=".jpg"
 
 ### Step 3: Test with Thumbnailer
 
-We used [Thumbnailer](https://github.com/minio/thumbnailer) to listen for MinIO notifications when a new JPEG file is uploaded (HTTP PUT). Triggered by a notification, Thumbnailer uploads a thumbnail of new image to MinIO server. To start with, download and install Thumbnailer.
+We used [Thumbnailer](https://github.com/minio/thumbnailer) to listen for libreFS notifications when a new JPEG file is uploaded (HTTP PUT). Triggered by a notification, Thumbnailer uploads a thumbnail of new image to libreFS server. To start with, download and install Thumbnailer.
 
 ```
 git clone https://github.com/minio/thumbnailer/
 npm install
 ```
 
-Then open the Thumbnailer config file at `config/webhook.json` and add the configuration for your MinIO server and then start Thumbnailer by
+Then open the Thumbnailer config file at `config/webhook.json` and add the configuration for your libreFS server and then start Thumbnailer by
 
 ```
 NODE_ENV=webhook node thumbnail-webhook.js
 ```
 
-Thumbnailer starts running at `http://localhost:3000/`. Next, configure the MinIO server to send notifications to this URL (as mentioned in step 1) and use `mc` to set up bucket notifications (as mentioned in step 2). Then upload a JPEG image to MinIO server by
+Thumbnailer starts running at `http://localhost:3000/`. Next, configure the libreFS server to send notifications to this URL (as mentioned in step 1) and use `mc` to set up bucket notifications (as mentioned in step 2). Then upload a JPEG image to libreFS server by
 
 ```
 mc cp ~/images.jpg myminio/images
@@ -1352,7 +1352,7 @@ mc ls myminio/images-thumbnail
 [2017-02-08 11:39:40 IST]   992B images-thumbnail.jpg
 ```
 
-## Publish MinIO events to NSQ
+## Publish libreFS events to NSQ
 
 Install an NSQ Daemon from [here](https://nsq.io/). Or use the following Docker
 command for starting an nsq daemon:
@@ -1361,9 +1361,9 @@ command for starting an nsq daemon:
 podman run --rm -p 4150-4151:4150-4151 nsqio/nsq /nsqd
 ```
 
-### Step 1: Add NSQ endpoint to MinIO
+### Step 1: Add NSQ endpoint to libreFS
 
-MinIO supports persistent event store. The persistent store will backup events when the NSQ broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
+libreFS supports persistent event store. The persistent store will backup events when the NSQ broker goes offline and replays it when the broker comes back online. The event store can be configured by setting the directory path in `queue_dir` field and the maximum limit of events in the queue_dir in `queue_limit` field. For eg, the `queue_dir` can be `/home/events` and `queue_limit` can be `1000`. By default, the `queue_limit` is set to 100000.
 
 To update the configuration, use `mc admin config get` command to get the current configuration for `notify_nsq`.
 
@@ -1403,7 +1403,7 @@ $ mc admin config get myminio/ notify_nsq
 notify_nsq:1 nsqd_address="" queue_dir="" queue_limit="0"  tls="off" tls_skip_verify="off" topic=""
 ```
 
-Use `mc admin config set` command to update the configuration for the deployment. Restart the MinIO server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:nsq` at start-up if there were no errors.
+Use `mc admin config set` command to update the configuration for the deployment. Restart the libreFS server to put the changes into effect. The server will print a line like `SQS ARNs: arn:minio:sqs::1:nsq` at start-up if there were no errors.
 
 ```sh
 mc admin config set myminio notify_nsq:1 nsqd_address="127.0.0.1:4150" queue_dir="" queue_limit="0" tls="off" tls_skip_verify="on" topic="minio"
@@ -1411,7 +1411,7 @@ mc admin config set myminio notify_nsq:1 nsqd_address="127.0.0.1:4150" queue_dir
 
 Note that, you can add as many NSQ daemon endpoint configurations as needed by providing an identifier (like "1" in the example above) for the NSQ instance and an object of per-server configuration parameters.
 
-### Step 2: Enable NSQ bucket notification using MinIO client
+### Step 2: Enable NSQ bucket notification using libreFS client
 
 We will enable bucket event notification to trigger whenever a JPEG image is uploaded or deleted `images` bucket on `myminio` server. Here ARN value is `arn:minio:sqs::1:nsq`.
 
@@ -1439,5 +1439,5 @@ mc cp gopher.jpg myminio/images
 You should receive the following event notification via NSQ once the upload completes.
 
 ```
-{"EventName":"s3:ObjectCreated:Put","Key":"images/gopher.jpg","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"","eventTime":"2018-10-31T09:31:11Z","eventName":"s3:ObjectCreated:Put","userIdentity":{"principalId":"21EJ9HYV110O8NVX2VMS"},"requestParameters":{"sourceIPAddress":"10.1.1.1"},"responseElements":{"x-amz-request-id":"1562A792DAA53426","x-minio-origin-endpoint":"http://10.0.3.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"images","ownerIdentity":{"principalId":"21EJ9HYV110O8NVX2VMS"},"arn":"arn:aws:s3:::images"},"object":{"key":"gopher.jpg","size":162023,"eTag":"5337769ffa594e742408ad3f30713cd7","contentType":"image/jpeg","userMetadata":{"content-type":"image/jpeg"},"versionId":"1","sequencer":"1562A792DAA53426"}},"source":{"host":"","port":"","userAgent":"MinIO (linux; amd64) minio-go/v6.0.8 mc/DEVELOPMENT.GOGET"}}]}
+{"EventName":"s3:ObjectCreated:Put","Key":"images/gopher.jpg","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"","eventTime":"2018-10-31T09:31:11Z","eventName":"s3:ObjectCreated:Put","userIdentity":{"principalId":"21EJ9HYV110O8NVX2VMS"},"requestParameters":{"sourceIPAddress":"10.1.1.1"},"responseElements":{"x-amz-request-id":"1562A792DAA53426","x-minio-origin-endpoint":"http://10.0.3.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"images","ownerIdentity":{"principalId":"21EJ9HYV110O8NVX2VMS"},"arn":"arn:aws:s3:::images"},"object":{"key":"gopher.jpg","size":162023,"eTag":"5337769ffa594e742408ad3f30713cd7","contentType":"image/jpeg","userMetadata":{"content-type":"image/jpeg"},"versionId":"1","sequencer":"1562A792DAA53426"}},"source":{"host":"","port":"","userAgent":"libreFS (linux; amd64) minio-go/v6.0.8 mc/DEVELOPMENT.GOGET"}}]}
 ```

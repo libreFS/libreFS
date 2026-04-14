@@ -35,22 +35,22 @@ rm -rf /tmp/etcd-data.tmp && mkdir -p /tmp/etcd-data.tmp && \
 
 You may also setup etcd with TLS following this documentation [here](https://coreos.com/etcd/docs/latest/op-guide/security.html)
 
-### 3. Setup MinIO with etcd
+### 3. Setup libreFS with etcd
 
-MinIO server expects environment variable for etcd as `MINIO_ETCD_ENDPOINTS`, this environment variable takes many comma separated entries.
+libreFS server expects environment variable for etcd as `MINIO_ETCD_ENDPOINTS`, this environment variable takes many comma separated entries.
 
 ```
 export MINIO_ETCD_ENDPOINTS=http://localhost:2379
-minio server /data
+librefs server /data
 ```
 
 NOTE: If `etcd` is configured with `Client-to-server authentication with HTTPS client certificates` then you need to use additional envs such as `MINIO_ETCD_CLIENT_CERT` pointing to path to `etcd-client.crt` and `MINIO_ETCD_CLIENT_CERT_KEY` path to `etcd-client.key` .
 
-### 4. Test with MinIO STS API
+### 4. Test with libreFS STS API
 
 Once etcd is configured, **any STS configuration** will work including Client Grants, Web Identity or AD/LDAP.
 
-For example, you can configure STS with Client Grants (KeyCloak) using the guides at [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html) and [KeyCloak Configuration Guide](https://github.com/minio/minio/blob/master/docs/sts/keycloak.md). Once this is done, STS credentials can be generated:
+For example, you can configure STS with Client Grants (KeyCloak) using the guides at [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html) and [KeyCloak Configuration Guide](https://github.com/minio/minio/blob/master/docs/sts/keycloak.md). Once this is done, STS credentials can be generated:
 
 ```
 go run client-grants.go -cid PoEgXP6uVO45IsENRngDXj5Au5Ya -csec eKsw6z8CtOJVBtrOWvhRWL4TUCga
@@ -64,9 +64,9 @@ go run client-grants.go -cid PoEgXP6uVO45IsENRngDXj5Au5Ya -csec eKsw6z8CtOJVBtrO
 }
 ```
 
-These credentials can now be used to perform MinIO API operations, these credentials automatically expire in 1hr. To understand more about credential expiry duration and client grants STS API read further [here](https://github.com/minio/minio/blob/master/docs/sts/client-grants.md).
+These credentials can now be used to perform libreFS API operations, these credentials automatically expire in 1hr. To understand more about credential expiry duration and client grants STS API read further [here](https://github.com/minio/minio/blob/master/docs/sts/client-grants.md).
 
 ## Explore Further
 
-- [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

@@ -1,4 +1,4 @@
-# MinIO Server Debugging Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800)](https://hub.docker.com/r/minio/minio/)
+# libreFS Server Debugging Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800)](https://hub.docker.com/r/minio/minio/)
 
 ## HTTP Trace
 
@@ -7,7 +7,7 @@ HTTP tracing can be enabled by using [`mc admin trace`](https://docs.min.io/comm
 Example:
 
 ```sh
-minio server /data
+librefs server /data
 ```
 
 Default trace is succinct only to indicate the API operations being called and the HTTP response status.
@@ -30,12 +30,12 @@ mc admin trace --all --verbose myminio
 
 ## Subnet Health
 
-Subnet Health diagnostics help ensure that the underlying infrastructure that runs MinIO is configured correctly, and is functioning properly. This test is one-shot long running one, that is recommended to be run as soon as the cluster is first provisioned, and each time a failure scenario is encountered. Note that the test incurs majority of the available resources on the system. Care must be taken when using this to debug failure scenario, so as to prevent larger outages. Health tests can be triggered using `mc support diagnostics` command.
+Subnet Health diagnostics help ensure that the underlying infrastructure that runs libreFS is configured correctly, and is functioning properly. This test is one-shot long running one, that is recommended to be run as soon as the cluster is first provisioned, and each time a failure scenario is encountered. Note that the test incurs majority of the available resources on the system. Care must be taken when using this to debug failure scenario, so as to prevent larger outages. Health tests can be triggered using `mc support diagnostics` command.
 
 Example:
 
 ```sh
-minio server /data{1...4}
+librefs server /data{1...4}
 ```
 
 The command takes no flags
@@ -84,7 +84,7 @@ Executing `xl-meta` will look for an `xl.meta` in the current folder and decode 
 
 ### Remotely Inspecting backend data
 
-`mc support inspect` allows collecting files based on *path* from all backend drives. Matching files will be collected in a zip file with their respective host+drive+path. A MinIO host from October 2021 or later is required for full functionality. Syntax is `mc support inspect ALIAS/path/to/files`. This can for example be used to collect `xl.meta` from objects that are misbehaving. To collect `xl.meta` from a specific object, for example placed at `ALIAS/bucket/path/to/file.txt` append `/xl.meta`, for instance `mc support inspect ALIAS/bucket/path/to/file.txt/xl.meta`. All files can be collected, so this can also be used to retrieve `part.*` files, etc.
+`mc support inspect` allows collecting files based on *path* from all backend drives. Matching files will be collected in a zip file with their respective host+drive+path. A libreFS host from October 2021 or later is required for full functionality. Syntax is `mc support inspect ALIAS/path/to/files`. This can for example be used to collect `xl.meta` from objects that are misbehaving. To collect `xl.meta` from a specific object, for example placed at `ALIAS/bucket/path/to/file.txt` append `/xl.meta`, for instance `mc support inspect ALIAS/bucket/path/to/file.txt/xl.meta`. All files can be collected, so this can also be used to retrieve `part.*` files, etc.
 
 Wildcards can be used, for example `mc support inspect ALIAS/bucket/path/**/xl.meta` will collect all `xl.meta` recursively. `mc support inspect ALIAS/bucket/path/to/file.txt/*/part.*` will collect parts for all versions for the object located at `bucket/path/to/file.txt`.
 

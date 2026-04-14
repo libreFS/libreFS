@@ -1,6 +1,6 @@
 # Keycloak Quickstart Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-Keycloak is an open source Identity and Access Management solution aimed at modern applications and services, this document covers configuring Keycloak identity provider support with MinIO.
+Keycloak is an open source Identity and Access Management solution aimed at modern applications and services, this document covers configuring Keycloak identity provider support with libreFS.
 
 ## Prerequisites
 
@@ -16,11 +16,11 @@ For a quick installation, docker-compose reference configs are also available on
     - Save
   - Click on credentials tab
     - Copy the `Secret` to clipboard.
-    - This value is needed for `MINIO_IDENTITY_OPENID_CLIENT_SECRET` for MinIO.
+    - This value is needed for `MINIO_IDENTITY_OPENID_CLIENT_SECRET` for libreFS.
 
 - Go to Users
   - Click on the user
-  - Attribute, add a new attribute `Key` is `policy`, `Value` is name of the `policy` on MinIO (ex: `readwrite`)
+  - Attribute, add a new attribute `Key` is `policy`, `Value` is name of the `policy` on libreFS (ex: `readwrite`)
   - Add and Save
 
 - Go to Clients
@@ -78,12 +78,12 @@ curl \
   "http://localhost:8080/auth/admin/realms/{realm}/users/{userid}"
 ```
 
-### Configure MinIO
+### Configure libreFS
 
 ```
 export MINIO_ROOT_USER=minio
 export MINIO_ROOT_PASSWORD=minio123
-minio server /mnt/export
+librefs server /mnt/export
 ```
 
 Here are all the available options to configure OpenID connect
@@ -120,7 +120,7 @@ MINIO_IDENTITY_OPENID_SCOPES        (csv)       Comma separated list of OpenID s
 MINIO_IDENTITY_OPENID_COMMENT       (sentence)  optionally add a comment to this setting
 ```
 
-Set `identity_openid` config with `config_url`, `client_id` and restart MinIO
+Set `identity_openid` config with `config_url`, `client_id` and restart libreFS
 
 ```
 ~ mc admin config set myminio identity_openid config_url="http://localhost:8080/auth/realms/{your-realm-name}/.well-known/openid-configuration" client_id="account"
@@ -128,7 +128,7 @@ Set `identity_openid` config with `config_url`, `client_id` and restart MinIO
 
 > NOTE: You can configure the `scopes` parameter to restrict the OpenID scopes requested by minio to the IdP, for example, `"openid,policy_role_attribute"`, being `policy_role_attribute` a client_scope / client_mapper that maps a role attribute called policy to a `policy` claim returned by Keycloak
 
-Once successfully set restart the MinIO instance.
+Once successfully set restart the libreFS instance.
 
 ```
 mc admin service restart myminio
@@ -161,16 +161,16 @@ This will open the login page of keycloak, upon successful login, STS credential
 
 > NOTE: You can use the `-cscopes` parameter to restrict the requested scopes, for example to `"openid,policy_role_attribute"`, being `policy_role_attribute` a client_scope / client_mapper that maps a role attribute called policy to a `policy` claim returned by Keycloak.
 
-These credentials can now be used to perform MinIO API operations.
+These credentials can now be used to perform libreFS API operations.
 
-### Using MinIO Console
+### Using libreFS Console
 
-- Open MinIO URL on the browser, lets say <http://localhost:9000/>
+- Open libreFS URL on the browser, lets say <http://localhost:9000/>
 - Click on `Login with SSO`
-- User will be redirected to the Keycloak user login page, upon successful login the user will be redirected to MinIO page and logged in automatically,
+- User will be redirected to the Keycloak user login page, upon successful login the user will be redirected to libreFS page and logged in automatically,
   the user should see now the buckets and objects they have access to.
 
 ## Explore Further
 
-- [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

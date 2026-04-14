@@ -1,6 +1,6 @@
-# MinIO Multi-user Quickstart Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# libreFS Multi-user Quickstart Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-MinIO supports multiple long term users in addition to default user created during server startup. New users can be added after server starts up, and server can be configured to deny or allow access to buckets and resources to each of these users. This document explains how to add/remove users and modify their access rights.
+libreFS supports multiple long term users in addition to default user created during server startup. New users can be added after server starts up, and server can be configured to deny or allow access to buckets and resources to each of these users. This document explains how to add/remove users and modify their access rights.
 
 ## Get started
 
@@ -8,8 +8,8 @@ In this document we will explain in detail on how to configure multiple users.
 
 ### 1. Prerequisites
 
-- Install mc - [MinIO Client Quickstart Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart)
-- Install MinIO - [MinIO Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html)
+- Install mc - [libreFS Client Quickstart Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart)
+- Install libreFS - [libreFS Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html)
 - Configure etcd - [Etcd V3 Quickstart Guide](https://github.com/minio/minio/blob/master/docs/sts/etcd.md)
 
 ### 2. Create a new user with canned policy
@@ -44,7 +44,7 @@ Create new canned policy by name `getonly` using `getonly.json` policy file.
 mc admin policy create myminio getonly getonly.json
 ```
 
-Create a new user `newuser` on MinIO use `mc admin user`.
+Create a new user `newuser` on libreFS use `mc admin user`.
 
 ```
 mc admin user add myminio newuser newuser123
@@ -141,7 +141,7 @@ mc cat myminio-newuser/my-bucketname/my-objectname
 
 You can use policy variables in the *Resource* element and in string comparisons in the *Condition* element.
 
-You can use a policy variable in the Resource element, but only in the resource portion of the ARN. This portion of the ARN appears after the 5th colon (:). You can't use a variable to replace parts of the ARN before the 5th colon, such as the service or account. The following policy might be attached to a group. It gives each of the users in the group full programmatic access to a user-specific object (their own "home directory") in MinIO.
+You can use a policy variable in the Resource element, but only in the resource portion of the ARN. This portion of the ARN appears after the 5th colon (:). You can't use a variable to replace parts of the ARN before the 5th colon, such as the service or account. The following policy might be attached to a group. It gives each of the users in the group full programmatic access to a user-specific object (their own "home directory") in libreFS.
 
 ```
 {
@@ -190,7 +190,7 @@ If the user is authenticating using an STS credential which was authorized from 
 - `jwt:scope`
 - `jwt:client_id`
 
-Following example shows OpenID users with full programmatic access to a OpenID user-specific directory (their own "home directory") in MinIO.
+Following example shows OpenID users with full programmatic access to a OpenID user-specific directory (their own "home directory") in libreFS.
 
 ```
 {
@@ -222,7 +222,7 @@ Currently supports
 - `ldap:user`
 - `ldap:groups`
 
-Following example shows LDAP users full programmatic access to a LDAP user-specific directory (their own "home directory") in MinIO.
+Following example shows LDAP users full programmatic access to a LDAP user-specific directory (their own "home directory") in libreFS.
 
 ```
 {
@@ -250,9 +250,9 @@ Following example shows LDAP users full programmatic access to a LDAP user-speci
 
 - `aws:CurrentTime` - This can be used for conditions that check the date and time.
 - `aws:EpochTime` - This is the date in epoch or Unix time, for use with date/time conditions.
-- `aws:PrincipalType` - This value indicates whether the principal is an account (Root credential), user (MinIO user), or assumed role (STS)
+- `aws:PrincipalType` - This value indicates whether the principal is an account (Root credential), user (libreFS user), or assumed role (STS)
 - `aws:SecureTransport` - This is a Boolean value that represents whether the request was sent over TLS.
-- `aws:SourceIp` - This is the requester's IP address, for use with IP address conditions. If running behind Nginx like proxies, MinIO preserve's the source IP.
+- `aws:SourceIp` - This is the requester's IP address, for use with IP address conditions. If running behind Nginx like proxies, libreFS preserve's the source IP.
 
 ```
 {
@@ -266,13 +266,13 @@ Following example shows LDAP users full programmatic access to a LDAP user-speci
 }
 ```
 
-- `aws:UserAgent` - This value is a string that contains information about the requester's client application. This string is generated by the client and can be unreliable. You can only use this context key from `mc` or other MinIO SDKs which standardize the User-Agent string.
-- `aws:username` - This is a string containing the friendly name of the current user, this value would point to STS temporary credential in `AssumeRole`ed requests, use `jwt:preferred_username` in case of OpenID connect and `ldap:username` in case of AD/LDAP. *aws:userid* is an alias to *aws:username* in MinIO.
+- `aws:UserAgent` - This value is a string that contains information about the requester's client application. This string is generated by the client and can be unreliable. You can only use this context key from `mc` or other libreFS SDKs which standardize the User-Agent string.
+- `aws:username` - This is a string containing the friendly name of the current user, this value would point to STS temporary credential in `AssumeRole`ed requests, use `jwt:preferred_username` in case of OpenID connect and `ldap:username` in case of AD/LDAP. *aws:userid* is an alias to *aws:username* in libreFS.
 - `aws:groups` - This is an array containing the group names, this value would point to group mappings for the user, use `jwt:groups` in case of OpenID connect and `ldap:groups` in case of AD/LDAP.
 
 ## Explore Further
 
-- [MinIO Client Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html)
-- [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
-- [MinIO Admin Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [libreFS Client Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html)
+- [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
+- [libreFS Admin Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

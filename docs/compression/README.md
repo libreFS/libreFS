@@ -1,8 +1,8 @@
 # Compression Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-MinIO server allows streaming compression to ensure efficient disk space usage.
+libreFS server allows streaming compression to ensure efficient disk space usage.
 Compression happens inflight, i.e objects are compressed before being written to disk(s).
-MinIO uses [`klauspost/compress/s2`](https://github.com/klauspost/compress/tree/master/s2)
+libreFS uses [`klauspost/compress/s2`](https://github.com/klauspost/compress/tree/master/s2)
 streaming compression due to its stability and performance.
 
 This algorithm is specifically optimized for machine generated content.
@@ -19,11 +19,11 @@ will increase speed when the content can be compressed.
 
 ### 1. Prerequisites
 
-Install MinIO - [MinIO Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html).
+Install libreFS - [libreFS Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html).
 
-### 2. Run MinIO with compression
+### 2. Run libreFS with compression
 
-Compression can be enabled by updating the `compress` config settings for MinIO server config.
+Compression can be enabled by updating the `compress` config settings for libreFS server config.
 Config `compress` settings take extensions and mime-types to be compressed.
 
 ```bash
@@ -131,7 +131,7 @@ the data directory to view the size of the object.
 
 ## Explore Further
 
-- [Use `mc` with MinIO Server](https://docs.min.io/community/minio-object-store/reference/minio-mc.html)
-- [Use `aws-cli` with MinIO Server](https://docs.min.io/community/minio-object-store/integrations/aws-cli-with-minio.html)
-- [Use `minio-go` SDK with MinIO Server](https://docs.min.io/community/minio-object-store/developers/go/minio-go.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [Use `mc` with libreFS Server](https://docs.min.io/community/minio-object-store/reference/minio-mc.html)
+- [Use `aws-cli` with libreFS Server](https://docs.min.io/community/minio-object-store/integrations/aws-cli-with-minio.html)
+- [Use `minio-go` SDK with libreFS Server](https://docs.min.io/community/minio-object-store/developers/go/minio-go.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

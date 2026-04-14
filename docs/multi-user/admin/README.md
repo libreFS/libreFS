@@ -1,6 +1,6 @@
-# MinIO Admin Multi-user Quickstart Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# libreFS Admin Multi-user Quickstart Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-MinIO supports multiple admin users in addition to default operator credential created during server startup. New admins can be added after server starts up, and server can be configured to deny or allow access to different admin operations for these users. This document explains how to add/remove admin users and modify their access rights.
+libreFS supports multiple admin users in addition to default operator credential created during server startup. New admins can be added after server starts up, and server can be configured to deny or allow access to different admin operations for these users. This document explains how to add/remove admin users and modify their access rights.
 
 ## Get started
 
@@ -8,8 +8,8 @@ In this document we will explain in detail on how to configure admin users.
 
 ### 1. Prerequisites
 
-- Install mc - [MinIO Client Quickstart Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart)
-- Install MinIO - [MinIO Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html)
+- Install mc - [libreFS Client Quickstart Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html#quickstart)
+- Install libreFS - [libreFS Quickstart Guide](https://docs.min.io/community/minio-object-store/operations/deployments/baremetal-deploy-minio-on-redhat-linux.html)
 
 ### 2. Create a new admin user with CreateUser, DeleteUser and ConfigUpdate permissions
 
@@ -53,7 +53,7 @@ Create new canned policy by name `userManager` using `userManager.json` policy f
 mc admin policy attach myminio userManager adminManageUser.json
 ```
 
-Create a new admin user `admin1` on MinIO use `mc admin user`.
+Create a new admin user `admin1` on libreFS use `mc admin user`.
 
 ```
 mc admin user add myminio admin1 admin123
@@ -162,11 +162,11 @@ mc admin policy attach myminio-admin1 user1policy --user=user1
 ### 5. Using an external IDP for admin users
 
 Admin users can also be externally managed by an IDP by configuring admin policy with
-special permissions listed above. Follow [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html) to manage users with an IDP.
+special permissions listed above. Follow [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html) to manage users with an IDP.
 
 ## Explore Further
 
-- [MinIO Client Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html)
-- [MinIO STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
-- [MinIO Admin Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html)
-- [The MinIO documentation website](https://docs.min.io/community/minio-object-store/index.html)
+- [libreFS Client Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc.html)
+- [libreFS STS Quickstart Guide](https://docs.min.io/community/minio-object-store/developers/security-token-service.html)
+- [libreFS Admin Complete Guide](https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html)
+- [The libreFS documentation website](https://docs.min.io/community/minio-object-store/index.html)

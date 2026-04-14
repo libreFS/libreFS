@@ -1,17 +1,17 @@
 # Distributed Server Design Guide [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-This document explains the design, architecture and advanced use cases of the MinIO distributed server.
+This document explains the design, architecture and advanced use cases of the libreFS distributed server.
 
 ## Command-line
 
 ```
 NAME:
-  minio server - start object storage server
+  librefs server - start object storage server
 
 USAGE:
-  minio server [FLAGS] DIR1 [DIR2..]
-  minio server [FLAGS] DIR{1...64}
-  minio server [FLAGS] DIR{1...64} DIR{65...128}
+  librefs server [FLAGS] DIR1 [DIR2..]
+  librefs server [FLAGS] DIR{1...64}
+  librefs server [FLAGS] DIR{1...64} DIR{65...128}
 
 DIR:
   DIR points to a directory on a filesystem. When you want to combine
@@ -26,22 +26,22 @@ DIR:
 Standalone erasure coded configuration with 4 sets with 16 drives each.
 
 ```
-minio server dir{1...64}
+librefs server dir{1...64}
 ```
 
 Distributed erasure coded configuration with 64 sets with 16 drives each.
 
 ```
-minio server http://host{1...16}/export{1...64}
+librefs server http://host{1...16}/export{1...64}
 ```
 
 ## Architecture
 
-Expansion of ellipses and choice of erasure sets based on this expansion is an automated process in MinIO. Here are some of the details of our underlying erasure coding behavior.
+Expansion of ellipses and choice of erasure sets based on this expansion is an automated process in libreFS. Here are some of the details of our underlying erasure coding behavior.
 
-- Erasure coding used by MinIO is [Reed-Solomon](https://github.com/klauspost/reedsolomon) erasure coding scheme, which has a total shard maximum of 256 i.e 128 data and 128 parity. MinIO design goes beyond this limitation by doing some practical architecture choices.
+- Erasure coding used by libreFS is [Reed-Solomon](https://github.com/klauspost/reedsolomon) erasure coding scheme, which has a total shard maximum of 256 i.e 128 data and 128 parity. libreFS design goes beyond this limitation by doing some practical architecture choices.
 
-- Erasure set is a single erasure coding unit within a MinIO deployment. An object is sharded within an erasure set. Erasure set size is automatically calculated based on the number of drives. MinIO supports unlimited number of drives but each erasure set can be up to 16 drives and a minimum of 2 drives.
+- Erasure set is a single erasure coding unit within a libreFS deployment. An object is sharded within an erasure set. Erasure set size is automatically calculated based on the number of drives. libreFS supports unlimited number of drives but each erasure set can be up to 16 drives and a minimum of 2 drives.
 
 - We limited the number of drives to 16 for erasure set because, erasure code shards more than 16 can become chatty and do not have any performance advantages. Additionally since 16 drive erasure set gives you tolerance of 8 drives per object by default which is plenty in any practical scenario.
 
@@ -51,10 +51,10 @@ Expansion of ellipses and choice of erasure sets based on this expansion is an a
 
 - *If total number of nodes are of odd number then GCD algorithm provides affinity towards odd number erasure sets to provide for uniform distribution across nodes*. This is to ensure that same number of drives are pariticipating in any erasure set. For example if you have 2 nodes with 180 drives then GCD is 15 but this would lead to uneven distribution, one of the nodes would participate more drives. To avoid this the affinity is given towards nodes which leads to next best GCD factor of 12 which provides uniform distribution.
 
-- In this algorithm, we also make sure that we spread the drives out evenly. MinIO server expands ellipses passed as arguments. Here is a sample expansion to demonstrate the process.
+- In this algorithm, we also make sure that we spread the drives out evenly. libreFS server expands ellipses passed as arguments. Here is a sample expansion to demonstrate the process.
 
 ```
-minio server http://host{1...2}/export{1...8}
+librefs server http://host{1...2}/export{1...8}
 ```
 
 Expected expansion
@@ -98,14 +98,14 @@ Input for the key is the object name specified in `PutObject()`, returns a uniqu
 
 - Write and Read quorum are required to be satisfied only across the erasure set for an object. Healing is also done per object within the erasure set which contains the object.
 
-- MinIO does erasure coding at the object level not at the volume level, unlike other object storage vendors. This allows applications to choose different storage class by setting `x-amz-storage-class=STANDARD/REDUCED_REDUNDANCY` for each object uploads so effectively utilizing the capacity of the cluster. Additionally these can also be enforced using IAM policies to make sure the client uploads with correct HTTP headers.
+- libreFS does erasure coding at the object level not at the volume level, unlike other object storage vendors. This allows applications to choose different storage class by setting `x-amz-storage-class=STANDARD/REDUCED_REDUNDANCY` for each object uploads so effectively utilizing the capacity of the cluster. Additionally these can also be enforced using IAM policies to make sure the client uploads with correct HTTP headers.
 
-- MinIO also supports expansion of existing clusters in server pools. Each pool is a self contained entity with same SLA's (read/write quorum) for each object as original cluster. By using the existing namespace for lookup validation MinIO ensures conflicting objects are not created. When no such object exists then MinIO simply uses the least used pool to place new objects.
+- libreFS also supports expansion of existing clusters in server pools. Each pool is a self contained entity with same SLA's (read/write quorum) for each object as original cluster. By using the existing namespace for lookup validation libreFS ensures conflicting objects are not created. When no such object exists then libreFS simply uses the least used pool to place new objects.
 
 ### There are no limits on how many server pools can be combined
 
 ```
-minio server http://host{1...32}/export{1...32} http://host{1...12}/export{1...12}
+librefs server http://host{1...32}/export{1...32} http://host{1...12}/export{1...12}
 ```
 
 In above example there are two server pools
@@ -117,7 +117,7 @@ In above example there are two server pools
 
 Refer to the sizing guide with details on the default parity count chosen for different erasure stripe sizes [here](https://github.com/minio/minio/blob/master/docs/distributed/SIZING.md)
 
-MinIO places new objects in server pools based on proportionate free space, per pool. Following pseudo code demonstrates this behavior.
+libreFS places new objects in server pools based on proportionate free space, per pool. Following pseudo code demonstrates this behavior.
 
 ```go
 func getAvailablePoolIdx(ctx context.Context) int {
@@ -144,23 +144,23 @@ func getAvailablePoolIdx(ctx context.Context) int {
 Standalone erasure coded configuration with 4 sets with 16 drives each, which spawns drives across controllers.
 
 ```
-minio server /mnt/controller{1...4}/data{1...16}
+librefs server /mnt/controller{1...4}/data{1...16}
 ```
 
 Standalone erasure coded configuration with 16 sets, 16 drives per set, across mounts and controllers.
 
 ```
-minio server /mnt{1...4}/controller{1...4}/data{1...16}
+librefs server /mnt{1...4}/controller{1...4}/data{1...16}
 ```
 
 Distributed erasure coded configuration with 2 sets, 16 drives per set across hosts.
 
 ```
-minio server http://host{1...32}/disk1
+librefs server http://host{1...32}/disk1
 ```
 
 Distributed erasure coded configuration with rack level redundancy 32 sets in total, 16 drives per set.
 
 ```
-minio server http://rack{1...4}-host{1...8}.example.net/export{1...16}
+librefs server http://rack{1...4}-host{1...8}.example.net/export{1...16}
 ```
