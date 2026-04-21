@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: MinIO Community Support
-    url: https://slack.min.io
-    about: Community support via Slack - for questions and discussions
-  - name: MinIO Enterprise Support (SUBNET)
-    url: https://min.io/pricing
-    about: Enterprise support with SLA - for production deployments and feature requests
+  - name: libreFS Community Discussions
+    url: https://github.com/libreFS/libreFS/discussions
+    about: Questions, ideas, and general discussion
+  - name: Security vulnerabilities
+    url: https://github.com/libreFS/libreFS/security/advisories/new
+    about: Please report security issues privately, not as public issues
