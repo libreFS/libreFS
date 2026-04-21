@@ -17,12 +17,15 @@ RUN go mod download
 
 COPY . .
 
-ARG TARGETOS=linux
-ARG TARGETARCH=amd64
+# Declared without defaults so docker buildx injects the correct target values
+# (e.g. TARGETARCH=arm64 for an arm64 build). A default of "amd64" would
+# silently override the injection and produce a wrong-arch binary.
+ARG TARGETOS
+ARG TARGETARCH
 
-RUN MINIO_RELEASE=RELEASE CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} \
-    go build -tags kqueue -trimpath \
-    --ldflags "$(go run buildscripts/gen-ldflags.go)" \
+RUN LDFLAGS=$(GOOS= GOARCH= go run buildscripts/gen-ldflags.go 2>/dev/null || true) && \
+    MINIO_RELEASE=RELEASE CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} \
+    go build -tags kqueue -trimpath --ldflags "$LDFLAGS" \
     -o librefs .
 
 # ── Stage 2: minimal runtime ─────────────────────────────────────────────────
