@@ -27,7 +27,7 @@ import (
 	"time"
 
 	jsoniter "github.com/json-iterator/go"
-	"github.com/minio/minio-go/v7/pkg/set"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/kms"
 	"github.com/puzpuzpuz/xsync/v3"

@@ -31,9 +31,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/auth"
-	"github.com/minio/mux"
+	"github.com/libreFS/mux"
 )
 
 // adminErasureTestBed - encapsulates subsystems that need to be setup for

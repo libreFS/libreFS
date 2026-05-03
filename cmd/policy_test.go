@@ -21,10 +21,10 @@ import (
 	"reflect"
 	"testing"
 
-	miniogopolicy "github.com/minio/minio-go/v7/pkg/policy"
-	"github.com/minio/minio-go/v7/pkg/set"
-	"github.com/minio/pkg/v3/policy"
-	"github.com/minio/pkg/v3/policy/condition"
+	miniogopolicy "github.com/libreFS/librefs-go/v7/pkg/policy"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/pkg/v3/policy"
+	"github.com/libreFS/pkg/v3/policy/condition"
 )
 
 func TestPolicySysIsAllowed(t *testing.T) {

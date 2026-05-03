@@ -24,7 +24,7 @@ import (
 	"testing"
 
 	humanize "github.com/dustin/go-humanize"
-	"github.com/minio/minio-go/v7/pkg/encrypt"
+	"github.com/libreFS/librefs-go/v7/pkg/encrypt"
 	"github.com/minio/minio/internal/crypto"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/sio"

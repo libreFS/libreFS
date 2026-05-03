@@ -22,9 +22,9 @@ import (
 	"runtime/debug"
 
 	"github.com/dustin/go-humanize"
-	"github.com/minio/madmin-go/v3/kernel"
+	"github.com/libreFS/madmin-go/v3/kernel"
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/pkg/v3/sys"
+	"github.com/libreFS/pkg/v3/sys"
 )
 
 func oldLinux() bool {

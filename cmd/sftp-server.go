@@ -28,11 +28,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/logger"
-	xldap "github.com/minio/pkg/v3/ldap"
-	xsftp "github.com/minio/pkg/v3/sftp"
+	xldap "github.com/libreFS/pkg/v3/ldap"
+	xsftp "github.com/libreFS/pkg/v3/sftp"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )

@@ -28,7 +28,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/minio/minio/internal/logger"
 )

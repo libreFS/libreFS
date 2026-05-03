@@ -33,8 +33,8 @@ import (
 	"golang.org/x/crypto/chacha20"
 	"golang.org/x/crypto/chacha20poly1305"
 
-	"github.com/minio/kms-go/kms"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/kms-go/kms"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/hash/sha256"
 )
 

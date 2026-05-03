@@ -20,7 +20,7 @@ package cmd
 import (
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 )
 
 //go:generate msgp -file=$GOFILE -unexported

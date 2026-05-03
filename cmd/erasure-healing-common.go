@@ -23,7 +23,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 )
 
 func commonETags(etags []string) (etag string, maxima int) {

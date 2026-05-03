@@ -32,7 +32,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/crypto"
 	"github.com/minio/minio/internal/hash"
 	"github.com/minio/minio/internal/kms"

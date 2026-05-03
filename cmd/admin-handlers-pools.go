@@ -26,9 +26,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/minio/mux"
-	"github.com/minio/pkg/v3/env"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/env"
+	"github.com/libreFS/pkg/v3/policy"
 )
 
 var (

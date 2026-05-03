@@ -24,7 +24,7 @@ import (
 	"strconv"
 
 	jsoniter "github.com/json-iterator/go"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 )
 
 // conn represents a connection to a KMS implementation.

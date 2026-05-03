@@ -31,9 +31,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/encrypt"
-	"github.com/minio/minio-go/v7/pkg/tags"
+	"github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/librefs-go/v7/pkg/encrypt"
+	"github.com/libreFS/librefs-go/v7/pkg/tags"
 	"github.com/minio/minio/internal/amztime"
 	sse "github.com/minio/minio/internal/bucket/encryption"
 	objectlock "github.com/minio/minio/internal/bucket/object/lock"
@@ -49,8 +49,8 @@ import (
 	"github.com/minio/minio/internal/hash/sha256"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/mux"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/sio"
 )
 

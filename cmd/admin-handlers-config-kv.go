@@ -26,7 +26,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/etcd"
 	xldap "github.com/minio/minio/internal/config/identity/ldap"
@@ -36,8 +36,8 @@ import (
 	"github.com/minio/minio/internal/config/storageclass"
 	"github.com/minio/minio/internal/config/subnet"
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/mux"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/policy"
 )
 
 // DelConfigKVHandler - DELETE /minio/admin/v3/del-config-kv

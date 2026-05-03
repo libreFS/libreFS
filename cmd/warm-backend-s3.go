@@ -26,9 +26,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/librefs-go/v7/pkg/credentials"
 )
 
 type warmBackendS3 struct {

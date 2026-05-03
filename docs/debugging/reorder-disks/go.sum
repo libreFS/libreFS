@@ -1,2 +1,2 @@
-github.com/minio/pkg/v3 v3.0.1 h1:qts6g9rYjAdeomRdwjnMc1IaQ6KbaJs3dwqBntXziaw=
-github.com/minio/pkg/v3 v3.0.1/go.mod h1:53gkSUVHcfYoskOs5YAJ3D99nsd2SKru90rdE9whlXU=
+github.com/libreFS/pkg/v3 v3.8.0 h1:wu8dtNIAE2dUM+6tiiElKQfl4lAuY7N07bhBmf/8RGA=
+github.com/libreFS/pkg/v3 v3.8.0/go.mod h1:9pNbP/xMefm7JYoVjVmc3AlPKos47IB+771q9zj1MF4=

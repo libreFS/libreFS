@@ -32,9 +32,9 @@ import (
 	"github.com/minio/minio/internal/ioutil"
 	"google.golang.org/api/googleapi"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/tags"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/librefs-go/v7/pkg/tags"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	"github.com/minio/minio/internal/bucket/replication"
@@ -48,7 +48,7 @@ import (
 	levent "github.com/minio/minio/internal/config/lambda/event"
 	"github.com/minio/minio/internal/event"
 	"github.com/minio/minio/internal/hash"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/pkg/v3/policy"
 )
 
 // APIError structure

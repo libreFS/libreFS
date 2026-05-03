@@ -33,14 +33,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/credentials"
-	"github.com/minio/minio-go/v7/pkg/s3utils"
-	"github.com/minio/minio-go/v7/pkg/set"
-	"github.com/minio/minio-go/v7/pkg/signer"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/librefs-go/v7/pkg/credentials"
+	"github.com/libreFS/librefs-go/v7/pkg/s3utils"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/librefs-go/v7/pkg/signer"
 	"github.com/minio/minio/internal/auth"
-	"github.com/minio/pkg/v3/env"
+	"github.com/libreFS/pkg/v3/env"
 )
 
 const (

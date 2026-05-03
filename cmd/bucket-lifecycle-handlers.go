@@ -26,8 +26,8 @@ import (
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/mux"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/policy"
 )
 
 const (

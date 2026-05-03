@@ -24,8 +24,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
 )
 
 //go:generate msgp -file $GOFILE

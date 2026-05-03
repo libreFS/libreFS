@@ -27,7 +27,7 @@ import (
 	"time"
 
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/pkg/v3/console"
+	"github.com/libreFS/pkg/v3/console"
 )
 
 // a bucketMetacache keeps track of all caches generated

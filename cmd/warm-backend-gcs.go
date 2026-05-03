@@ -24,7 +24,7 @@ import (
 	"io"
 
 	"cloud.google.com/go/storage"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"google.golang.org/api/googleapi"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"

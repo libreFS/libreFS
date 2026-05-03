@@ -19,7 +19,7 @@ package cmd
 import (
 	"testing"
 
-	"github.com/minio/minio-go/v7/pkg/set"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
 )
 
 func TestUpdateDomainIPs(t *testing.T) {

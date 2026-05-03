@@ -25,8 +25,8 @@ import (
 
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/fips"
-	"github.com/minio/pkg/v3/env"
-	xnet "github.com/minio/pkg/v3/net"
+	"github.com/libreFS/pkg/v3/env"
+	xnet "github.com/libreFS/pkg/v3/net"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"go.etcd.io/etcd/client/v3/namespace"
 	"go.uber.org/zap"

@@ -34,7 +34,7 @@ import (
 	"net/http"
 	"os"
 
-	cr "github.com/minio/minio-go/v7/pkg/credentials"
+	cr "github.com/libreFS/librefs-go/v7/pkg/credentials"
 	cmd "github.com/minio/minio/cmd"
 )
 

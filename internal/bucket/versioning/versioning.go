@@ -22,7 +22,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/minio/pkg/v3/wildcard"
+	"github.com/libreFS/pkg/v3/wildcard"
 )
 
 // State - enabled/disabled/suspended states

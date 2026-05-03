@@ -21,7 +21,7 @@ import (
 	"encoding/xml"
 	"io"
 
-	"github.com/minio/minio-go/v7/pkg/tags"
+	"github.com/libreFS/librefs-go/v7/pkg/tags"
 )
 
 var errInvalidFilter = Errorf("Filter must have exactly one of Prefix, Tag, or And specified")

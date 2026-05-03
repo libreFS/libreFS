@@ -29,10 +29,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/dsync"
 	xioutil "github.com/minio/minio/internal/ioutil"
-	"github.com/minio/pkg/v3/sync/errgroup"
+	"github.com/libreFS/pkg/v3/sync/errgroup"
 )
 
 // list all errors that can be ignore in a bucket operation.

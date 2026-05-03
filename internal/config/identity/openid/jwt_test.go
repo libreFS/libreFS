@@ -34,7 +34,7 @@ import (
 	"github.com/minio/minio/internal/arn"
 	"github.com/minio/minio/internal/config"
 	jwtm "github.com/minio/minio/internal/jwt"
-	xnet "github.com/minio/pkg/v3/net"
+	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 func TestUpdateClaimsExpiry(t *testing.T) {

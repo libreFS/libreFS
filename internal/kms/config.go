@@ -34,11 +34,11 @@ import (
 	"time"
 
 	"aead.dev/mtls"
-	"github.com/minio/kms-go/kes"
-	"github.com/minio/kms-go/kms"
-	"github.com/minio/pkg/v3/certs"
-	"github.com/minio/pkg/v3/ellipses"
-	"github.com/minio/pkg/v3/env"
+	"github.com/libreFS/kms-go/kes"
+	"github.com/libreFS/kms-go/kms"
+	"github.com/libreFS/pkg/v3/certs"
+	"github.com/libreFS/pkg/v3/ellipses"
+	"github.com/libreFS/pkg/v3/env"
 )
 
 // Environment variables for libreFS KMS.

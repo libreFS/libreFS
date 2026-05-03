@@ -3,7 +3,7 @@
 package cmd
 
 import (
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/tinylib/msgp/msgp"
 )
 

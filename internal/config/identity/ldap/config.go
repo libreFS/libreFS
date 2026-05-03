@@ -25,10 +25,10 @@ import (
 	"sort"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/fips"
-	"github.com/minio/pkg/v3/ldap"
+	"github.com/libreFS/pkg/v3/ldap"
 )
 
 const (

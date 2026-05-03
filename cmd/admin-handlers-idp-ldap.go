@@ -25,11 +25,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/auth"
-	"github.com/minio/mux"
-	xldap "github.com/minio/pkg/v3/ldap"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/mux"
+	xldap "github.com/libreFS/pkg/v3/ldap"
+	"github.com/libreFS/pkg/v3/policy"
 )
 
 // ListLDAPPolicyMappingEntities lists users/groups mapped to given/all policies.

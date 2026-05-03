@@ -32,8 +32,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7/pkg/tags"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7/pkg/tags"
 	"github.com/minio/minio/internal/amztime"
 	sse "github.com/minio/minio/internal/bucket/encryption"
 	"github.com/minio/minio/internal/bucket/lifecycle"
@@ -41,7 +41,7 @@ import (
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/s3select"
-	xnet "github.com/minio/pkg/v3/net"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/zeebo/xxh3"
 )
 

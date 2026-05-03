@@ -30,9 +30,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
-	cr "github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
+	cr "github.com/libreFS/librefs-go/v7/pkg/credentials"
 )
 
 var (

@@ -24,13 +24,13 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/madmin-go/v3/logger/log"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3/logger/log"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/logger/target/console"
 	types "github.com/minio/minio/internal/logger/target/loggertypes"
 	"github.com/minio/minio/internal/pubsub"
-	xnet "github.com/minio/pkg/v3/net"
+	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 // number of log messages to buffer

@@ -21,7 +21,7 @@ import (
 	"net/http"
 
 	"github.com/minio/minio/internal/grid"
-	"github.com/minio/mux"
+	"github.com/libreFS/mux"
 )
 
 // Composed function registering routers for only distributed Erasure setup.

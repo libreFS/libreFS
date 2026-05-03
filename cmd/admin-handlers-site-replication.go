@@ -30,10 +30,10 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	xioutil "github.com/minio/minio/internal/ioutil"
-	"github.com/minio/mux"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/policy"
 )
 
 // SiteReplicationAdd - PUT /minio/admin/v3/site-replication/add

@@ -36,8 +36,8 @@ import (
 	"time"
 
 	"github.com/klauspost/readahead"
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7/pkg/tags"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7/pkg/tags"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	"github.com/minio/minio/internal/bucket/object/lock"
 	"github.com/minio/minio/internal/bucket/replication"
@@ -49,8 +49,8 @@ import (
 	xhttp "github.com/minio/minio/internal/http"
 	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/pkg/v3/mimedb"
-	"github.com/minio/pkg/v3/sync/errgroup"
+	"github.com/libreFS/pkg/v3/mimedb"
+	"github.com/libreFS/pkg/v3/sync/errgroup"
 	"github.com/minio/sio"
 )
 

@@ -24,7 +24,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	xhttp "github.com/minio/minio/internal/http"
 )
 

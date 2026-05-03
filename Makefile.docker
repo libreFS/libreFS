@@ -16,8 +16,13 @@ DATA_DIR            ?= /tmp/librefs-data
 MINIO_ROOT_USER     ?= admin
 MINIO_ROOT_PASSWORD ?= password
 
+CONSOLE_DIR     ?= $(dir $(CURDIR))console
+LIBREFS_CLI_DIR ?= $(dir $(CURDIR))librefs-cli
+
 DOCKER_RUN := docker run --rm \
 	-v "$(CURDIR)":/app \
+	-v "$(CONSOLE_DIR)":/console \
+	-v "$(LIBREFS_CLI_DIR)":/librefs-cli \
 	-w /app \
 	$(DEV_IMAGE)
 

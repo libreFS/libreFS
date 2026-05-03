@@ -28,7 +28,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 )
 
 var callhomeLeaderLockTimeout = newDynamicTimeout(30*time.Second, 10*time.Second)

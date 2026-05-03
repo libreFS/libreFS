@@ -25,9 +25,9 @@ import (
 	"time"
 
 	ldap "github.com/go-ldap/ldap/v3"
-	"github.com/minio/minio-go/v7/pkg/set"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
 	"github.com/minio/minio/internal/auth"
-	xldap "github.com/minio/pkg/v3/ldap"
+	xldap "github.com/libreFS/pkg/v3/ldap"
 )
 
 // LookupUserDN searches for the full DN and groups of a given short/login

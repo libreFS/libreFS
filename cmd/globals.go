@@ -27,9 +27,9 @@ import (
 
 	consoleapi "github.com/minio/console/api"
 	"github.com/minio/dnscache"
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/set"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
 	"github.com/minio/minio/internal/bpool"
 	"github.com/minio/minio/internal/bucket/bandwidth"
 	"github.com/minio/minio/internal/config"
@@ -55,9 +55,9 @@ import (
 	levent "github.com/minio/minio/internal/config/lambda/event"
 	"github.com/minio/minio/internal/event"
 	"github.com/minio/minio/internal/pubsub"
-	"github.com/minio/pkg/v3/certs"
-	"github.com/minio/pkg/v3/env"
-	xnet "github.com/minio/pkg/v3/net"
+	"github.com/libreFS/pkg/v3/certs"
+	"github.com/libreFS/pkg/v3/env"
+	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 // minio configuration related constants.

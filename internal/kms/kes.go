@@ -24,8 +24,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/minio/kms-go/kes"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/kms-go/kes"
+	"github.com/libreFS/madmin-go/v3"
 )
 
 type kesConn struct {
@@ -235,7 +235,7 @@ func (c *kesConn) Decrypt(ctx context.Context, req *DecryptRequest) ([]byte, err
 		return nil, err
 	}
 
-	plaintext, err := c.client.Decrypt(context.Background(), req.Name, req.Ciphertext, aad)
+	plaintext, err := c.client.Decrypt(context.Background(), req.Name, "", req.Ciphertext, aad)
 	if err != nil {
 		if errors.Is(err, kes.ErrKeyNotFound) {
 			return nil, ErrKeyNotFound

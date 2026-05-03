@@ -24,7 +24,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/minio/madmin-go/v3/logger/log"
+	"github.com/libreFS/madmin-go/v3/logger/log"
 	"github.com/minio/minio/internal/color"
 	"github.com/minio/minio/internal/logger"
 )

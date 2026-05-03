@@ -31,10 +31,10 @@ import (
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"
 	"github.com/google/uuid"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/deadlineconn"
 	"github.com/minio/minio/internal/pubsub"
-	"github.com/minio/mux"
+	"github.com/libreFS/mux"
 )
 
 const (

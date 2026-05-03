@@ -21,7 +21,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 )
 
 // BucketTargetUsageInfo - bucket target usage info provides

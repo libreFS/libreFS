@@ -33,8 +33,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7/pkg/set"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7/pkg/set"
 	"github.com/minio/minio/internal/arn"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/color"
@@ -48,9 +48,9 @@ import (
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/jwt"
 	"github.com/minio/minio/internal/logger"
-	"github.com/minio/pkg/v3/env"
-	"github.com/minio/pkg/v3/ldap"
-	"github.com/minio/pkg/v3/policy"
+	"github.com/libreFS/pkg/v3/env"
+	"github.com/libreFS/pkg/v3/ldap"
+	"github.com/libreFS/pkg/v3/policy"
 	etcd "go.etcd.io/etcd/client/v3"
 	"golang.org/x/sync/singleflight"
 )

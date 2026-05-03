@@ -22,7 +22,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/minio/pkg/v3/ellipses"
+	"github.com/libreFS/pkg/v3/ellipses"
 )
 
 // Tests create endpoints with ellipses and without.

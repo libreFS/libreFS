@@ -28,8 +28,8 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/minio/minio-go/v7"
-	cr "github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/libreFS/librefs-go/v7"
+	cr "github.com/libreFS/librefs-go/v7/pkg/credentials"
 )
 
 var (

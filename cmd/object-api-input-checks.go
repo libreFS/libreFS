@@ -23,7 +23,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/minio/minio-go/v7/pkg/s3utils"
+	"github.com/libreFS/librefs-go/v7/pkg/s3utils"
 )
 
 // Checks on CopyObject arguments, bucket and object.

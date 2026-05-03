@@ -31,12 +31,12 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/minio/madmin-go/v3"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/librefs-go/v7/pkg/credentials"
 	xhttp "github.com/minio/minio/internal/http"
 	xioutil "github.com/minio/minio/internal/ioutil"
-	"github.com/minio/pkg/v3/randreader"
+	"github.com/libreFS/pkg/v3/randreader"
 )
 
 // SpeedTestResult return value of the speedtest function

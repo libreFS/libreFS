@@ -30,8 +30,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/minio/kms-go/kes"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/kms-go/kes"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	"github.com/minio/minio/internal/cachevalue"
 	xioutil "github.com/minio/minio/internal/ioutil"

@@ -25,7 +25,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/bucket/replication"
 	"github.com/minio/minio/internal/hash"
 )

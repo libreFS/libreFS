@@ -27,10 +27,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/minio/madmin-go/v3"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/kms"
-	xnet "github.com/minio/pkg/v3/net"
+	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 // getLocalServerProperty - returns madmin.ServerProperties for only the
