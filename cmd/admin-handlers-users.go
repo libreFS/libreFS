@@ -36,12 +36,12 @@ import (
 
 	"github.com/klauspost/compress/zip"
 	"github.com/libreFS/madmin-go/v3"
-	"github.com/minio/minio/internal/auth"
-	"github.com/minio/minio/internal/config/dns"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/mux"
 	xldap "github.com/libreFS/pkg/v3/ldap"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/minio/minio/internal/auth"
+	"github.com/minio/minio/internal/config/dns"
+	"github.com/minio/minio/internal/logger"
 	"github.com/puzpuzpuz/xsync/v3"
 )
 

@@ -29,11 +29,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/libreFS/pkg/v3/certs"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/config/lambda/event"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/certs"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 // Webhook constants

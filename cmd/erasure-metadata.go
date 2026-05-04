@@ -25,13 +25,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/libreFS/pkg/v3/sync/errgroup"
 	"github.com/minio/minio/internal/amztime"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	"github.com/minio/minio/internal/bucket/replication"
 	"github.com/minio/minio/internal/crypto"
 	"github.com/minio/minio/internal/hash/sha256"
 	xhttp "github.com/minio/minio/internal/http"
-	"github.com/libreFS/pkg/v3/sync/errgroup"
 )
 
 // Object was stored with additional erasure codes due to degraded system at upload time

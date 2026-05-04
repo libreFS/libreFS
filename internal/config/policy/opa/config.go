@@ -23,10 +23,10 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/minio/minio/internal/config"
 	"github.com/libreFS/pkg/v3/env"
 	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/minio/minio/internal/config"
 )
 
 // Env IAM OPA URL

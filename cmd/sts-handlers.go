@@ -32,14 +32,14 @@ import (
 	"time"
 
 	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/policy"
+	"github.com/libreFS/pkg/v3/wildcard"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/config/identity/openid"
 	"github.com/minio/minio/internal/hash/sha256"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/mux"
-	"github.com/libreFS/pkg/v3/policy"
-	"github.com/libreFS/pkg/v3/wildcard"
 )
 
 const (

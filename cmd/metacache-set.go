@@ -34,13 +34,13 @@ import (
 	"time"
 
 	jsoniter "github.com/json-iterator/go"
+	"github.com/libreFS/pkg/v3/console"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	"github.com/minio/minio/internal/bucket/object/lock"
 	"github.com/minio/minio/internal/bucket/versioning"
 	"github.com/minio/minio/internal/color"
 	"github.com/minio/minio/internal/hash"
 	xioutil "github.com/minio/minio/internal/ioutil"
-	"github.com/libreFS/pkg/v3/console"
 )
 
 //go:generate msgp -file $GOFILE -unexported

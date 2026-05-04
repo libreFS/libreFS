@@ -25,11 +25,11 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/crypto"
 	"github.com/minio/minio/internal/event"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/pubsub"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 // EventNotifier - notifies external systems about events in MinIO.

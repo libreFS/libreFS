@@ -25,6 +25,7 @@ func (i VersionType) String() string {
 	}
 	return _VersionType_name[_VersionType_index[i]:_VersionType_index[i+1]]
 }
+
 func _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.

@@ -396,10 +396,14 @@ github.com/lestrrat-go/option/v2 v2.0.0/go.mod h1:oSySsmzMoR0iRzCDCaUfsCzxQHUEuh
 github.com/lib/pq v1.10.4/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
 github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
+github.com/libreFS/console v1.7.8 h1:rhUg3/d0Yue0sB2im2tQOorP40A9qKiAv2bHbdIX31I=
+github.com/libreFS/console v1.7.8/go.mod h1:A8R7zh6rkCL4DFtbYIvm7cjFFmQvwQSXpM/5Po/mpVY=
 github.com/libreFS/kms-go/kes v0.3.2 h1:c5gBMd0thVYpf7zm7RRrCspxw+Attt8PfeGxyInEIUQ=
 github.com/libreFS/kms-go/kes v0.3.2/go.mod h1:hScwbDbKdYB5KUlIFMnRvqYJHnudiVaOMB2gNqot2Qc=
 github.com/libreFS/kms-go/kms v0.7.0 h1:9mlVe/ntZn+CLLv3c3Xvvizbes1ICbf/8zYzC/k/g2k=
 github.com/libreFS/kms-go/kms v0.7.0/go.mod h1:B2oNX0kc3ji5zIUKuyIYiAp1uWtSX5PKY69RnGi6L+E=
+github.com/libreFS/librefs-cli v0.0.0-20260503214910-beb3d5681734 h1:Cil12jIMbTDzjuo+Fqg8+ljxDkQIjj2Ypk/UlLJTNgU=
+github.com/libreFS/librefs-cli v0.0.0-20260503214910-beb3d5681734/go.mod h1:egJghwvP7xAWZLMuWszZNVL7trD/IWqxipLcIXIAEFg=
 github.com/libreFS/librefs-go/v7 v7.0.101 h1:BzBLh2P4a9whXJKerWfc7T5dC1nnSswVmoMGCKafUxc=
 github.com/libreFS/librefs-go/v7 v7.0.101/go.mod h1:FXYJp12G632vptumEckoFHbCIlPLjk71L0ZyVuJ+S0k=
 github.com/libreFS/madmin-go/v3 v3.0.111 h1:NsyC4jpByh7GtEGChvJwm8LcgcG/rpBCgX6ZW3Ri6h4=

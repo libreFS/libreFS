@@ -28,9 +28,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/minio/minio/internal/auth"
 	"github.com/libreFS/pkg/v3/policy"
 	"github.com/libreFS/pkg/v3/policy/condition"
+	"github.com/minio/minio/internal/auth"
 )
 
 func getAnonReadOnlyBucketPolicy(bucketName string) *policy.BucketPolicy {

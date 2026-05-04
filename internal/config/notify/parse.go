@@ -28,12 +28,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/libreFS/pkg/v3/env"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/event"
 	"github.com/minio/minio/internal/event/target"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/env"
-	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/rabbitmq/amqp091-go"
 )
 

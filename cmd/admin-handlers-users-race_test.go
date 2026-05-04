@@ -30,8 +30,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libreFS/madmin-go/v3"
 	minio "github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/pkg/v3/sync/errgroup"
 )
 

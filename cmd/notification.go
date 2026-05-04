@@ -33,10 +33,10 @@ import (
 	"github.com/cespare/xxhash/v2"
 	"github.com/klauspost/compress/zip"
 	"github.com/libreFS/madmin-go/v3"
-	xioutil "github.com/minio/minio/internal/ioutil"
 	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/libreFS/pkg/v3/sync/errgroup"
 	"github.com/libreFS/pkg/v3/workers"
+	xioutil "github.com/minio/minio/internal/ioutil"
 
 	"github.com/minio/minio/internal/bucket/bandwidth"
 	"github.com/minio/minio/internal/logger"

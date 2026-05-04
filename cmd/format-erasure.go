@@ -27,12 +27,12 @@ import (
 	"sync"
 
 	"github.com/dustin/go-humanize"
+	"github.com/libreFS/pkg/v3/sync/errgroup"
 	"github.com/minio/minio/internal/color"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/storageclass"
 	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/sync/errgroup"
 )
 
 const (

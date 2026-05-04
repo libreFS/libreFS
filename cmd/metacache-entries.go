@@ -25,8 +25,8 @@ import (
 	"sort"
 	"strings"
 
-	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/libreFS/pkg/v3/console"
+	xioutil "github.com/minio/minio/internal/ioutil"
 )
 
 // metaCacheEntry is an object or a directory within an unknown bucket.

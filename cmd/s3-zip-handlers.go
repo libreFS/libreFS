@@ -28,11 +28,11 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/crypto"
 	xhttp "github.com/minio/minio/internal/http"
 	xioutil "github.com/minio/minio/internal/ioutil"
-	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/zipindex"
 )
 

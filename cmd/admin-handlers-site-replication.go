@@ -31,9 +31,9 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/libreFS/madmin-go/v3"
-	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/policy"
+	xioutil "github.com/minio/minio/internal/ioutil"
 )
 
 // SiteReplicationAdd - PUT /minio/admin/v3/site-replication/add

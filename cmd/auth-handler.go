@@ -33,6 +33,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	objectlock "github.com/minio/minio/internal/bucket/object/lock"
 	"github.com/minio/minio/internal/etag"
@@ -41,7 +42,6 @@ import (
 	xjwt "github.com/minio/minio/internal/jwt"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/mcontext"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 // Verify if request has JWT.

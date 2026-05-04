@@ -30,7 +30,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	cr "github.com/libreFS/librefs-go/v7/pkg/credentials"
 )
 

@@ -36,10 +36,10 @@ import (
 	"time"
 
 	"github.com/klauspost/compress/zstd"
-	xhttp "github.com/minio/minio/internal/http"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/pkg/v3/env"
 	xnet "github.com/libreFS/pkg/v3/net"
+	xhttp "github.com/minio/minio/internal/http"
+	"github.com/minio/minio/internal/logger"
 	"github.com/minio/selfupdate"
 	gopsutilcpu "github.com/shirou/gopsutil/v3/cpu"
 	"github.com/valyala/bytebufferpool"

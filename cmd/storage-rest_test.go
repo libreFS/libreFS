@@ -26,8 +26,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/minio/minio/internal/grid"
 	xnet "github.com/libreFS/pkg/v3/net"
+	"github.com/minio/minio/internal/grid"
 )
 
 // Storage REST server, storageRESTReceiver and StorageRESTClient are

@@ -31,12 +31,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/libreFS/madmin-go/v3"
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/credentials"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/mimedb"
 	"github.com/minio/minio/internal/auth"
 	xioutil "github.com/minio/minio/internal/ioutil"
-	"github.com/libreFS/pkg/v3/mimedb"
 	ftp "goftp.io/server/v2"
 )
 

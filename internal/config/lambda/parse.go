@@ -23,12 +23,12 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/libreFS/pkg/v3/env"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/lambda/event"
 	"github.com/minio/minio/internal/config/lambda/target"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/env"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 const (

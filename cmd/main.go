@@ -29,13 +29,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/minio/cli"
-	"github.com/minio/minio/internal/color"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/pkg/v3/console"
 	"github.com/libreFS/pkg/v3/env"
 	"github.com/libreFS/pkg/v3/trie"
 	"github.com/libreFS/pkg/v3/words"
+	"github.com/minio/cli"
+	"github.com/minio/minio/internal/color"
+	"github.com/minio/minio/internal/logger"
 )
 
 // GlobalFlags - global flags for minio.

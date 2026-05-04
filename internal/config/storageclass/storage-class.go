@@ -26,9 +26,9 @@ import (
 	"sync"
 
 	"github.com/dustin/go-humanize"
+	"github.com/libreFS/pkg/v3/env"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/env"
 )
 
 // Standard constants for all storage class

@@ -34,10 +34,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	xnet "github.com/libreFS/pkg/v3/net"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/mcontext"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 const logSubsys = "internodes"

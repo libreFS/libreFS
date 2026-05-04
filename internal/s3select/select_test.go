@@ -29,7 +29,7 @@ import (
 	"testing"
 
 	"github.com/klauspost/cpuid/v2"
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/minio/simdjson-go"
 )
 

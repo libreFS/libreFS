@@ -21,10 +21,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/mcontext"
-	"github.com/libreFS/pkg/v3/policy"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/expfmt"
 )

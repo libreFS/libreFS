@@ -26,14 +26,14 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
-	"github.com/minio/minio/internal/config"
-	cfgldap "github.com/minio/minio/internal/config/identity/ldap"
-	"github.com/minio/minio/internal/config/identity/openid"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/ldap"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/minio/minio/internal/config"
+	cfgldap "github.com/minio/minio/internal/config/identity/ldap"
+	"github.com/minio/minio/internal/config/identity/openid"
 )
 
 func addOrUpdateIDPHandler(ctx context.Context, w http.ResponseWriter, r *http.Request, isUpdate bool) {

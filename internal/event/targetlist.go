@@ -25,9 +25,9 @@ import (
 	"sync"
 	"sync/atomic"
 
+	"github.com/libreFS/pkg/v3/workers"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/store"
-	"github.com/libreFS/pkg/v3/workers"
 )
 
 const (

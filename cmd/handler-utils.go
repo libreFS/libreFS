@@ -28,12 +28,12 @@ import (
 	"sync/atomic"
 
 	"github.com/libreFS/madmin-go/v3"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/handlers"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/mcontext"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 const (

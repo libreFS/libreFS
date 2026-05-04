@@ -25,10 +25,10 @@ import (
 
 	humanize "github.com/dustin/go-humanize"
 	"github.com/libreFS/madmin-go/v3"
-	"github.com/minio/minio/internal/bucket/versioning"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/minio/minio/internal/bucket/versioning"
+	"github.com/minio/minio/internal/logger"
 )
 
 const (

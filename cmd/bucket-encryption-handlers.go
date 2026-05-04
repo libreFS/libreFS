@@ -27,10 +27,10 @@ import (
 
 	"github.com/libreFS/kms-go/kes"
 	"github.com/libreFS/madmin-go/v3"
-	"github.com/minio/minio/internal/kms"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/minio/minio/internal/kms"
+	"github.com/minio/minio/internal/logger"
 )
 
 const (

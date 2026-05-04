@@ -21,10 +21,10 @@ import (
 	"net"
 	"net/http"
 
-	consoleapi "github.com/minio/console/api"
-	xhttp "github.com/minio/minio/internal/http"
+	consoleapi "github.com/libreFS/console/api"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/wildcard"
+	xhttp "github.com/minio/minio/internal/http"
 	"github.com/rs/cors"
 )
 

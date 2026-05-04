@@ -26,9 +26,9 @@ import (
 	"strings"
 
 	"github.com/libreFS/librefs-go/v7/pkg/set"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/logger"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 var (

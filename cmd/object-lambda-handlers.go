@@ -28,11 +28,11 @@ import (
 	"time"
 
 	"github.com/klauspost/compress/gzhttp"
-	"github.com/lithammer/shortuuid/v4"
 	miniogo "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/credentials"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/lithammer/shortuuid/v4"
 
 	"github.com/minio/minio/internal/auth"
 	levent "github.com/minio/minio/internal/config/lambda/event"

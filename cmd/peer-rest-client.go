@@ -31,12 +31,12 @@ import (
 	"time"
 
 	"github.com/libreFS/madmin-go/v3"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/bucket/bandwidth"
 	"github.com/minio/minio/internal/grid"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/rest"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 // client to talk to peer Nodes.

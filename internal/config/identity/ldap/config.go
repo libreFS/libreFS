@@ -26,9 +26,9 @@ import (
 	"time"
 
 	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/ldap"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/fips"
-	"github.com/libreFS/pkg/v3/ldap"
 )
 
 const (

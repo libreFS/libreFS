@@ -242,7 +242,7 @@ func TestSingleRoundtripGenerics(t *testing.T) {
 		t.Errorf("want error %v(%T), got %v(%T)", RemoteErr(testPayload), RemoteErr(testPayload), err, err)
 	}
 	if resp != nil {
-		t.Errorf("want nil, got %q", resp)
+		t.Errorf("want nil, got %v", resp)
 	}
 	h2.PutResponse(resp)
 	t.Log("Roundtrip:", time.Since(start))
@@ -304,7 +304,7 @@ func TestSingleRoundtripGenericsRecycle(t *testing.T) {
 		t.Errorf("want error %v(%T), got %v(%T)", RemoteErr(testPayload), RemoteErr(testPayload), err, err)
 	}
 	if resp != nil {
-		t.Errorf("want nil, got %q", resp)
+		t.Errorf("want nil, got %v", resp)
 	}
 	t.Log("Roundtrip:", time.Since(start))
 	h2.PutResponse(resp)

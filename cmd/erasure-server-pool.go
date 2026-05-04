@@ -34,18 +34,18 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/google/uuid"
-	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/librefs-go/v7/pkg/s3utils"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
 	"github.com/libreFS/librefs-go/v7/pkg/tags"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/sync/errgroup"
+	"github.com/libreFS/pkg/v3/wildcard"
+	"github.com/libreFS/pkg/v3/workers"
 	"github.com/minio/minio/internal/bpool"
 	"github.com/minio/minio/internal/cachevalue"
 	"github.com/minio/minio/internal/config/storageclass"
 	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/sync/errgroup"
-	"github.com/libreFS/pkg/v3/wildcard"
-	"github.com/libreFS/pkg/v3/workers"
 	"github.com/puzpuzpuz/xsync/v3"
 )
 

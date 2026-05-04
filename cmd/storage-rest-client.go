@@ -33,13 +33,13 @@ import (
 	"time"
 
 	"github.com/libreFS/madmin-go/v3"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/bpool"
 	"github.com/minio/minio/internal/cachevalue"
 	"github.com/minio/minio/internal/grid"
 	xhttp "github.com/minio/minio/internal/http"
 	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/minio/minio/internal/rest"
-	xnet "github.com/libreFS/pkg/v3/net"
 	xbufio "github.com/philhofer/fwd"
 	"github.com/tinylib/msgp/msgp"
 )

@@ -29,11 +29,11 @@ import (
 	jsoniter "github.com/json-iterator/go"
 	miniogopolicy "github.com/libreFS/librefs-go/v7/pkg/policy"
 	"github.com/libreFS/librefs-go/v7/pkg/tags"
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/handlers"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 // PolicySys - policy subsystem.

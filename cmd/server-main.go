@@ -38,11 +38,13 @@ import (
 
 	"github.com/coreos/go-systemd/v22/daemon"
 	"github.com/dustin/go-humanize"
-	"github.com/minio/cli"
-	"github.com/libreFS/madmin-go/v3"
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/credentials"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/certs"
+	"github.com/libreFS/pkg/v3/env"
+	"github.com/minio/cli"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/bucket/bandwidth"
 	"github.com/minio/minio/internal/color"
@@ -53,8 +55,6 @@ import (
 	xhttp "github.com/minio/minio/internal/http"
 	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/certs"
-	"github.com/libreFS/pkg/v3/env"
 	"gopkg.in/yaml.v2"
 )
 

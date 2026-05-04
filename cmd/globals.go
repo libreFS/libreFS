@@ -25,11 +25,11 @@ import (
 	"sync"
 	"time"
 
-	consoleapi "github.com/minio/console/api"
-	"github.com/minio/dnscache"
-	"github.com/libreFS/madmin-go/v3"
-	"github.com/libreFS/librefs-go/v7"
+	consoleapi "github.com/libreFS/console/api"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/minio/dnscache"
 	"github.com/minio/minio/internal/bpool"
 	"github.com/minio/minio/internal/bucket/bandwidth"
 	"github.com/minio/minio/internal/config"
@@ -52,12 +52,12 @@ import (
 	xhttp "github.com/minio/minio/internal/http"
 	etcd "go.etcd.io/etcd/client/v3"
 
-	levent "github.com/minio/minio/internal/config/lambda/event"
-	"github.com/minio/minio/internal/event"
-	"github.com/minio/minio/internal/pubsub"
 	"github.com/libreFS/pkg/v3/certs"
 	"github.com/libreFS/pkg/v3/env"
 	xnet "github.com/libreFS/pkg/v3/net"
+	levent "github.com/minio/minio/internal/config/lambda/event"
+	"github.com/minio/minio/internal/event"
+	"github.com/minio/minio/internal/pubsub"
 )
 
 // minio configuration related constants.

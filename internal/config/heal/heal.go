@@ -25,8 +25,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/minio/minio/internal/config"
 	"github.com/libreFS/pkg/v3/env"
+	"github.com/minio/minio/internal/config"
 )
 
 // Compression environment variables

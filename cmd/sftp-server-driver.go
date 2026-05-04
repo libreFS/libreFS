@@ -30,11 +30,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/libreFS/madmin-go/v3"
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/credentials"
-	xioutil "github.com/minio/minio/internal/ioutil"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/pkg/v3/mimedb"
+	xioutil "github.com/minio/minio/internal/ioutil"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )

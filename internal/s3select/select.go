@@ -32,6 +32,7 @@ import (
 	"github.com/klauspost/compress/s2"
 	"github.com/klauspost/compress/zstd"
 	gzip "github.com/klauspost/pgzip"
+	"github.com/libreFS/pkg/v3/env"
 	"github.com/minio/minio/internal/bpool"
 	"github.com/minio/minio/internal/config"
 	xioutil "github.com/minio/minio/internal/ioutil"
@@ -40,7 +41,6 @@ import (
 	"github.com/minio/minio/internal/s3select/parquet"
 	"github.com/minio/minio/internal/s3select/simdj"
 	"github.com/minio/minio/internal/s3select/sql"
-	"github.com/libreFS/pkg/v3/env"
 	"github.com/minio/simdjson-go"
 	"github.com/pierrec/lz4/v4"
 )

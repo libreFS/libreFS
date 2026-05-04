@@ -28,6 +28,7 @@ import (
 	"github.com/minio/minio/internal/config/browser"
 
 	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/env"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/api"
 	"github.com/minio/minio/internal/config/batch"
@@ -52,7 +53,6 @@ import (
 	"github.com/minio/minio/internal/crypto"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/env"
 )
 
 func initHelp() {

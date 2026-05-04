@@ -21,8 +21,8 @@ import (
 	"time"
 
 	miniogo "github.com/libreFS/librefs-go/v7"
-	"github.com/minio/minio/internal/auth"
 	"github.com/libreFS/pkg/v3/xtime"
+	"github.com/minio/minio/internal/auth"
 )
 
 //go:generate msgp -file $GOFILE

@@ -32,8 +32,8 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/libreFS/librefs-go/v7/pkg/s3utils"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
-	"github.com/minio/minio/internal/grid"
 	xnet "github.com/libreFS/pkg/v3/net"
+	"github.com/minio/minio/internal/grid"
 
 	"github.com/minio/minio/internal/amztime"
 	"github.com/minio/minio/internal/config/dns"

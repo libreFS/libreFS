@@ -28,6 +28,9 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/console"
+	"github.com/libreFS/pkg/v3/wildcard"
+	"github.com/libreFS/pkg/v3/workers"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	objectlock "github.com/minio/minio/internal/bucket/object/lock"
 	"github.com/minio/minio/internal/bucket/replication"
@@ -35,9 +38,6 @@ import (
 	"github.com/minio/minio/internal/color"
 	"github.com/minio/minio/internal/config/storageclass"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/console"
-	"github.com/libreFS/pkg/v3/wildcard"
-	"github.com/libreFS/pkg/v3/workers"
 )
 
 const (

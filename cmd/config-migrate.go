@@ -24,6 +24,8 @@ import (
 	"path"
 	"strings"
 
+	xnet "github.com/libreFS/pkg/v3/net"
+	"github.com/libreFS/pkg/v3/quick"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/compress"
 	xldap "github.com/minio/minio/internal/config/identity/ldap"
@@ -33,8 +35,6 @@ import (
 	"github.com/minio/minio/internal/config/storageclass"
 	"github.com/minio/minio/internal/event/target"
 	"github.com/minio/minio/internal/logger"
-	xnet "github.com/libreFS/pkg/v3/net"
-	"github.com/libreFS/pkg/v3/quick"
 )
 
 // Save config file to corresponding backend

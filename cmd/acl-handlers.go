@@ -22,10 +22,10 @@ import (
 	"io"
 	"net/http"
 
-	xhttp "github.com/minio/minio/internal/http"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/mux"
 	"github.com/libreFS/pkg/v3/policy"
+	xhttp "github.com/minio/minio/internal/http"
+	"github.com/minio/minio/internal/logger"
 )
 
 // Data types used for returning dummy access control

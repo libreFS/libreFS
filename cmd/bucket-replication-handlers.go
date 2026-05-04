@@ -28,13 +28,13 @@ import (
 	"path"
 	"time"
 
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
+	"github.com/libreFS/mux"
+	"github.com/libreFS/pkg/v3/policy"
 	objectlock "github.com/minio/minio/internal/bucket/object/lock"
 	"github.com/minio/minio/internal/bucket/replication"
 	xhttp "github.com/minio/minio/internal/http"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/mux"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 // PutBucketReplicationConfigHandler - PUT Bucket replication configuration.

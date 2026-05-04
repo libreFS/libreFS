@@ -27,9 +27,9 @@ import (
 
 	"github.com/cespare/xxhash/v2"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
-	"github.com/minio/minio/internal/config"
 	"github.com/libreFS/pkg/v3/ellipses"
 	"github.com/libreFS/pkg/v3/env"
+	"github.com/minio/minio/internal/config"
 )
 
 // This file implements and supports ellipses pattern for

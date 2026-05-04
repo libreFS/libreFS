@@ -25,9 +25,9 @@ import (
 
 	"github.com/libreFS/kms-go/kes"
 	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/config"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 // validateAdminReq will validate request against and return whether it is allowed.

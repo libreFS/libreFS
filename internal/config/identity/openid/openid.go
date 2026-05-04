@@ -31,16 +31,16 @@ import (
 	"sync"
 	"time"
 
-	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/env"
+	xnet "github.com/libreFS/pkg/v3/net"
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/arn"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/identity/openid/provider"
 	"github.com/minio/minio/internal/hash/sha256"
-	"github.com/libreFS/pkg/v3/env"
-	xnet "github.com/libreFS/pkg/v3/net"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 // OpenID keys and envs.

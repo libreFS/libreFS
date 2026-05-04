@@ -28,11 +28,11 @@ import (
 	"path/filepath"
 	"sync"
 
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/event"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/once"
 	"github.com/minio/minio/internal/store"
-	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/rabbitmq/amqp091-go"
 )
 

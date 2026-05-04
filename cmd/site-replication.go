@@ -37,17 +37,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/libreFS/madmin-go/v3"
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/credentials"
 	"github.com/libreFS/librefs-go/v7/pkg/replication"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/madmin-go/v3"
+	xldap "github.com/libreFS/pkg/v3/ldap"
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	sreplication "github.com/minio/minio/internal/bucket/replication"
 	"github.com/minio/minio/internal/logger"
-	xldap "github.com/libreFS/pkg/v3/ldap"
-	"github.com/libreFS/pkg/v3/policy"
 	"github.com/puzpuzpuz/xsync/v3"
 )
 

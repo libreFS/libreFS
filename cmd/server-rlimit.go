@@ -23,8 +23,8 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/libreFS/madmin-go/v3/kernel"
-	"github.com/minio/minio/internal/logger"
 	"github.com/libreFS/pkg/v3/sys"
+	"github.com/minio/minio/internal/logger"
 )
 
 func oldLinux() bool {

@@ -32,9 +32,9 @@ import (
 	"github.com/gobwas/ws/wsutil"
 	"github.com/google/uuid"
 	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/mux"
 	"github.com/minio/minio/internal/deadlineconn"
 	"github.com/minio/minio/internal/pubsub"
-	"github.com/libreFS/mux"
 )
 
 const (

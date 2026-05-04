@@ -24,10 +24,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/minio/minio/internal/config"
-	xhttp "github.com/minio/minio/internal/http"
 	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/libreFS/pkg/v3/policy"
+	"github.com/minio/minio/internal/config"
+	xhttp "github.com/minio/minio/internal/http"
 )
 
 // Authorization Plugin config and env variables

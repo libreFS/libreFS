@@ -24,9 +24,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/minio/minio/internal/config"
 	"github.com/libreFS/pkg/v3/env"
 	xnet "github.com/libreFS/pkg/v3/net"
+	"github.com/minio/minio/internal/config"
 )
 
 const (

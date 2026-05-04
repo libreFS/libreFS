@@ -28,10 +28,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
-	"github.com/minio/minio/internal/auth"
+	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/pkg/v3/env"
+	"github.com/minio/minio/internal/auth"
 )
 
 // ErrorConfig holds the config error types

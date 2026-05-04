@@ -32,9 +32,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/minio/highwayhash"
 	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/madmin-go/v3/logger/log"
+	"github.com/minio/highwayhash"
 	"github.com/minio/minio/internal/color"
 	xhttp "github.com/minio/minio/internal/http"
 )

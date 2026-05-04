@@ -25,9 +25,9 @@ import (
 
 	jwtgo "github.com/golang-jwt/jwt/v4"
 	jwtreq "github.com/golang-jwt/jwt/v4/request"
+	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/minio/internal/auth"
 	xjwt "github.com/minio/minio/internal/jwt"
-	"github.com/libreFS/pkg/v3/policy"
 )
 
 const (

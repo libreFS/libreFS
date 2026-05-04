@@ -37,7 +37,7 @@ import (
 
 	"golang.org/x/oauth2"
 
-	"github.com/libreFS/librefs-go/v7"
+	minio "github.com/libreFS/librefs-go/v7"
 	"github.com/libreFS/librefs-go/v7/pkg/credentials"
 )
 

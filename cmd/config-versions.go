@@ -18,6 +18,7 @@
 package cmd
 
 import (
+	"github.com/libreFS/pkg/v3/quick"
 	"github.com/minio/minio/internal/auth"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/config/compress"
@@ -27,7 +28,6 @@ import (
 	"github.com/minio/minio/internal/config/policy/opa"
 	"github.com/minio/minio/internal/config/storageclass"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/quick"
 )
 
 // FileLogger is introduced to workaround the dependency about logrus

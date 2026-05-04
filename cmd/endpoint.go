@@ -34,11 +34,11 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/libreFS/librefs-go/v7/pkg/set"
+	"github.com/libreFS/pkg/v3/env"
+	xnet "github.com/libreFS/pkg/v3/net"
 	"github.com/minio/minio/internal/config"
 	"github.com/minio/minio/internal/logger"
 	"github.com/minio/minio/internal/mountinfo"
-	"github.com/libreFS/pkg/v3/env"
-	xnet "github.com/libreFS/pkg/v3/net"
 )
 
 // EndpointType - enum for endpoint type.

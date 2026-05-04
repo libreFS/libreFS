@@ -29,8 +29,9 @@ import (
 	"path"
 	"time"
 
-	"github.com/libreFS/madmin-go/v3"
 	"github.com/libreFS/librefs-go/v7/pkg/tags"
+	"github.com/libreFS/madmin-go/v3"
+	"github.com/libreFS/pkg/v3/policy"
 	bucketsse "github.com/minio/minio/internal/bucket/encryption"
 	"github.com/minio/minio/internal/bucket/lifecycle"
 	objectlock "github.com/minio/minio/internal/bucket/object/lock"
@@ -41,7 +42,6 @@ import (
 	"github.com/minio/minio/internal/fips"
 	"github.com/minio/minio/internal/kms"
 	"github.com/minio/minio/internal/logger"
-	"github.com/libreFS/pkg/v3/policy"
 	"github.com/minio/sio"
 )
 
